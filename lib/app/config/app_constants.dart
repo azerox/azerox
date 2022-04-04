@@ -1,5 +1,5 @@
 class AppConstants {
-  static const apiBase = 'http://azerox.com.br/services';
+  static const apiBase = 'https://azerox.com.br/services';
 
   static const apiLogin = '$apiBase/jsonusers.asmx/GetUserLogin';
   static const apiPosts = '$apiBase/jsonposts.asmx/GetPostsAlbumByUser';
@@ -14,9 +14,9 @@ class AppConstants {
       '$apiBase/jsonfriends.asmx/GetFriendsBySearch';
   static const apiInsertPost = '$apiBase/jsonposts.asmx/InsertPost';
   static const apiUploadImage =
-      'http://s.azerox.com.br/Services/ImageHandler.ashx';
+      'https://s.azerox.com.br/Services/ImageHandler.ashx';
   static const apiUploadMp3 =
-      'http://s.azerox.com.br/Services/AudioHandlerConverterIOS.ashx';
+      'https://s.azerox.com.br/Services/AudioHandlerConverterIOS.ashx';
 
   static const uf = {
     "Acre": "AC",
