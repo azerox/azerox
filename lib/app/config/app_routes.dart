@@ -47,7 +47,7 @@ class AppRoutes {
     ),
     GetPage(
       name: Routes.createPost,
-      page: () => const CreatePostPage(),
+      page: () => CreatePostPage(),
       binding: CreatePostBindings(),
     ),
   ];

@@ -7,6 +7,7 @@ class Post {
   int? codPostStatus;
   String? nameEvent;
   String? dateEventString;
+  String? title;
   String? date;
   List<PostItens>? postItens;
   List<Post>? listRepost;

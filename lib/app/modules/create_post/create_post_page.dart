@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:azerox/app/config/app_colors.dart';
 import 'package:azerox/app/config/app_images.dart';
 import 'package:azerox/app/config/app_routes.dart';
+import 'package:azerox/app/modules/create_post/widgets/timer_controller.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -14,7 +15,10 @@ import './create_post_controller.dart';
 import '../../app_controller.dart';
 
 class CreatePostPage extends GetView<CreatePostController> {
-  const CreatePostPage({Key? key}) : super(key: key);
+  CreatePostPage({Key? key}) : super(key: key);
+
+  final record = ValueNotifier(false);
+  final timerController = TimerController(0);
 
   @override
   Widget build(BuildContext context) {
@@ -240,9 +244,15 @@ class CreatePostPage extends GetView<CreatePostController> {
                     child: Row(
                       children: [
                         const Spacer(),
-                        const Text(
-                          '00:00',
-                          style: TextStyle(fontSize: 20),
+                        Center(
+                            child: ValueListenableBuilder<int>(
+                                valueListenable: timerController,
+                                builder: (_, value, __){
+                                  return  Text(
+                                      '${timerController.hour}:${timerController.minutes}:${timerController.seconds}'
+                                  );
+                                }
+                            )
                         ),
                         const Spacer(),
                         GestureDetector(
@@ -255,20 +265,52 @@ class CreatePostPage extends GetView<CreatePostController> {
                             child: CircleAvatar(
                               backgroundColor: Colors.white,
                               radius: 35,
-                              child: Icon(
-                                controller.audioRecorder.isRecording
-                                    ? Icons.pause
-                                    : Icons.play_arrow,
-                                size: 50,
-                                color: controller.audioRecorder.isRecording
-                                    ? Colors.red
-                                    : AppColors.green,
+                              child: Row(
+                                children: [
+                                  ElevatedButton(
+                                    onPressed: () async{
+                                      record.value = !record.value;
+
+                                      controller.onRecordPressed();
+                                      //  final audio = controller.mRecorder.startRecorder.toString();
+                                      // controller.mp3?.value;
+
+                                      // controller.mp3?.value = controller.mRecorder;
+                                      if(record.value){
+                                        timerController.startTime();
+                                      } else {
+                                        timerController.pauseTimer();
+                                        timerController.cleanTimer();
+                                      }
+
+                                    },
+                                    child: ValueListenableBuilder<bool>(
+                                      valueListenable: record, builder: (ctx, snapshot, _){
+                                      return Icon(
+                                        snapshot
+                                            ? Icons.pause
+                                            : Icons.play_arrow,
+                                        color: AppColors.green,
+                                      );
+                                    },
+                                    ),
+                                    style: ButtonStyle(
+                                      shape: MaterialStateProperty.all(CircleBorder()),
+                                      padding: MaterialStateProperty.all(EdgeInsets.all(23)),
+                                      backgroundColor: MaterialStateProperty.all(Colors.white),
+                                    ),
+                                  )
+                                ],
                               ),
                             ),
                           ),
                         ),
                         const Spacer(),
-                        Image.asset(AppImages.audio),
+                        TextButton(
+                            onPressed: () async{
+                              controller.onPlayPressed();
+                            },
+                            child: Image.asset(AppImages.audio)),
                         const Spacer(),
                       ],
                     ),
