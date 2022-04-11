@@ -272,10 +272,7 @@ class CreatePostPage extends GetView<CreatePostController> {
                                       record.value = !record.value;
 
                                       controller.onRecordPressed();
-                                      //  final audio = controller.mRecorder.startRecorder.toString();
-                                      // controller.mp3?.value;
 
-                                      // controller.mp3?.value = controller.mRecorder;
                                       if(record.value){
                                         timerController.startTime();
                                       } else {

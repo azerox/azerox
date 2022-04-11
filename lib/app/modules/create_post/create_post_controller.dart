@@ -22,6 +22,7 @@ class CreatePostController extends GetxController {
   var dateFormated = DateFormat('dd/MM/yyyy').format(DateTime.now()).obs;
   final isRecording = false.obs;
 
+
   Future<Post> createPost(String? mp3, String? image) async {
     return await _repository.createPost(
       content: contentChapter!,
@@ -98,7 +99,8 @@ class CreatePostController extends GetxController {
     final tempDir = await getTemporaryDirectory();
     final arquivo = File('${tempDir.path}/tau_file.mp4');
     final arquivoBytes = await arquivo.readAsBytes();
-    final base64string = base64.encode(arquivoBytes);
+    mp3 = base64.encode(arquivoBytes);
+  
     timerController.startTime();
     mplaybackReady = false;
   }
