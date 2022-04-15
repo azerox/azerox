@@ -17,6 +17,7 @@ import '../../app_controller.dart';
 class CreatePostPage extends GetView<CreatePostController> {
   CreatePostPage({Key? key}) : super(key: key);
 
+
   final record = ValueNotifier(false);
   final timerController = TimerController(0);
 
@@ -56,10 +57,11 @@ class CreatePostPage extends GetView<CreatePostController> {
               onPressed: () async {
                 if (controller.contentChapter != null) {
                   await controller.createPost(
-                    controller.mp3,
+                    controller.mp3?.value,
                     controller.image?.value,
                   );
-
+                  print("O valor da MP3 ao apertar o OK>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>");
+                  print(controller.mp3?.value);
                   Get.offAllNamed(Routes.home);
                 }
               },
@@ -85,12 +87,12 @@ class CreatePostPage extends GetView<CreatePostController> {
                           width: 68,
                           fit: BoxFit.cover,
                           imageUrl:
-                              Get.find<AppController>().currentUser.filePicture,
+                          Get.find<AppController>().currentUser.filePicture,
                           placeholder: (context, url) {
                             return const CupertinoActivityIndicator();
                           },
                           errorWidget: (context, url, error) =>
-                              const Icon(Icons.error),
+                          const Icon(Icons.error),
                         ),
                       ),
                       const SizedBox(height: 10),
@@ -236,147 +238,152 @@ class CreatePostPage extends GetView<CreatePostController> {
       bottomNavigationBar: Obx(() {
         return controller.isRecording.value
             ? Stack(
+          children: [
+            Container(
+              width: double.infinity,
+              height: 107,
+              color: AppColors.primary,
+              child: Row(
                 children: [
-                  Container(
-                    width: double.infinity,
-                    height: 107,
-                    color: AppColors.primary,
-                    child: Row(
-                      children: [
-                        const Spacer(),
-                        Center(
-                            child: ValueListenableBuilder<int>(
-                                valueListenable: timerController,
-                                builder: (_, value, __){
-                                  return  Text(
-                                      '${timerController.hour}:${timerController.minutes}:${timerController.seconds}'
-                                  );
-                                }
-                            )
-                        ),
-                        const Spacer(),
-                        GestureDetector(
-                          onTap: () async {
-                            await controller.toggleRecording();
-                          },
-                          child: CircleAvatar(
-                            backgroundColor: AppColors.green,
-                            radius: 40,
-                            child: CircleAvatar(
-                              backgroundColor: Colors.white,
-                              radius: 35,
-                              child: Row(
-                                children: [
-                                  ElevatedButton(
-                                    onPressed: () async{
-                                      record.value = !record.value;
-
-                                      controller.onRecordPressed();
-
-                                      if(record.value){
-                                        timerController.startTime();
-                                      } else {
-                                        timerController.pauseTimer();
-                                        timerController.cleanTimer();
-                                      }
-
-                                    },
-                                    child: ValueListenableBuilder<bool>(
-                                      valueListenable: record, builder: (ctx, snapshot, _){
-                                      return Icon(
-                                        snapshot
-                                            ? Icons.pause
-                                            : Icons.play_arrow,
-                                        color: AppColors.green,
-                                      );
-                                    },
-                                    ),
-                                    style: ButtonStyle(
-                                      shape: MaterialStateProperty.all(CircleBorder()),
-                                      padding: MaterialStateProperty.all(EdgeInsets.all(23)),
-                                      backgroundColor: MaterialStateProperty.all(Colors.white),
-                                    ),
-                                  )
-                                ],
-                              ),
-                            ),
-                          ),
-                        ),
-                        const Spacer(),
-                        TextButton(
-                            onPressed: () async{
-                              controller.onPlayPressed();
-                            },
-                            child: Image.asset(AppImages.audio)),
-                        const Spacer(),
-                      ],
-                    ),
-                  ),
-                  Positioned(
-                    left: 10,
-                    bottom: 65,
-                    child: GestureDetector(
-                      onTap: () {
-                        controller.isRecording.value = false;
-                      },
-                      child: const CircleAvatar(
-                        backgroundColor: AppColors.green,
-                        radius: 20,
-                        child: CircleAvatar(
-                          backgroundColor: Colors.white,
-                          radius: 17,
-                          child: Icon(
-                            Icons.close,
-                            size: 20,
-                            color: Colors.red,
-                          ),
-                        ),
-                      ),
-                    ),
-                  ),
-                ],
-              )
-            : Row(
-                children: [
-                  Expanded(
-                    child: SizedBox(
-                      height: 70,
-                      child: ElevatedButton(
-                        child: Image.asset(AppImages.camera),
-                        style: ElevatedButton.styleFrom(
-                          padding: EdgeInsets.zero,
-                          primary: AppColors.primary,
-                        ),
-                        onPressed: () async {
-                          final _picker = ImagePicker();
-                          final file = await _picker.pickImage(
-                              source: ImageSource.camera);
-
-                          if (file != null) {
-                            controller.image?.value = file.path;
+                  const Spacer(),
+                  Center(
+                      child: ValueListenableBuilder<int>(
+                          valueListenable: timerController,
+                          builder: (_, value, __){
+                            return  Text(
+                                '${timerController.hour}:${timerController.minutes}:${timerController.seconds}'
+                            );
                           }
-                        },
-                      ),
-                    ),
+                      )
                   ),
-                  const SizedBox(width: 2),
-                  Expanded(
-                    child: SizedBox(
-                      height: 70,
-                      child: ElevatedButton(
-                        child: Image.asset(AppImages.microfone),
-                        style: ElevatedButton.styleFrom(
-                          padding: EdgeInsets.zero,
-                          primary: AppColors.primary,
+                  const Spacer(),
+                  GestureDetector(
+                    onTap: () async {
+                      await controller.toggleRecording();
+                    },
+                    child: CircleAvatar(
+                      backgroundColor: AppColors.green,
+                      radius: 40,
+                      child: CircleAvatar(
+                        backgroundColor: Colors.white,
+                        radius: 35,
+                        child: Row(
+                          children: [
+                            ElevatedButton(
+                              onPressed: () async{
+                                record.value = !record.value;
+
+                                controller.onRecordPressed();
+                                //  final audio = controller.mRecorder.startRecorder.toString();
+                                // controller.mp3?.value;
+
+                                print("O valor da MP# ao apertar o Botão>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>");
+                                print(controller.mp3);
+                                // controller.mp3?.value = controller.mRecorder;
+                                if(record.value){
+                                  timerController.startTime();
+                                } else {
+                                  timerController.pauseTimer();
+                                  timerController.cleanTimer();
+                                }
+
+                              },
+                              child: ValueListenableBuilder<bool>(
+                                valueListenable: record, builder: (ctx, snapshot, _){
+                                return Icon(
+                                  snapshot
+                                      ? Icons.pause
+                                      : Icons.play_arrow,
+                                  color: AppColors.green,
+                                );
+                              },
+                              ),
+                              style: ButtonStyle(
+                                shape: MaterialStateProperty.all(CircleBorder()),
+                                padding: MaterialStateProperty.all(EdgeInsets.all(23)),
+                                backgroundColor: MaterialStateProperty.all(Colors.white),
+                              ),
+                            )
+                          ],
                         ),
-                        onPressed: () {
-                          controller.isRecording.value = true;
-                        },
                       ),
                     ),
                   ),
+                  const Spacer(),
+                  TextButton(
+                      onPressed: () async{
+                        controller.onPlayPressed();
+                      },
+                      child: Image.asset(AppImages.audio)),
+                  const Spacer(),
                 ],
-              );
+              ),
+            ),
+            Positioned(
+              left: 10,
+              bottom: 65,
+              child: GestureDetector(
+                onTap: () {
+                  controller.isRecording.value = false;
+                },
+                child: const CircleAvatar(
+                  backgroundColor: AppColors.green,
+                  radius: 20,
+                  child: CircleAvatar(
+                    backgroundColor: Colors.white,
+                    radius: 17,
+                    child: Icon(
+                      Icons.close,
+                      size: 20,
+                      color: Colors.red,
+                    ),
+                  ),
+                ),
+              ),
+            ),
+          ],
+        )
+            : Row(
+          children: [
+            Expanded(
+              child: SizedBox(
+                height: 70,
+                child: ElevatedButton(
+                  child: Image.asset(AppImages.camera),
+                  style: ElevatedButton.styleFrom(
+                    padding: EdgeInsets.zero,
+                    primary: AppColors.primary,
+                  ),
+                  onPressed: () async {
+                    final _picker = ImagePicker();
+                    final file = await _picker.pickImage(
+                        source: ImageSource.camera);
+
+                    if (file != null) {
+                      controller.image?.value = file.path;
+                    }
+                  },
+                ),
+              ),
+            ),
+            const SizedBox(width: 2),
+            Expanded(
+              child: SizedBox(
+                height: 70,
+                child: ElevatedButton(
+                  child: Image.asset(AppImages.microfone),
+                  style: ElevatedButton.styleFrom(
+                    padding: EdgeInsets.zero,
+                    primary: AppColors.primary,
+                  ),
+                  onPressed: () {
+                    controller.isRecording.value = true;
+                  },
+                ),
+              ),
+            ),
+          ],
+        );
       }),
     );
   }

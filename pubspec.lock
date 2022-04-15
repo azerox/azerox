@@ -138,7 +138,7 @@ packages:
       name: flutter_blurhash
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "0.6.4"
+    version: "0.6.6"
   flutter_cache_manager:
     dependency: transitive
     description:
@@ -199,21 +199,21 @@ packages:
       name: flutter_sound
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "9.1.9"
+    version: "9.2.1"
   flutter_sound_platform_interface:
     dependency: "direct main"
     description:
       name: flutter_sound_platform_interface
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "9.1.9"
+    version: "9.2.1"
   flutter_sound_web:
     dependency: transitive
     description:
       name: flutter_sound_web
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "9.1.9"
+    version: "9.2.1"
   flutter_test:
     dependency: "direct dev"
     description: flutter
@@ -455,6 +455,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "4.0.0"
+  record_mp3:
+    dependency: "direct main"
+    description:
+      name: record_mp3
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "3.0.0"
   rxdart:
     dependency: transitive
     description:

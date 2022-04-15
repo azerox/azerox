@@ -13,7 +13,7 @@ class CreatePostRepository {
 
   Future<String> sendAudio(String? mp3) async {
     final formData = FormData.fromMap({
-      "": await MultipartFile.fromFile(File(mp3!).path, filename: mp3),
+      "": await MultipartFile.fromFile((mp3!), filename: mp3),
     });
 
     final response = await dio.post(
@@ -25,7 +25,7 @@ class CreatePostRepository {
 
   Future<String?> sendImage(String? image) async {
     final formData = FormData.fromMap({
-      "": await MultipartFile.fromFile(File(image!).path, filename: image),
+      "": await MultipartFile.fromFile((image!), filename: image),
     });
 
     final response = await dio.post(
