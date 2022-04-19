@@ -48,10 +48,10 @@ class CreatePostRepository {
     String? imageResponse;
     String? audioResponse;
 
-    if (image != null) {
+    if (image != null && image != '') {
       imageResponse = await sendImage(image);
     }
-    if (mp3 != null) {
+    if (mp3 != null && mp3 != '') {
       audioResponse = await sendAudio(mp3);
     }
 

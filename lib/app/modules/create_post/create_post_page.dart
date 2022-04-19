@@ -60,8 +60,6 @@ class CreatePostPage extends GetView<CreatePostController> {
                     controller.mp3?.value,
                     controller.image?.value,
                   );
-                  print("O valor da MP3 ao apertar o OK>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>");
-                  print(controller.mp3?.value);
                   Get.offAllNamed(Routes.home);
                 }
               },
