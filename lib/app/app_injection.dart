@@ -5,7 +5,7 @@ import 'app_controller.dart';
 class AppInjection implements Bindings {
   @override
   void dependencies() {
-    Get.put(Dio());
+    Get.put(Dio(BaseOptions(baseUrl: "https://azerox.com.br/services")));
     Get.put(AppController(), permanent: true);
   }
 }

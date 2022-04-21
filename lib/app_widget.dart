@@ -21,7 +21,7 @@ class AppWidget extends StatelessWidget {
       theme: ThemeData(
         scaffoldBackgroundColor: const Color(0XFFE5E5E5),
         appBarTheme: const AppBarTheme(color: AppColors.primary),
-        textTheme: Theme.of(context).textTheme.apply(bodyColor: Colors.white),
+      //  textTheme: Theme.of(context).textTheme.apply(bodyColor: Colors.white),
         elevatedButtonTheme: ElevatedButtonThemeData(
           style: ElevatedButton.styleFrom(
             primary: AppColors.blue,

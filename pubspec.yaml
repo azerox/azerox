@@ -27,6 +27,7 @@ dependencies:
   flutter_sound: ^9.1.7
   flutter_sound_platform_interface: ^9.1.7
   record_mp3: ^3.0.0
+  mask: ^1.0.2
 
 dev_dependencies:
   flutter_test:

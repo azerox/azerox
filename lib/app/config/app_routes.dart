@@ -1,3 +1,8 @@
+import 'package:azerox/app/modules/cadastro/cadastro_bindings.dart';
+import 'package:azerox/app/modules/cadastro/cadastro_email_page.dart';
+import 'package:azerox/app/modules/cadastro/politics/consentient_terms.dart';
+import 'package:azerox/app/modules/cadastro/politics/politics.dart';
+import 'package:azerox/app/modules/cadastro/politics/use_terms.dart';
 import 'package:azerox/app/modules/new_editions/new_editions_page.dart';
 import 'package:get/get.dart';
 
@@ -50,6 +55,23 @@ class AppRoutes {
       page: () => CreatePostPage(),
       binding: CreatePostBindings(),
     ),
+    GetPage(
+      name: Routes.cadastro_email,
+      page: () => CadastroEmailPage(),
+      binding: CadastroEmailBindings(),
+    ),
+    GetPage(
+      name: Routes.consentientTerms,
+      page: () => const ConsentientTerms(),
+    ),
+    GetPage(
+      name: Routes.politics,
+      page: () => const Politics(),
+    ),
+    GetPage(
+      name: Routes.useTerms,
+      page: () => const UseTerms(),
+    ),
   ];
 }
 
@@ -61,4 +83,8 @@ class Routes {
   static const favoriteds = '/favoriteds';
   static const newEditions = '/newEditions';
   static const createPost = '/createPost';
+  static const cadastro_email = '/cadastro_email';
+  static const politics = '/politics';
+  static const useTerms = '/useTerms';
+  static const consentientTerms = '/consentientTerms';
 }

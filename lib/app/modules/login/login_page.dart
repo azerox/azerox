@@ -1,4 +1,5 @@
 import 'package:azerox/app/config/app_images.dart';
+import 'package:azerox/app/config/app_routes.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -115,7 +116,7 @@ class LoginPage extends GetView<LoginController> {
                         height: 37,
                         child: ElevatedButton(
                           child: const Text('Novo cadastro'),
-                          onPressed: () {},
+                          onPressed: () => Get.toNamed(Routes.cadastro_email),
                         ),
                       ),
                       const SizedBox(height: 20),
