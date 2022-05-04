@@ -1,5 +1,6 @@
 import 'package:azerox/app/config/app_constants.dart';
 import 'package:azerox/app/models/editor_model.dart';
+import 'package:azerox/app/models/pagination_filter.dart';
 import 'package:azerox/app/models/post.dart';
 import 'package:dio/dio.dart';
 import 'package:get/get.dart';
@@ -12,9 +13,11 @@ class HomeRepository {
 
   final user = Get.find<AppController>().currentUser;
 
-  Future<List<Post>> getAlbum(
-      {bool isFavoritedPage = false, bool isNewEdition = false}) async {
-    dio.options.headers['Cookie'] = 'ASP.NET_SessionId=${user.sessionID}';
+  Future<List<Post>> getAlbum(PaginationFilter filter, {
+        bool isFavoritedPage = false,
+        bool isNewEdition = false,
+      }) async {
+          dio.options.headers['Cookie'] = 'ASP.NET_SessionId=${user.sessionID}';
 
     final response = await dio.get(
       isFavoritedPage ? AppConstants.apiFavoritedsPost : AppConstants.apiPosts,
@@ -22,8 +25,8 @@ class HomeRepository {
         'sessionId': user.sessionID,
         'CodUserProfile': '${user.codUser!}',
         'CodUserLogged': '${user.codUser!}',
-        'Page': '1',
-        'pagesize': '10',
+        'Page': '${filter.page}', /*Aqui fica a pagina*/
+        'pagesize': '${filter.pagesize}', /*Aqui a quantidade de registros em cada pagina*/
         'myPostOnly': isFavoritedPage ? 'true' : 'false',
       },
     );

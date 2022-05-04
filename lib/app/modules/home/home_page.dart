@@ -5,6 +5,7 @@ import 'package:azerox/app/modules/home/widgets/post_widget.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:lazy_load_scrollview/lazy_load_scrollview.dart';
 
 import '../../config/app_images.dart';
 import 'home_controller.dart';
@@ -12,6 +13,9 @@ import 'widgets/drawer/custom_drawer.dart';
 
 class HomePage extends GetView<HomeController> {
   const HomePage({Key? key}) : super(key: key);
+
+
+
 
   @override
   Widget build(BuildContext context) {
@@ -92,23 +96,23 @@ class HomePage extends GetView<HomeController> {
             }),
             Expanded(
               child: FutureBuilder<List<Post>>(
-                future: controller.getAlbum(),
-                builder: (context, snapshot) {
-                  final List<Post> posts = snapshot.data ?? [];
+                    future: controller.getAlbum(),
+                    builder: (context, snapshot) {
+                      final List<Post> posts = snapshot.data ?? [];
 
-                  if (snapshot.connectionState == ConnectionState.waiting) {
-                    return const Center(child: CupertinoActivityIndicator());
-                  }
-
-                  return ListView.builder(
-                    physics: const BouncingScrollPhysics(),
-                    itemCount: posts.length,
-                    itemBuilder: (context, index) {
-                      return PostWidget(post: posts[index]);
+                      if (snapshot.connectionState == ConnectionState.waiting) {
+                        return const Center(child: CupertinoActivityIndicator());
+                      }
+                      return ListView.builder(
+                        physics: const BouncingScrollPhysics(),
+                        itemCount: posts.length,
+                        itemBuilder: (context, index) {
+                          return PostWidget(post: posts[index]);
+                        },
+                      );
                     },
-                  );
-                },
-              ),
+                  ),
+
             ),
           ],
         ),

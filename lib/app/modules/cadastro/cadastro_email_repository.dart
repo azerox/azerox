@@ -53,7 +53,7 @@ class CadastroEmailRepository extends GetConnect {
         'PassWord': password,
       },
     );
-    
+
     final user = UserModel.fromJson(response.data["Return"]);
     user.password = password;
     return user;

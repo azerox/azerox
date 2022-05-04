@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:lazy_load_scrollview/lazy_load_scrollview.dart';
 
 import '../../config/app_colors.dart';
 import '../../config/app_images.dart';
@@ -38,23 +39,18 @@ class NewEditionsPage extends GetView<NewEditionsController> {
               ),
             ),
             Expanded(
-              child: FutureBuilder<List<Post>>(
-                future: controller.getNewEditions(),
-                builder: (context, snapshot) {
-                  final List<Post> posts = snapshot.data ?? [];
-
-                  if (snapshot.connectionState == ConnectionState.waiting) {
-                    return const Center(child: CupertinoActivityIndicator());
-                  }
-
-                  return ListView.builder(
-                    physics: const BouncingScrollPhysics(),
-                    itemCount: posts.length,
-                    itemBuilder: (context, index) {
-                      return PostWidget(post: posts[index]);
-                    },
-                  );
-                },
+              child: Obx( () =>
+                  LazyLoadScrollView(
+                    onEndOfPage: () => controller.netxPage(),
+                    isLoading: controller.lastPageNewEditions,
+                    child: ListView.builder(
+                      physics: const BouncingScrollPhysics(),
+                      itemCount: controller.posts.length,
+                      itemBuilder: (context, index) {
+                        return PostWidget(post: controller.posts[index]);
+                      },
+                    ),
+                  ),
               ),
             ),
           ],

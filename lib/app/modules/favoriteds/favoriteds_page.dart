@@ -7,6 +7,7 @@ import 'package:azerox/app/modules/home/widgets/post_widget.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:lazy_load_scrollview/lazy_load_scrollview.dart';
 
 import '../../config/app_images.dart';
 
@@ -44,23 +45,18 @@ class FavoritedsPage extends GetView<FavoritedsController> {
               ),
             ),
             Expanded(
-              child: FutureBuilder<List<Post>>(
-                future: homeController.getAlbum(true),
-                builder: (context, snapshot) {
-                  final List<Post> posts = snapshot.data ?? [];
-
-                  if (snapshot.connectionState == ConnectionState.waiting) {
-                    return const Center(child: CupertinoActivityIndicator());
-                  }
-
-                  return ListView.builder(
-                    physics: const BouncingScrollPhysics(),
-                    itemCount: posts.length,
-                    itemBuilder: (context, index) {
-                      return PostWidget(post: posts[index]);
-                    },
-                  );
-                },
+              child: Obx( () =>
+                  LazyLoadScrollView(
+                    onEndOfPage: () => homeController.nextPage(),
+                    isLoading: homeController.lastPageAlgum,
+                    child: ListView.builder(
+                      physics: const BouncingScrollPhysics(),
+                      itemCount: homeController.posts.length,
+                      itemBuilder: (context, index) {
+                        return PostWidget(post: homeController.posts[index]);
+                      },
+                    ),
+                  ),
               ),
             ),
           ],

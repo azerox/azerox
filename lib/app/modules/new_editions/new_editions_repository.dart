@@ -1,3 +1,4 @@
+import 'package:azerox/app/models/pagination_filter.dart';
 import 'package:dio/dio.dart';
 import 'package:get/get.dart';
 
@@ -11,7 +12,7 @@ class NewEditionsRepository {
 
   final user = Get.find<AppController>().currentUser;
 
-  Future<List<Post>> getNewEditions() async {
+  Future<List<Post>> getNewEditions(PaginationFilter filter) async {
     dio.options.headers['Cookie'] = 'ASP.NET_SessionId=${user.sessionID}';
 
     final response = await dio.get(
@@ -20,8 +21,8 @@ class NewEditionsRepository {
         'sessionId': user.sessionID,
         'CodUserProfile': '${user.codUser!}',
         'CodUserLogged': '${user.codUser!}',
-        'Page': '1',
-        'pagesize': '10',
+        'Page': '${filter.page}',
+        'pagesize': '${filter.pagesize}',
         'myPostOnly': 'false',
       },
     );
