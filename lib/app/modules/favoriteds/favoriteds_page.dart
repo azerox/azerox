@@ -45,18 +45,23 @@ class FavoritedsPage extends GetView<FavoritedsController> {
               ),
             ),
             Expanded(
-              child: Obx( () =>
-                  LazyLoadScrollView(
-                    onEndOfPage: () => homeController.nextPage(),
-                    isLoading: homeController.lastPageAlgum,
-                    child: ListView.builder(
-                      physics: const BouncingScrollPhysics(),
-                      itemCount: homeController.posts.length,
-                      itemBuilder: (context, index) {
-                        return PostWidget(post: homeController.posts[index]);
-                      },
-                    ),
-                  ),
+              child: FutureBuilder<List<Post>>(
+                future: homeController.getAlbum(true),
+                builder: (context, snapshot) {
+                  final List<Post> posts = snapshot.data ?? [];
+
+                  if (snapshot.connectionState == ConnectionState.waiting) {
+                    return const Center(child: CupertinoActivityIndicator());
+                  }
+
+                  return ListView.builder(
+                    physics: const BouncingScrollPhysics(),
+                    itemCount: posts.length,
+                    itemBuilder: (context, index) {
+                      return PostWidget(post: posts[index]);
+                    },
+                  );
+                },
               ),
             ),
           ],

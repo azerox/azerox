@@ -1,6 +1,5 @@
 import 'package:azerox/app/config/app_constants.dart';
 import 'package:azerox/app/models/editor_model.dart';
-import 'package:azerox/app/models/pagination_filter.dart';
 import 'package:azerox/app/models/post.dart';
 import 'package:dio/dio.dart';
 import 'package:get/get.dart';
@@ -13,7 +12,7 @@ class HomeRepository {
 
   final user = Get.find<AppController>().currentUser;
 
-  Future<List<Post>> getAlbum(PaginationFilter filter, {
+  Future<List<Post>> getAlbum({
         bool isFavoritedPage = false,
         bool isNewEdition = false,
       }) async {
@@ -25,8 +24,8 @@ class HomeRepository {
         'sessionId': user.sessionID,
         'CodUserProfile': '${user.codUser!}',
         'CodUserLogged': '${user.codUser!}',
-        'Page': '${filter.page}', /*Aqui fica a pagina*/
-        'pagesize': '${filter.pagesize}', /*Aqui a quantidade de registros em cada pagina*/
+        'Page': '1',
+        'pagesize': '10',
         'myPostOnly': isFavoritedPage ? 'true' : 'false',
       },
     );

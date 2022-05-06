@@ -96,23 +96,23 @@ class HomePage extends GetView<HomeController> {
             }),
             Expanded(
               child: FutureBuilder<List<Post>>(
-                    future: controller.getAlbum(),
-                    builder: (context, snapshot) {
-                      final List<Post> posts = snapshot.data ?? [];
+                future: controller.getAlbum(),
+                builder: (context, snapshot) {
+                  final List<Post> posts = snapshot.data ?? [];
 
-                      if (snapshot.connectionState == ConnectionState.waiting) {
-                        return const Center(child: CupertinoActivityIndicator());
-                      }
-                      return ListView.builder(
-                        physics: const BouncingScrollPhysics(),
-                        itemCount: posts.length,
-                        itemBuilder: (context, index) {
-                          return PostWidget(post: posts[index]);
-                        },
-                      );
+                  if (snapshot.connectionState == ConnectionState.waiting) {
+                    return const Center(child: CupertinoActivityIndicator());
+                  }
+
+                  return ListView.builder(
+                    physics: const BouncingScrollPhysics(),
+                    itemCount: posts.length,
+                    itemBuilder: (context, index) {
+                      return PostWidget(post: posts[index]);
                     },
-                  ),
-
+                  );
+                },
+              ),
             ),
           ],
         ),
