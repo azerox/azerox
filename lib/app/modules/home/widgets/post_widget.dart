@@ -227,8 +227,18 @@ class _PostWidgetState extends State<PostWidget> {
                             },
                           ),
                         ),
-                        Text(
-                          '${position.inMinutes}:${position.inSeconds.remainder(60).toString().padLeft(2, '0')}',
+                        Text.rich(
+                          TextSpan(children: [
+                            TextSpan(
+                                text:
+                                    '${duration.inMinutes - position.inMinutes}:'),
+                            TextSpan(
+                              text: (duration.inSeconds - position.inSeconds)
+                                  .remainder(60)
+                                  .toString()
+                                  .padLeft(2, '0'),
+                            ),
+                          ]),
                           style: const TextStyle(color: Colors.black),
                         ),
                       ],
