@@ -1,45 +1,76 @@
-import 'package:azerox/app/modules/create_post/create_post_repository.dart';
-import 'package:azerox/app/modules/create_post/widgets/timer_controller.dart';
-import 'package:flutter_sound/flutter_sound.dart';
 import 'dart:io';
 
-import 'package:path_provider/path_provider.dart';
-import 'package:get/get.dart';
+import 'package:azerox/app/models/post.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_sound/flutter_sound.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:intl/intl.dart';
+import 'package:path_provider/path_provider.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:record_mp3/record_mp3.dart';
 
-import '../../models/post.dart';
+import '../create_post_repository.dart';
+import 'timer_controller.dart';
 
-class CreatePostController extends GetxController {
-
-
+class CreatePostController extends ChangeNotifier {
   final CreatePostRepository _repository;
   CreatePostController(this._repository);
 
-
-  final RxString? image = ''.obs;
-  final RxString? mp3 = ''.obs;
+  String? image = '';
+  String? mp3 = '';
   String? contentChapter;
   String? titleChapter;
 
-  var dateFormated = DateFormat('dd/MM/yyyy').format(DateTime.now()).obs;
-  final isRecording = false.obs;
-  var arquivo;
+  String dateFormated = DateFormat('dd/MM/yyyy').format(DateTime.now());
+  bool isRecording = false;
+
+  void onTitleChapterChanged(String newValue) {
+    titleChapter = newValue;
+    notifyListeners();
+  }
+
+  void onContentChapterChanged(String newValue) {
+    contentChapter = newValue;
+    notifyListeners();
+  }
+
+  void onDateTimeChanged(DateTime newValue) {
+    dateFormated = DateFormat('dd/MM/yyyy').format(newValue);
+    notifyListeners();
+  }
+
+  void onOpenRecordDialogPressed() {
+    isRecording = true;
+    notifyListeners();
+  }
+
+  void onCloseRecordDialogPressed() {
+    isRecording = false;
+    notifyListeners();
+  }
+
+  Future<void> onPickImageFromCameraPressed() async {
+    final _picker = ImagePicker();
+    final file = await _picker.pickImage(source: ImageSource.camera);
+
+    if (file != null) {
+      image = file.path;
+    }
+  }
 
   Future<Post> createPost(String? mp3, String? image) async {
     return await _repository.createPost(
       content: contentChapter!,
-      date: dateFormated.value,
+      date: dateFormated,
       title: titleChapter!,
       mp3: mp3,
       image: image,
     );
   }
+
   final FlutterSoundRecorder audio = FlutterSoundRecorder();
   final RecordMp3 mRecorder = RecordMp3.instance;
   final FlutterSoundPlayer mPlayer = FlutterSoundPlayer();
-
 
   final timerController = TimerController(0);
 
@@ -47,11 +78,7 @@ class CreatePostController extends GetxController {
   bool mRecorderIsInited = false;
   bool mplaybackReady = false;
 
-
-
-  @override
-  void onInit() {
-
+  void init() {
     Permission.microphone.request().then((status) {
       if (status != PermissionStatus.granted) {
         throw RecordingPermissionException('Microphone permission not granted');
@@ -61,15 +88,12 @@ class CreatePostController extends GetxController {
         mPlayerIsInited = true;
       });
     });
-
-    super.onInit();
   }
 
   @override
   void dispose() {
     mPlayer.closePlayer();
     timerController.cleanTimer();
-
     super.dispose();
   }
 
@@ -97,24 +121,24 @@ class CreatePostController extends GetxController {
     final tempDir = await getTemporaryDirectory();
 
     mRecorder.start('${tempDir.path}/tau_file.mp3',
-            (RecordErrorType errorType) {
-          if (errorType == RecordErrorType.PERMISSION_ERROR) {
-            Permission.microphone.request().then((status) {
-              if (status != PermissionStatus.granted) {
-                throw RecordingPermissionException(
-                    'Microphone permission not granted');
-              }
-
-              mRecorderIsInited = true;
-
-              mPlayer.openPlayer().then((value) {
-                mPlayerIsInited = true;
-              });
-            });
-          } else {
-            mRecorderIsInited = true;
+        (RecordErrorType errorType) {
+      if (errorType == RecordErrorType.PERMISSION_ERROR) {
+        Permission.microphone.request().then((status) {
+          if (status != PermissionStatus.granted) {
+            throw RecordingPermissionException(
+                'Microphone permission not granted');
           }
+
+          mRecorderIsInited = true;
+
+          mPlayer.openPlayer().then((value) {
+            mPlayerIsInited = true;
+          });
         });
+      } else {
+        mRecorderIsInited = true;
+      }
+    });
     timerController.startTime();
     mplaybackReady = false;
   }
@@ -126,11 +150,9 @@ class CreatePostController extends GetxController {
 
     final tempDir = await getTemporaryDirectory();
     final arquivo = File('${tempDir.path}/tau_file.mp3');
-    mp3?.value = arquivo.path;
+    mp3 = arquivo.path;
     mplaybackReady = true;
   }
-
-
 
   void play() async {
     if (!mPlayerIsInited ||
@@ -144,9 +166,7 @@ class CreatePostController extends GetxController {
       fromURI: 'tau_file.mp3',
       codec: Codec.mp3,
     );
-
   }
-
 
   void stopPlayer() async {
     if (!mPlayerIsInited ||

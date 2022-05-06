@@ -26,8 +26,8 @@ class LoginController extends GetxController {
     // emailEC.text = 'cjrondini@gmail.com';
     // passwordEC.text = '1980';
 
-    emailEC.text = 'gadelha@azerox.com';
-    passwordEC.text = 'capri';
+    emailEC.text = 'demo@azerox.com.br';
+    passwordEC.text = '123456da';
 
     // emailEC.text = 'antonio@tangum.com.br';
     // passwordEC.text = 'militao';
