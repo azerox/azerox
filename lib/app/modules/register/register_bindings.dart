@@ -1,6 +1,6 @@
 
-import 'package:azerox/app/modules/cadastro/cadastro_email_controller.dart';
-import 'package:azerox/app/modules/cadastro/cadastro_email_repository.dart';
+import 'package:azerox/app/modules/register/register_email_controller.dart';
+import 'package:azerox/app/modules/register/register_email_repository.dart';
 import 'package:azerox/app/modules/repositories/ibge_repository.dart';
 import 'package:azerox/app/modules/repositories/ibge_repository_imp.dart';
 import 'package:dio/dio.dart';

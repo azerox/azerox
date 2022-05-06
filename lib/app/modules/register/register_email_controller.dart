@@ -1,7 +1,7 @@
 import 'package:azerox/app/models/city_model.dart';
 import 'package:azerox/app/models/country_model.dart';
 import 'package:azerox/app/models/state_model.dart';
-import 'package:azerox/app/modules/cadastro/cadastro_email_repository.dart';
+import 'package:azerox/app/modules/register/register_email_repository.dart';
 import 'package:azerox/app/modules/repositories/ibge_repository.dart';
 
 import 'package:flutter/material.dart';

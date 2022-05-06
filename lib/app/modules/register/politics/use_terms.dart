@@ -76,7 +76,7 @@ class UseTerms extends StatelessWidget {
               ),
               SizedBox(height: 1),
               Text(
-                'O cadastro no AZEROX deverá obedecer as seguintes regras: ',
+                'O register no AZEROX deverá obedecer as seguintes regras: ',
                 textAlign: TextAlign.justify,
               ),
               Text(
@@ -113,9 +113,9 @@ class UseTerms extends StatelessWidget {
                 'banir, temporária ou definitivamente, os usuários que não respeitarem as regras de utilização.'
                 'Fornecer informação falsa ou utilizar dados de terceiros constitui crime previsto no Código Penal Brasileiro. Em havendo dano ou prejuízo a terceiros, ou ao AZEROX, em virtude de ação ilegal de'
                 'determinado usuário, este ficará obrigado a indenizar o AZEROX, sem prejuízo do pagamento de perdas e danos futuramente comprovados.'
-                'Em havendo a referida utilização de dados falsos, o AZEROX se reserva o direito de encerrar o cadastro do usuário assim que tomar conhecimento da falsidade ou da má-fé empregadas pelo usuário,'
+                'Em havendo a referida utilização de dados falsos, o AZEROX se reserva o direito de encerrar o register do usuário assim que tomar conhecimento da falsidade ou da má-fé empregadas pelo usuário,'
                 'podendo impedir seu posterior regresso nos serviços oferecidos pelo site, sem quaisquer ressarcimentos.'
-                'No momento do cadastro, o usuário escolherá uma senha e uma identificação pessoal, que deverão ser mantidos em sigilo. Caso o usuário seja notificado ou tome ciência que sua senha e/ou'
+                'No momento do register, o usuário escolherá uma senha e uma identificação pessoal, que deverão ser mantidos em sigilo. Caso o usuário seja notificado ou tome ciência que sua senha e/ou'
                 'identificação pessoal está sendo usada por terceira pessoa, ele deverá notificar, imediatamente o AZEROX.',
                 style: TextStyle(
                   color: Colors.black,

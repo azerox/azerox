@@ -4,7 +4,7 @@ import 'package:azerox/app/core/ui/widgets/app_drop.dart';
 import 'package:azerox/app/models/city_model.dart';
 import 'package:azerox/app/models/country_model.dart';
 import 'package:azerox/app/models/state_model.dart';
-import 'package:azerox/app/modules/cadastro/cadastro_email_controller.dart';
+import 'package:azerox/app/modules/register/register_email_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:mask/mask.dart';

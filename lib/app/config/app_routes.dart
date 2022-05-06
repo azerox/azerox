@@ -1,9 +1,10 @@
-import 'package:azerox/app/modules/cadastro/cadastro_bindings.dart';
-import 'package:azerox/app/modules/cadastro/cadastro_email_page.dart';
-import 'package:azerox/app/modules/cadastro/politics/consentient_terms.dart';
-import 'package:azerox/app/modules/cadastro/politics/politics.dart';
-import 'package:azerox/app/modules/cadastro/politics/use_terms.dart';
+
 import 'package:azerox/app/modules/new_editions/new_editions_page.dart';
+import 'package:azerox/app/modules/register/politics/consentient_terms.dart';
+import 'package:azerox/app/modules/register/politics/politics.dart';
+import 'package:azerox/app/modules/register/politics/use_terms.dart';
+import 'package:azerox/app/modules/register/register_bindings.dart';
+import 'package:azerox/app/modules/register/register_email_page.dart';
 import 'package:get/get.dart';
 
 import '../modules/comments/comments_page.dart';

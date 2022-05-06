@@ -115,7 +115,7 @@ class LoginPage extends GetView<LoginController> {
                         width: 243,
                         height: 37,
                         child: ElevatedButton(
-                          child: const Text('Novo cadastro'),
+                          child: const Text('Novo register'),
                           onPressed: () => Get.toNamed(Routes.cadastro_email),
                         ),
                       ),

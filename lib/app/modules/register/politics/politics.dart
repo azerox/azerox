@@ -87,7 +87,7 @@ class Politics extends StatelessWidget {
                       'poderá excluir o usuário do site, sem prévia comunicação, até que, se for o caso, a situação reste esclarecida.'
                       'É de inteira responsabilidade do usuário providenciar o seu próprio acesso à internet e pagar todas as taxas de serviço eventualmente cobradas por terceiros com relação a tal acesso; providenciar seu '
                       'próprio acesso a um endereço para envio de mensagens eletrônicas via internet e pagar todas as taxas de serviço eventualmente cobradas por terceiros com relação a tal acesso; providenciar todo o '
-                      'equipamento necessário para efetuar sua conexão à internet, incluindo, mas não se limitando, a um computador e um modem; efetuar seu próprio cadastro no AZEROX, responsabilizando-se pela '
+                      'equipamento necessário para efetuar sua conexão à internet, incluindo, mas não se limitando, a um computador e um modem; efetuar seu próprio register no AZEROX, responsabilizando-se pela '
                       'correção e veracidade dos dados informados, assim como pela guarda de sua senha de acesso; e, manter o ambiente de seu computador seguro, com uso de ferramentas disponíveis como antivírus e '
                       'firewall, entre outras, atualizadas, de modo a contribuir na prevenção de riscos eletrônicos do lado do usuário.'
                       ''
