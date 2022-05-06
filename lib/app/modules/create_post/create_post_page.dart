@@ -113,15 +113,20 @@ class CreatePostPage extends StatelessWidget {
                           style: const TextStyle(color: Colors.black),
                           maxLength: 50,
                           onChanged: controller.onTitleChapterChanged,
-                          decoration: const InputDecoration(
-                            counterText: "",
+                          decoration: InputDecoration(
+                            border: InputBorder.none,
                             hintText: 'Título do capítulo',
-                            hintStyle: TextStyle(
+                            hintStyle: const TextStyle(
                               color: AppColors.grey,
                               fontSize: 15,
                               fontWeight: FontWeight.bold,
                             ),
-                            border: InputBorder.none,
+                            counter: AnimatedBuilder(
+                              animation: controller,
+                              builder: (context, child) => Text(
+                                '${controller.titleChapter?.length ?? 0}/50',
+                              ),
+                            ),
                           ),
                         ),
                         GestureDetector(
@@ -236,12 +241,13 @@ class CreatePostPage extends StatelessWidget {
                         children: [
                           const Spacer(),
                           Center(
-                              child: ValueListenableBuilder<int>(
-                                  valueListenable: timerController,
-                                  builder: (_, value, __) {
-                                    return Text(
-                                        '${timerController.hour}:${timerController.minutes}:${timerController.seconds}');
-                                  })),
+                            child: ValueListenableBuilder<int>(
+                              valueListenable: timerController,
+                              builder: (_, value, __) => Text(
+                                '${timerController.hour}:${timerController.minutes}:${timerController.seconds}',
+                              ),
+                            ),
+                          ),
                           const Spacer(),
                           GestureDetector(
                             onTap: () async {
@@ -273,14 +279,12 @@ class CreatePostPage extends StatelessWidget {
                                       },
                                       child: ValueListenableBuilder<bool>(
                                         valueListenable: record,
-                                        builder: (ctx, snapshot, _) {
-                                          return Icon(
-                                            snapshot
-                                                ? Icons.pause
-                                                : Icons.play_arrow,
-                                            color: AppColors.green,
-                                          );
-                                        },
+                                        builder: (ctx, snapshot, _) => Icon(
+                                          snapshot
+                                              ? Icons.pause
+                                              : Icons.play_arrow,
+                                          color: AppColors.green,
+                                        ),
                                       ),
                                       style: ButtonStyle(
                                         shape: MaterialStateProperty.all(
@@ -350,11 +354,11 @@ class CreatePostPage extends StatelessWidget {
                         height: 70,
                         child: ElevatedButton(
                           child: Image.asset(AppImages.microfone),
+                          onPressed: controller.onOpenRecordDialogPressed,
                           style: ElevatedButton.styleFrom(
                             padding: EdgeInsets.zero,
                             primary: AppColors.primary,
                           ),
-                          onPressed: controller.onOpenRecordDialogPressed,
                         ),
                       ),
                     ),
