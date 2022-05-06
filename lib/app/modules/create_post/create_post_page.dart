@@ -180,15 +180,20 @@ class CreatePostPage extends StatelessWidget {
                           onChanged: controller.onContentChapterChanged,
                           maxLength: 500,
                           maxLines: 6,
-                          decoration: const InputDecoration(
-                            counterText: '',
+                          decoration: InputDecoration(
+                            border: InputBorder.none,
                             hintText: 'Texto',
-                            hintStyle: TextStyle(
+                            hintStyle: const TextStyle(
                               color: AppColors.grey,
                               fontSize: 15,
                               fontWeight: FontWeight.bold,
                             ),
-                            border: InputBorder.none,
+                            counter: AnimatedBuilder(
+                              animation: controller,
+                              builder: (context, child) => Text(
+                                '${controller.contentChapter?.length ?? 0}/500',
+                              ),
+                            ),
                           ),
                         ),
                       ],
