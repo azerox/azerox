@@ -125,6 +125,7 @@ class CreatePostPage extends StatelessWidget {
                               animation: controller,
                               builder: (context, child) => Text(
                                 '${controller.titleChapter?.length ?? 0}/50',
+                                style: Theme.of(context).textTheme.caption,
                               ),
                             ),
                           ),
@@ -197,6 +198,7 @@ class CreatePostPage extends StatelessWidget {
                               animation: controller,
                               builder: (context, child) => Text(
                                 '${controller.contentChapter?.length ?? 0}/500',
+                                style: Theme.of(context).textTheme.caption,
                               ),
                             ),
                           ),
