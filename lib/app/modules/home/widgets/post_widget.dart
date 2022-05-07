@@ -1,4 +1,3 @@
-import 'package:audioplayers/audioplayers.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -11,6 +10,7 @@ import '../../../models/post.dart';
 import '../home_controller.dart';
 import 'card_options.dart';
 import 'post_button.dart';
+import 'post_item_widget.dart';
 
 class PostWidget extends StatefulWidget {
   final Post post;
@@ -29,48 +29,8 @@ class PostWidget extends StatefulWidget {
 }
 
 class _PostWidgetState extends State<PostWidget> {
-  final AudioPlayer audioPlayer = AudioPlayer();
-  late PlayerState playerState = PlayerState.PAUSED;
-  Duration duration = const Duration();
-  Duration position = const Duration();
-
-  @override
-  void initState() {
-    audioPlayer.onPlayerStateChanged.listen((state) {
-      playerState = state;
-      if (state == PlayerState.COMPLETED) {
-        audioPlayer.seek(const Duration(seconds: 0));
-        audioPlayer.pause();
-      }
-      setState(() {});
-    });
-
-    audioPlayer.onDurationChanged.listen((dur) {
-      setState(() {
-        duration = dur;
-      });
-    });
-
-    audioPlayer.onAudioPositionChanged.listen((pos) {
-      setState(() {
-        position = pos;
-      });
-    });
-    super.initState();
-  }
-
-  playAudio(String urlAudio) async {
-    audioPlayer.release();
-    await audioPlayer.play(urlAudio);
-  }
-
-  pauseAudio() async {
-    await audioPlayer.pause();
-  }
-
   @override
   Widget build(BuildContext context) {
-    String? imgPost;
     int? currentIndex;
     final homeController = Get.find<HomeController>();
 
@@ -160,85 +120,9 @@ class _PostWidgetState extends State<PostWidget> {
             itemCount: widget.post.postItens?.length,
             itemBuilder: (context, int index) {
               currentIndex = index;
-              if (widget.post.postItens?[index].codPostType == 1) {
-                // TEXTO
-                return Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    const SizedBox(height: 10),
-                    Text(
-                      widget.post.postItens?[0].postItem ?? '',
-                      style: const TextStyle(
-                        color: Colors.black,
-                        fontSize: 15,
-                      ),
-                    ),
-                    const SizedBox(height: 10),
-                  ],
-                );
-              } else if (widget.post.postItens?[index].codPostType == 3) {
-                //IMAGEM
-                imgPost = widget.post.postItens?[index].postItemMax ?? '';
-                return CachedNetworkImage(
-                  width: 318,
-                  fit: BoxFit.cover,
-                  imageUrl: imgPost ?? '',
-                  placeholder: (context, url) {
-                    return const CupertinoActivityIndicator();
-                  },
-                  errorWidget: (context, url, error) => const Icon(Icons.error),
-                );
-              } else if (widget.post.postItens?[index].codPostType == 2) {
-                //AUDIO
-                return Column(
-                  children: [
-                    Row(
-                      children: [
-                        IconButton(
-                          icon: Icon(
-                            playerState == PlayerState.PAUSED
-                                ? Icons.play_arrow
-                                : Icons.pause,
-                            color: AppColors.green,
-                          ),
-                          onPressed: () {
-                            if (playerState == PlayerState.PLAYING) {
-                              pauseAudio();
-                            }
-                            if (playerState == PlayerState.PAUSED) {
-                              playAudio(widget.post.postItens?[index].postItem
-                                  as String);
-                            }
-                            setState(() {});
-                          },
-                        ),
-                        Expanded(
-                          child: Slider.adaptive(
-                            activeColor: AppColors.green,
-                            thumbColor: AppColors.green,
-                            min: 0.0,
-                            max: duration.inSeconds.toDouble(),
-                            value: position.inSeconds.toDouble(),
-                            onChanged: (value) {
-                              setState(() {
-                                audioPlayer
-                                    .seek(Duration(seconds: value.toInt()));
-                              });
-                            },
-                          ),
-                        ),
-                        Text(
-                          '${position.inMinutes}:${position.inSeconds.remainder(60).toString().padLeft(2, '0')}',
-                          style: const TextStyle(color: Colors.black),
-                        ),
-                      ],
-                    ),
-                    const SizedBox(height: 10),
-                  ],
-                );
-              } else {
-                return Container();
-              }
+              final currentItem = widget.post.postItens?[index];
+              if (currentItem == null) return Container();
+              return PostItemWidget(model: currentItem);
             },
           ),
           const SizedBox(height: 9),
@@ -277,7 +161,9 @@ class _PostWidgetState extends State<PostWidget> {
                     onPressed: () async {
                       if (widget.post.postItens?[currentIndex!].codPostType ==
                           3) {
-                        await homeController.sendToFacebook(imgPost!);
+                        await homeController.sendToFacebook(
+                            widget.post.postItens?[currentIndex!].postItemMax ??
+                                '');
                       }
                     },
                   ),
@@ -304,7 +190,9 @@ class _PostWidgetState extends State<PostWidget> {
                     onPressed: () async {
                       if (widget.post.postItens?[currentIndex!].codPostType ==
                           3) {
-                        await homeController.sendToInstagram(imgPost!);
+                        await homeController.sendToInstagram(
+                            widget.post.postItens?[currentIndex!].postItemMax ??
+                                '');
                       }
                     },
                   ),

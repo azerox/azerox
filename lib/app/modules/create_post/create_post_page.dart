@@ -290,9 +290,9 @@ class CreatePostPage extends StatelessWidget {
                                       ),
                                       style: ButtonStyle(
                                         shape: MaterialStateProperty.all(
-                                            CircleBorder()),
+                                            const CircleBorder()),
                                         padding: MaterialStateProperty.all(
-                                            EdgeInsets.all(23)),
+                                            const EdgeInsets.all(23)),
                                         backgroundColor:
                                             MaterialStateProperty.all(
                                                 Colors.white),
