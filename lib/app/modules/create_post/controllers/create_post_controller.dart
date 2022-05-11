@@ -1,28 +1,27 @@
+import 'dart:async';
 import 'dart:io';
 
+import 'package:azerox/app/core/core.dart';
 import 'package:azerox/app/models/post.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_sound/flutter_sound.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:intl/intl.dart';
-import 'package:path_provider/path_provider.dart';
-import 'package:permission_handler/permission_handler.dart';
-import 'package:record_mp3/record_mp3.dart';
 
 import '../create_post_repository.dart';
-import 'timer_controller.dart';
 
 class CreatePostController extends ChangeNotifier {
   final CreatePostRepository _repository;
   CreatePostController(this._repository);
+  final audioController = AudioController();
 
-  String? image = '';
-  String? mp3 = '';
+  String? imagePath;
+  String? recordedMp3FilePath;
   String? contentChapter;
   String? titleChapter;
 
   String dateFormated = DateFormat('dd/MM/yyyy').format(DateTime.now());
-  bool isRecording = false;
+
+  bool isRecordVisible = false;
 
   void onTitleChapterChanged(String newValue) {
     titleChapter = newValue;
@@ -39,13 +38,23 @@ class CreatePostController extends ChangeNotifier {
     notifyListeners();
   }
 
-  void onOpenRecordDialogPressed() {
-    isRecording = true;
+  Future<void> onRemoveMp3File() async {
+    if (recordedMp3FilePath != null) {
+      await audioController.pause();
+      await File(recordedMp3FilePath!).delete();
+      recordedMp3FilePath = null;
+      await audioController.stop();
+      notifyListeners();
+    }
+  }
+
+  void onOpenRecordDialogPressed() async {
+    isRecordVisible = true;
     notifyListeners();
   }
 
-  void onCloseRecordDialogPressed() {
-    isRecording = false;
+  Future<void> onCloseRecordDialogPressed() async {
+    isRecordVisible = false;
     notifyListeners();
   }
 
@@ -54,132 +63,32 @@ class CreatePostController extends ChangeNotifier {
     final file = await _picker.pickImage(source: ImageSource.camera);
 
     if (file != null) {
-      image = file.path;
+      imagePath = file.path;
+      notifyListeners();
     }
   }
 
-  Future<Post> createPost(String? mp3, String? image) async {
-    return await _repository.createPost(
+  Future<Post> createPost(String? mp3FilePath, String? image) async {
+    final post = await _repository.createPost(
       content: contentChapter!,
       date: dateFormated,
       title: titleChapter!,
-      mp3: mp3,
+      mp3: mp3FilePath,
       image: image,
     );
+    if (mp3FilePath != null) await File(mp3FilePath).delete();
+    return post;
   }
 
-  final FlutterSoundRecorder audio = FlutterSoundRecorder();
-  final RecordMp3 mRecorder = RecordMp3.instance;
-  final FlutterSoundPlayer mPlayer = FlutterSoundPlayer();
-
-  final timerController = TimerController(0);
-
-  bool mPlayerIsInited = false;
-  bool mRecorderIsInited = false;
-  bool mplaybackReady = false;
-
-  void init() {
-    Permission.microphone.request().then((status) {
-      if (status != PermissionStatus.granted) {
-        throw RecordingPermissionException('Microphone permission not granted');
-      }
-      mRecorderIsInited = true;
-      mPlayer.openPlayer().then((value) {
-        mPlayerIsInited = true;
-      });
-    });
+  Future<void> saveRecord(String recordPath) async {
+    recordedMp3FilePath = recordPath;
+    audioController.initLocal(recordPath);
+    onCloseRecordDialogPressed();
   }
 
   @override
   void dispose() {
-    mPlayer.closePlayer();
-    timerController.cleanTimer();
+    audioController.dispose();
     super.dispose();
-  }
-
-  void onRecordPressed() {
-    if (!mRecorderIsInited || !mPlayer.isStopped) {
-      return;
-    }
-
-    mRecorder.status == RecordStatus.RECORDING ? stopRecorder() : record();
-  }
-
-  void onPlayPressed() {
-    if (!mPlayerIsInited ||
-        !mplaybackReady ||
-        mRecorder.status == RecordStatus.RECORDING) {
-      return;
-    }
-
-    mPlayer.isStopped ? play() : stopPlayer();
-  }
-
-  void record() async {
-    timerController.cleanTimer();
-
-    final tempDir = await getTemporaryDirectory();
-
-    mRecorder.start('${tempDir.path}/tau_file.mp3',
-        (RecordErrorType errorType) {
-      if (errorType == RecordErrorType.PERMISSION_ERROR) {
-        Permission.microphone.request().then((status) {
-          if (status != PermissionStatus.granted) {
-            throw RecordingPermissionException(
-                'Microphone permission not granted');
-          }
-
-          mRecorderIsInited = true;
-
-          mPlayer.openPlayer().then((value) {
-            mPlayerIsInited = true;
-          });
-        });
-      } else {
-        mRecorderIsInited = true;
-      }
-    });
-    timerController.startTime();
-    mplaybackReady = false;
-  }
-
-  void stopRecorder() async {
-    mRecorder.stop();
-
-    timerController.pauseTimer();
-
-    final tempDir = await getTemporaryDirectory();
-    final arquivo = File('${tempDir.path}/tau_file.mp3');
-    mp3 = arquivo.path;
-    mplaybackReady = true;
-  }
-
-  void play() async {
-    if (!mPlayerIsInited ||
-        !mplaybackReady ||
-        mRecorder.status == RecordStatus.RECORDING ||
-        !mPlayer.isStopped) {
-      return;
-    }
-
-    await mPlayer.startPlayer(
-      fromURI: 'tau_file.mp3',
-      codec: Codec.mp3,
-    );
-  }
-
-  void stopPlayer() async {
-    if (!mPlayerIsInited ||
-        !mplaybackReady ||
-        mRecorder.status == RecordStatus.RECORDING ||
-        mPlayer.isStopped) {
-      return;
-    }
-
-    await mPlayer.stopPlayer();
-  }
-
-  Future toggleRecording() async {
-    audio.isRecording;
   }
 }

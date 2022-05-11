@@ -122,7 +122,13 @@ class _PostWidgetState extends State<PostWidget> {
               currentIndex = index;
               final currentItem = widget.post.postItens?[index];
               if (currentItem == null) return Container();
-              return PostItemWidget(model: currentItem);
+              return PostItemWidget(
+                model: currentItem,
+                downloadFileCallback: (networkAudioUrl) async {
+                  return await homeController.repository
+                      .downloadAudioFile(networkAudioUrl);
+                },
+              );
             },
           ),
           const SizedBox(height: 9),

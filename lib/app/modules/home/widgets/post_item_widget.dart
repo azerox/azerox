@@ -1,15 +1,19 @@
-import 'package:audioplayers/audioplayers.dart';
-import 'package:azerox/app/config/app_colors.dart';
+import 'package:azerox/app/core/core.dart';
 import 'package:azerox/app/models/post_item.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-import '../audio_controller.dart';
+typedef DownloadFileCallback = Future<String> Function(String networkUrl);
 
 class PostItemWidget extends StatefulWidget {
   final PostItens model;
-  const PostItemWidget({Key? key, required this.model}) : super(key: key);
+  final DownloadFileCallback downloadFileCallback;
+  const PostItemWidget({
+    Key? key,
+    required this.model,
+    required this.downloadFileCallback,
+  }) : super(key: key);
 
   @override
   State<PostItemWidget> createState() => _PostItemWidgetState();
@@ -22,7 +26,7 @@ class _PostItemWidgetState extends State<PostItemWidget> {
   void initState() {
     super.initState();
     if (widget.model.codPostType == 2) {
-      audioController.init(widget.model.postItem!);
+      audioController.initNetwork(widget.model.postItem!);
     }
   }
 
@@ -66,45 +70,7 @@ class _PostItemWidgetState extends State<PostItemWidget> {
           //AUDIO
           return Column(
             children: [
-              Row(
-                children: [
-                  IconButton(
-                    icon: Icon(
-                      audioController.state == PlayerState.PAUSED
-                          ? Icons.play_arrow
-                          : Icons.pause,
-                      color: AppColors.green,
-                    ),
-                    onPressed: () {
-                      if (audioController.state == PlayerState.PLAYING) {
-                        audioController.pause();
-                      }
-                      if (audioController.state == PlayerState.PAUSED) {
-                        audioController.play();
-                      }
-                    },
-                  ),
-                  Expanded(
-                    child: Slider.adaptive(
-                      activeColor: AppColors.green,
-                      thumbColor: AppColors.green,
-                      min: 0.0,
-                      max: audioController.duration.inMilliseconds.toDouble(),
-                      value: audioController.position.inMilliseconds.toDouble(),
-                      onChanged: (value) {
-                        audioController.seek(Duration(milliseconds: value.toInt()));
-                      },
-                      onChangeStart: (value) {
-                        audioController.pause();
-                      },
-                      onChangeEnd: (value) {
-                        audioController.play();
-                      },
-                    ),
-                  ),
-                  Text(audioController.remainingTimeString),
-                ],
-              ),
+              AudioPlayerWidget(audioController),
               const SizedBox(height: 10),
             ],
           );
