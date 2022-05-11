@@ -38,6 +38,17 @@ class CreatePostController extends ChangeNotifier {
     notifyListeners();
   }
 
+  void removeImage() {
+    if (imagePath != null) {
+      final file = File(imagePath!);
+      file.exists().then((exists) async {
+        if (exists) await file.delete();
+      });
+      imagePath = null;
+      notifyListeners();
+    }
+  }
+
   Future<void> onRemoveMp3File() async {
     if (recordedMp3FilePath != null) {
       await audioController.pause();
