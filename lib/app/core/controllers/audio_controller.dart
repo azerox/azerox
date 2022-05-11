@@ -3,6 +3,8 @@ import 'dart:async';
 import 'package:audioplayers/audioplayers.dart';
 import 'package:flutter/material.dart';
 
+export 'package:audioplayers/audioplayers.dart';
+
 class AudioController extends ChangeNotifier {
   AudioPlayer? audioPlayer;
   PlayerState state = PlayerState.PAUSED;
@@ -12,7 +14,13 @@ class AudioController extends ChangeNotifier {
 
   AudioController();
 
-  Future<void> init(String audioUrl) async {
+  Future<void> initNetwork(String url) async => _init(url, true);
+  Future<void> initLocal(String localAudioPath) async {
+    return _init(localAudioPath, false);
+  }
+
+  Future<void> _init(String url, bool isLocal) async {
+    closeSubscriptions();
     audioPlayer = AudioPlayer();
     _subscriptions.add(audioPlayer!.onPlayerStateChanged.listen((state) {
       this.state = state;
@@ -33,7 +41,7 @@ class AudioController extends ChangeNotifier {
       notifyListeners();
     }));
 
-    await audioPlayer!.setUrl(audioUrl);
+    await audioPlayer!.setUrl(url, isLocal: isLocal);
     audioPlayer!.pause();
   }
 
@@ -42,6 +50,11 @@ class AudioController extends ChangeNotifier {
   }
 
   Future<void> pause() async {
+    await audioPlayer?.pause();
+  }
+
+  Future<void> stop() async {
+    await audioPlayer!.seek(Duration.zero);
     await audioPlayer?.pause();
   }
 
@@ -59,11 +72,16 @@ class AudioController extends ChangeNotifier {
     return '$minutes:$seconds';
   }
 
-  @override
-  void dispose() {
+  void closeSubscriptions() {
     for (var subscription in _subscriptions) {
       subscription.cancel();
     }
+    _subscriptions.clear();
+  }
+
+  @override
+  void dispose() {
+    closeSubscriptions();
     super.dispose();
   }
 }
