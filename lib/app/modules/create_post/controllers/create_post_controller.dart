@@ -72,11 +72,7 @@ class CreatePostController extends ChangeNotifier {
   Future<void> onPickImageFromCameraPressed() async {
     final _picker = ImagePicker();
     final file = await _picker.pickImage(source: ImageSource.camera);
-
-    if (file != null) {
-      imagePath = file.path;
-      notifyListeners();
-    }
+    if (file != null) selectImage(file.path);
   }
 
   Future<Post> createPost(String? mp3FilePath, String? image) async {
@@ -95,6 +91,11 @@ class CreatePostController extends ChangeNotifier {
     recordedMp3FilePath = recordPath;
     audioController.initLocal(recordPath);
     onCloseRecordDialogPressed();
+  }
+
+  Future<void> selectImage(String imagePath) async {
+    this.imagePath = imagePath;
+    notifyListeners();
   }
 
   @override

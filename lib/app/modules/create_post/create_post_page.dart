@@ -4,6 +4,7 @@ import 'package:azerox/app/config/app_colors.dart';
 import 'package:azerox/app/config/app_images.dart';
 import 'package:azerox/app/config/app_routes.dart';
 import 'package:azerox/app/core/core.dart';
+import 'package:azerox/app/modules/create_post/widgets/image_source_widget.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -230,7 +231,7 @@ class CreatePostPage extends StatelessWidget {
                           child: FloatingActionButton(
                             onPressed: controller.removeImage,
                             heroTag: 'close-floating-action-button',
-                            child: Icon(Icons.close),
+                            child: const Icon(Icons.close),
                             mini: true,
                             backgroundColor: AppColors.primary,
                           ),
@@ -253,9 +254,9 @@ class CreatePostPage extends StatelessWidget {
                         Expanded(
                           child: AudioPlayerWidget(controller.audioController),
                         ),
-                        SizedBox(width: 10),
+                        const SizedBox(width: 10),
                         IconButton(
-                          icon: Icon(Icons.delete),
+                          icon: const Icon(Icons.delete),
                           color: Colors.red,
                           onPressed: controller.onRemoveMp3File,
                         )
@@ -279,7 +280,19 @@ class CreatePostPage extends StatelessWidget {
                     height: 70,
                     child: ElevatedButton(
                       child: Image.asset(AppImages.camera),
-                      onPressed: controller.onPickImageFromCameraPressed,
+                      onPressed: () {
+                        showModalBottomSheet(
+                          isScrollControlled: true,
+                          shape: const RoundedRectangleBorder(
+                            borderRadius: BorderRadius.only(
+                              topLeft: Radius.circular(32),
+                              topRight: Radius.circular(32),
+                            ),
+                          ),
+                          context: context,
+                          builder: (context) => ImageSourceWidget(),
+                        );
+                      },
                       style: ElevatedButton.styleFrom(
                         padding: EdgeInsets.zero,
                         primary: AppColors.primary,
