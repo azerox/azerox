@@ -214,14 +214,28 @@ class CreatePostPage extends StatelessWidget {
                 builder: (context, child) {
                   return Visibility(
                     visible: controller.imagePath != null,
-                    child: Padding(
-                      padding: const EdgeInsets.only(top: 25),
-                      child: Image.file(
-                        File(controller.imagePath ?? ""),
-                        fit: BoxFit.cover,
-                        height: 170,
-                        width: double.infinity,
-                      ),
+                    child: Stack(
+                      children: [
+                        Padding(
+                          padding: const EdgeInsets.only(top: 25),
+                          child: Image.file(
+                            File(controller.imagePath ?? ""),
+                            fit: BoxFit.cover,
+                            height: 170,
+                            width: double.infinity,
+                          ),
+                        ),
+                        Align(
+                          alignment: Alignment.topRight,
+                          child: FloatingActionButton(
+                            onPressed: controller.removeImage,
+                            heroTag: 'close-floating-action-button',
+                            child: Icon(Icons.close),
+                            mini: true,
+                            backgroundColor: AppColors.primary,
+                          ),
+                        ),
+                      ],
                     ),
                   );
                 },
