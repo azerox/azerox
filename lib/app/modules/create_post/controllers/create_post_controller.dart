@@ -69,12 +69,6 @@ class CreatePostController extends ChangeNotifier {
     notifyListeners();
   }
 
-  Future<void> onPickImageFromCameraPressed() async {
-    final _picker = ImagePicker();
-    final file = await _picker.pickImage(source: ImageSource.camera);
-    if (file != null) selectImage(file.path);
-  }
-
   Future<Post> createPost(String? mp3FilePath, String? image) async {
     final post = await _repository.createPost(
       content: contentChapter!,
