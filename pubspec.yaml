@@ -29,6 +29,8 @@ dependencies:
   record_mp3: ^3.0.0
   mask: ^1.0.2
   lazy_load_scrollview: ^1.1.0
+  file_picker: ^4.5.1
+  image_compression: ^1.0.3
 
 dev_dependencies:
   flutter_test:
