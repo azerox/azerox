@@ -1,4 +1,6 @@
 
+import 'package:azerox/app/modules/configuration/configuration_binding.dart';
+import 'package:azerox/app/modules/configuration/configuration_page.dart';
 import 'package:azerox/app/modules/new_editions/new_editions_page.dart';
 import 'package:azerox/app/modules/register/politics/consentient_terms.dart';
 import 'package:azerox/app/modules/register/politics/politics.dart';
@@ -73,6 +75,11 @@ class AppRoutes {
       name: Routes.useTerms,
       page: () => const UseTerms(),
     ),
+    GetPage(
+      name: Routes.configuration,
+      page: () => ConfigurationPage(),
+      binding: ConfigurationBindings(),
+    ),
   ];
 }
 
@@ -88,4 +95,5 @@ class Routes {
   static const politics = '/politics';
   static const useTerms = '/useTerms';
   static const consentientTerms = '/consentientTerms';
+  static const configuration = '/configuration';
 }

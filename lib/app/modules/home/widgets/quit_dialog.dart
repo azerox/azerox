@@ -1,4 +1,6 @@
 import 'package:azerox/app/config/app_routes.dart';
+import 'package:azerox/app/modules/home/home_controller.dart';
+import 'package:azerox/app/modules/home/widgets/drawer/drawer_content_widget.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 
@@ -7,6 +9,8 @@ class QuitDialog extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+
+    DrawerContentWidget drawerContentWidget = DrawerContentWidget();
     return CupertinoAlertDialog(
       title: const Text("Aviso"),
       content: const Text("Deseja realmente fazer o logout?"),
@@ -27,6 +31,7 @@ class QuitDialog extends StatelessWidget {
           ),
           onPressed: () async {
             Get.offAllNamed(Routes.initial);
+            drawerContentWidget.controller.selectedIndex = 0;/* Linha de código para setar menu Home quando fizer login */
           },
         ),
       ],
