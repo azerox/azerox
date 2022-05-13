@@ -57,7 +57,10 @@ class DrawerContentWidget extends GetView<HomeController> {
                                   child: ListTile(
                                       title: Text(
                                       _item['titulo'],
-                                        style: TextStyle(color: (controller.selectedIndex == index ) ? Colors.blue[300] :  Colors.white),
+                                        style: TextStyle(
+                                            color: (controller.selectedIndex == index ) ? Colors.blue[300] :  Colors.white,
+                                          fontSize: 19
+                                        ),
                                     ),
                                     leading: _item['icone'],
                                       onTap: () {
@@ -87,7 +90,9 @@ class DrawerContentWidget extends GetView<HomeController> {
                               child: ListTile(
                                   title: Text(
                                     _item['titulo'],
-                                    style: TextStyle(color: (controller.selectedIndex == index ) ? Colors.blue[300] :  Colors.white),
+                                    style: TextStyle(color: (controller.selectedIndex == index ) ? Colors.blue[300] :  Colors.white,
+                                        fontSize: 19
+                                    ),
                                   ),
                                   leading: _item['icone'],
 
@@ -101,7 +106,7 @@ class DrawerContentWidget extends GetView<HomeController> {
                             ),
                           ),
                           );
-                        }else if(_item['titulo'] == 'Editores'){
+                        }else if(_item['rota'] ==  Routes.publishers){
                             return Obx(() => Container(
                               decoration: (controller.selectedIndex == index)
                                   ? const BoxDecoration(
@@ -117,7 +122,9 @@ class DrawerContentWidget extends GetView<HomeController> {
                                   child: ListTile(
                                     title: Text(
                                       _item['titulo'],
-                                      style: TextStyle(color: (controller.selectedIndex == index ) ? Colors.blue[300] :  Colors.white),
+                                      style: TextStyle(color: (controller.selectedIndex == index ) ? Colors.blue[300] :  Colors.white,
+                                          fontSize: 19
+                                      ),
                                     ),
                                     trailing: Visibility(
                                       visible: showEditores!,
@@ -151,7 +158,7 @@ class DrawerContentWidget extends GetView<HomeController> {
                               ),
                             ),
                           );
-                        }else if(_item['titulo'] == 'Seguindo'){
+                        }else if(_item['rota'] == Routes.following){
                           return Obx(() => Container(
                             decoration: (controller.selectedIndex == index)
                                 ? const BoxDecoration(
@@ -168,7 +175,9 @@ class DrawerContentWidget extends GetView<HomeController> {
                               child: ListTile(
                                   title: Text(
                                     _item['titulo'],
-                                    style: TextStyle(color: (controller.selectedIndex == index ) ? Colors.blue[300] :  Colors.white),
+                                    style: TextStyle(color: (controller.selectedIndex == index ) ? Colors.blue[300] :  Colors.white,
+                                        fontSize: 19
+                                    ),
                                   ),
                                   leading: _item['icone'],
                                   onTap: () {
@@ -182,7 +191,7 @@ class DrawerContentWidget extends GetView<HomeController> {
                           ),
                           );
                         }
-                        else if(_item['titulo'] == 'Favoritos'){
+                        else if(_item['rota'] == Routes.favoriteds){
                           return Obx(() => Container(
                             decoration: (controller.selectedIndex == index)
                                 ? const BoxDecoration(
@@ -199,7 +208,9 @@ class DrawerContentWidget extends GetView<HomeController> {
                               child: ListTile(
                                   title: Text(
                                     _item['titulo'],
-                                    style: TextStyle(color: (controller.selectedIndex == index ) ? Colors.blue[300] :  Colors.white),
+                                    style: TextStyle(color: (controller.selectedIndex == index ) ? Colors.blue[300] :  Colors.white,
+                                        fontSize: 19
+                                    ),
                                   ),
                                   leading: _item['icone'],
                                   onTap: () {
@@ -230,7 +241,9 @@ class DrawerContentWidget extends GetView<HomeController> {
                               child: ListTile(
                                   title: Text(
                                     _item['titulo'],
-                                    style: TextStyle(color: (controller.selectedIndex == index ) ? Colors.blue[300] :  Colors.white),
+                                    style: TextStyle(color: (controller.selectedIndex == index ) ? Colors.blue[300] :  Colors.white,
+                                        fontSize: 19
+                                    ),
                                   ),
                                   leading: _item['icone'],
                                   onTap: () {
@@ -261,7 +274,9 @@ class DrawerContentWidget extends GetView<HomeController> {
                               child: ListTile(
                                   title: Text(
                                     _item['titulo'],
-                                    style: TextStyle(color: (controller.selectedIndex == index ) ? Colors.blue[300] :  Colors.white),
+                                    style: TextStyle(color: (controller.selectedIndex == index ) ? Colors.blue[300] :  Colors.white,
+                                        fontSize: 19
+                                    ),
                                   ),
                                   leading: _item['icone'],
                                   onTap: () {
@@ -292,7 +307,9 @@ class DrawerContentWidget extends GetView<HomeController> {
                               child: ListTile(
                                   title: Text(
                                     _item['titulo'],
-                                    style: TextStyle(color: (controller.selectedIndex == index ) ? Colors.blue[300] :  Colors.white),
+                                    style: TextStyle(color: (controller.selectedIndex == index ) ? Colors.blue[300] :  Colors.white,
+                                        fontSize: 19
+                                    ),
                                   ),
                                   leading: _item['icone'],
                                   onTap: () {
@@ -323,7 +340,9 @@ class DrawerContentWidget extends GetView<HomeController> {
                               child: ListTile(
                                   title: Text(
                                     _item['titulo'],
-                                    style: TextStyle(color: (controller.selectedIndex == index ) ? Colors.blue[300] :  Colors.white),
+                                    style: TextStyle(color: (controller.selectedIndex == index ) ? Colors.blue[300] :  Colors.white,
+                                        fontSize: 19
+                                    ),
                                   ),
                                   leading: _item['icone'],
                                   onTap: () {

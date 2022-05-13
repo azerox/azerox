@@ -1,7 +1,11 @@
 
 import 'package:azerox/app/modules/configuration/configuration_binding.dart';
 import 'package:azerox/app/modules/configuration/configuration_page.dart';
+import 'package:azerox/app/modules/following/seguindo_bindings.dart';
+import 'package:azerox/app/modules/following/seguindo_page.dart';
 import 'package:azerox/app/modules/new_editions/new_editions_page.dart';
+import 'package:azerox/app/modules/publishers/editores_bindings.dart';
+import 'package:azerox/app/modules/publishers/editores_page.dart';
 import 'package:azerox/app/modules/register/politics/consentient_terms.dart';
 import 'package:azerox/app/modules/register/politics/politics.dart';
 import 'package:azerox/app/modules/register/politics/use_terms.dart';
@@ -80,6 +84,16 @@ class AppRoutes {
       page: () => ConfigurationPage(),
       binding: ConfigurationBindings(),
     ),
+    GetPage(
+      name: Routes.publishers,
+      page: () => EditoresPage(),
+      binding:EditoresBindings(),
+    ),
+    GetPage(
+      name: Routes.following,
+      page: () => SeguindoPage(),
+      binding:SeguindoBindings(),
+    ),
   ];
 }
 
@@ -90,6 +104,8 @@ class Routes {
   static const comments = '/comments';
   static const favoriteds = '/favoriteds';
   static const newEditions = '/newEditions';
+  static const publishers = '/publishers';
+  static const following = '/following';
   static const createPost = '/createPost';
   static const cadastro_email = '/cadastro_email';
   static const politics = '/politics';

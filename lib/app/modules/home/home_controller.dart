@@ -49,7 +49,7 @@ class HomeController extends GetxController {
       {
         'titulo': 'Editores',
         'icone': Image.asset(AppImages.editores),
-        'rota': '/',
+        'rota': Routes.publishers,
       },
     );
 
@@ -57,7 +57,7 @@ class HomeController extends GetxController {
       {
         'titulo': 'Seguindo',
         'icone': Image.asset(AppImages.seguinte),
-        'rota': '/',
+        'rota': Routes.following,
       },
     );
 
