@@ -1,19 +1,25 @@
 import 'package:azerox/app/config/app_images.dart';
 import 'package:azerox/app/config/app_routes.dart';
 import 'package:azerox/app/models/editor_model.dart';
+import 'package:azerox/app/models/user_profile.dart';
 import 'package:azerox/app/modules/home/home_repository.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:flutter_social_content_share/flutter_social_content_share.dart';
+import 'dart:async';
 
 import '../../models/post.dart';
 
-class HomeController extends GetxController {
+class HomeController extends GetxController{
   final HomeRepository repository;
   HomeController(this.repository);
 
   final searchDrawerEC = TextEditingController();
+
+
+  ChangeNotifier changeNotifier = ChangeNotifier();
+  String? imagePath;
 
   //Variáveis para compor o menu
   final _selectedIndex = 0.obs;
@@ -114,6 +120,11 @@ class HomeController extends GetxController {
   }
 
 
+  Future<void> selectImage(String imagePath) async {
+    this.imagePath = imagePath;
+    changeNotifier.notifyListeners();
+  }
+
 
   @override
   void onClose() {
@@ -152,7 +163,11 @@ class HomeController extends GetxController {
     return await repository.searchByUser(searchDrawerEC.text);
   }
 
-
-
+  Future<UserProfile> updateImageProfile(String? image) async {
+    final post = await repository.uploadProfile(
+      image: image,
+    );
+    return post;
+  }
 
 }

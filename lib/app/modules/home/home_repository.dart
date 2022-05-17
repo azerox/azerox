@@ -1,10 +1,14 @@
 import 'dart:io';
-
 import 'package:azerox/app/config/app_constants.dart';
 import 'package:azerox/app/models/editor_model.dart';
 import 'package:azerox/app/models/post.dart';
+import 'package:azerox/app/models/user_profile.dart';
 import 'package:dio/dio.dart';
 import 'package:get/get.dart';
+import 'package:azerox/app/app_controller.dart';
+import 'package:get/instance_manager.dart';
+
+
 import 'package:path_provider/path_provider.dart';
 
 import '../../app_controller.dart';
@@ -89,4 +93,26 @@ class HomeRepository {
       rethrow;
     }
   }
+
+
+  Future<UserProfile> uploadProfile({
+    String? image,
+  }) async {
+    final user = Get.find<AppController>().currentUser;
+    dio.options.headers['Cookie'] = 'ASP.NET_SessionId=${user.sessionID}';
+    dio.options.headers['Content-Type'] = 'multipart/form-data;';
+    String? imageResponse = image;
+
+    final response = await dio.get(
+      AppConstants.apiUploadImageProfile,
+      queryParameters: {
+        'sessionId': user.sessionID,
+        'CodUser': '${user.codUser!}',
+        'FilePicture': imageResponse?.substring(47) ?? '',
+      },
+    );
+
+    return UserProfile.fromJson(response.data);
+  }
+
 }

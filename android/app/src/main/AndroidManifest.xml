@@ -26,6 +26,12 @@
 <provider android:name="com.facebook.FacebookContentProvider"
           android:authorities="com.facebook.app.FacebookContentProvider[facebook_app_id]"
           android:exported="false" />
+
+    <activity
+        android:name="com.yalantis.ucrop.UCropActivity"
+        android:screenOrientation="portrait"
+        android:theme="@style/Theme.AppCompat.Light.NoActionBar"/>
+
 <activity android:name=".MainActivity"
           android:exported="true"
           android:launchMode="singleTop"

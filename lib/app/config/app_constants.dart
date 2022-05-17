@@ -19,6 +19,9 @@ class AppConstants {
   static const apiUploadMp3 =
       'https://s.azerox.com.br/Services/AudioHandlerConverterIOS.ashx';
 
+  static const apiUploadImageProfile =
+      'http://azerox.com.br/services/jsonusers.asmx/UpdateFilePicture';
+
   static const uf = {
     "Acre": "AC",
     "Alagoas": "AL",
