@@ -39,17 +39,11 @@ class CreatePostPage extends StatelessWidget {
               style: TextStyle(color: Colors.white, fontSize: 21),
             ),
             TextButton(
+              onPressed: controller.onCreatePostPressed,
               child: const Text(
                 'Ok',
                 style: TextStyle(color: Colors.white, fontSize: 21),
               ),
-              onPressed: () async {
-                if (controller.contentChapter != null) {
-                  await controller.createPost(
-                      controller.recordedMp3FilePath, controller.imagePath);
-                  Get.offAllNamed(Routes.home);
-                }
-              },
             ),
           ],
         ),

@@ -17,44 +17,31 @@ class ImageSourceWidget extends StatefulWidget {
   State<ImageSourceWidget> createState() => _ImageSourceWidgetState();
 }
 
-class _ImageSourceWidgetState extends State<ImageSourceWidget>
-    with NotifierLoadingMixin {
+class _ImageSourceWidgetState extends State<ImageSourceWidget> {
   final CreatePostController controller = GetInstance().find();
 
   final galeryController = SelectImageFileController();
   final cameraController = CaptureCameraImageController();
-  final compressionController = CompressImageController();
-
-  @override
-  late final loadingNotifier = compressionController;
 
   @override
   void initState() {
     super.initState();
 
-    galeryController.addListener(() async {
+    galeryController.addListener(() {
       final filePath = galeryController.value;
       final valueIsNull = filePath != null;
       final valueIsEquals = filePath != controller.recordedMp3FilePath;
 
       if (valueIsNull && valueIsEquals) {
-        final fileBytes = await File(filePath).readAsBytes();
-        await compressionController.compressImage(fileBytes, filePath);
+        controller.selectImage(filePath);
+        Navigator.of(context).pop();
       }
     });
 
-    cameraController.addListener(() async {
+    cameraController.addListener(() {
       final filePath = cameraController.value;
       if (filePath != null) {
-        final fileBytes = await File(filePath).readAsBytes();
-        await compressionController.compressImage(fileBytes, filePath);
-      }
-    });
-
-    compressionController.addListener(() {
-      final compressedFilePath = compressionController.value.filePath;
-      if (compressedFilePath != null) {
-        controller.selectImage(compressedFilePath);
+        controller.selectImage(filePath);
         Navigator.of(context).pop();
       }
     });
@@ -65,7 +52,7 @@ class _ImageSourceWidgetState extends State<ImageSourceWidget>
     super.dispose();
     galeryController.dispose();
     cameraController.dispose();
-    compressionController.dispose();
+    // compressionController.dispose();
   }
 
   @override

@@ -1,20 +1,36 @@
 import 'dart:async';
 import 'dart:io';
 
+import 'package:azerox/app/config/app_routes.dart';
 import 'package:azerox/app/core/core.dart';
 import 'package:azerox/app/models/post.dart';
 import 'package:flutter/material.dart';
-import 'package:image_picker/image_picker.dart';
+import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 
 import '../create_post_repository.dart';
+import 'compress_image_controller.dart';
 
 class CreatePostController extends ChangeNotifier {
   final CreatePostRepository _repository;
-  CreatePostController(this._repository);
+  CreatePostController(this._repository) {
+    compressImageController.addListener(_compressLoadingListener);
+  }
+
+  void _compressLoadingListener() {
+    if (compressImageController.value.isLoading) {
+      loadingController.show('Compactando imagem...');
+    } else {
+      loadingController.hide();
+    }
+  }
+
   final audioController = AudioController();
+  final compressImageController = CompressImageController();
+  final loadingController = LoadingController();
 
   String? imagePath;
+  String? compressedImagePath;
   String? recordedMp3FilePath;
   String? contentChapter;
   String? titleChapter;
@@ -22,6 +38,7 @@ class CreatePostController extends ChangeNotifier {
   String dateFormated = DateFormat('dd/MM/yyyy').format(DateTime.now());
 
   bool isRecordVisible = false;
+  bool isLoading = false;
 
   void onTitleChapterChanged(String newValue) {
     titleChapter = newValue;
@@ -69,7 +86,32 @@ class CreatePostController extends ChangeNotifier {
     notifyListeners();
   }
 
-  Future<Post> createPost(String? mp3FilePath, String? image) async {
+  Future<void> onCreatePostPressed() async {
+    if (contentChapter != null) {
+      try {
+        await _compressImageIfNeed();
+        loadingController.show('Enviando...');
+        await _createPost(recordedMp3FilePath, compressedImagePath);
+        Get.offAllNamed(Routes.home);
+      } catch (ex, stack) {
+        rethrow;
+      } finally {
+        loadingController.hide();
+      }
+    }
+  }
+
+  Future<void> _compressImageIfNeed() async {
+    final isSelectedImage = imagePath != null;
+    final isCompressedImage = compressedImagePath != null;
+    if (isSelectedImage && !isCompressedImage) {
+      final fileBytes = await File(imagePath!).readAsBytes();
+      await compressImageController.compressImage(fileBytes, imagePath!);
+      compressedImagePath = compressImageController.value.filePath;
+    }
+  }
+
+  Future<Post> _createPost(String? mp3FilePath, String? image) async {
     final post = await _repository.createPost(
       content: contentChapter!,
       date: dateFormated,
@@ -87,14 +129,17 @@ class CreatePostController extends ChangeNotifier {
     onCloseRecordDialogPressed();
   }
 
-  Future<void> selectImage(String imagePath) async {
+  void selectImage(String imagePath) {
     this.imagePath = imagePath;
     notifyListeners();
   }
 
   @override
   void dispose() {
+    compressImageController.removeListener(_compressLoadingListener);
     audioController.dispose();
+    compressImageController.dispose();
+    loadingController.hide();
     super.dispose();
   }
 }
