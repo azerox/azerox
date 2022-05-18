@@ -20,6 +20,7 @@ class Post {
     this.codPostStatus,
     this.nameEvent,
     this.dateEventString,
+    this.date,
     this.postItens,
     this.user,
     this.isFavorite = false,
