@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 
 import '../../app_controller.dart';
 import '../../config/app_routes.dart';
+import '../home/home_controller.dart';
 import 'login_repository.dart';
 
 class LoginController extends GetxController {
@@ -40,6 +41,7 @@ class LoginController extends GetxController {
         email.trim(),
         password.trim(),
       );
+      await Get.delete<HomeController>();
       Get.find<AppController>().currentUser = user;
       isLoading.value = false;
       Get.offAllNamed(Routes.home);

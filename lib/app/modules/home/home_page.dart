@@ -116,8 +116,9 @@ class _HomePageState extends State<HomePage> {
                               PostWidget(post: posts[index]),
                               Container(
                                 alignment: Alignment.topCenter,
-                                padding: EdgeInsets.symmetric(vertical: 15),
-                                child: CupertinoActivityIndicator(),
+                                padding:
+                                    const EdgeInsets.symmetric(vertical: 15),
+                                child: const CupertinoActivityIndicator(),
                               ),
                             ],
                           );
