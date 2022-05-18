@@ -1,13 +1,12 @@
 import 'package:azerox/app/config/app_images.dart';
 import 'package:azerox/app/config/app_routes.dart';
 import 'package:azerox/app/models/editor_model.dart';
+import 'package:azerox/app/models/post.dart';
 import 'package:azerox/app/modules/home/home_repository.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
 import 'package:flutter_social_content_share/flutter_social_content_share.dart';
-
-import '../../models/post.dart';
+import 'package:get/get.dart';
+import 'package:intl/intl.dart';
 
 class HomeController extends GetxController {
   final HomeRepository repository;
@@ -21,17 +20,12 @@ class HomeController extends GetxController {
   set selectedIndex(int newValue) => _selectedIndex(newValue);
   final items = [].obs;
 
-
-
   @override
   void onInit() {
     items.add(
       {
         'titulo': 'Home',
-        'icone': const Icon(
-          Icons.house_rounded,
-          color:Colors.white,
-        ),
+        'icone': const Icon(Icons.house_rounded, color: Colors.white),
         'rota': Routes.home,
       },
     );
@@ -39,9 +33,7 @@ class HomeController extends GetxController {
     items.add(
       {
         'titulo': 'Novas Edições',
-        'icone': Image.asset(
-            AppImages.novasEdicoes,
-        ),
+        'icone': Image.asset(AppImages.novasEdicoes),
         'rota': Routes.newEditions,
       },
     );
@@ -64,10 +56,7 @@ class HomeController extends GetxController {
     items.add(
       {
         'titulo': 'Favoritos',
-        'icone': Image.asset(
-            AppImages.favorite,
-          color: Colors.white,
-        ),
+        'icone': Image.asset(AppImages.favorite, color: Colors.white),
         'rota': Routes.favoriteds,
       },
     );
@@ -83,10 +72,7 @@ class HomeController extends GetxController {
     items.add(
       {
         'titulo': 'Configurações',
-        'icone': const Icon(
-          Icons.settings,
-          color: Colors.white,
-        ),
+        'icone': const Icon(Icons.settings, color: Colors.white),
         'rota': '/',
       },
     );
@@ -94,10 +80,7 @@ class HomeController extends GetxController {
     items.add(
       {
         'titulo': 'MMN',
-        'icone': const Icon(
-          Icons.person,
-          color: Colors.white,
-        ),
+        'icone': const Icon(Icons.person, color: Colors.white),
         'rota': '/',
       },
     );
@@ -113,20 +96,30 @@ class HomeController extends GetxController {
     super.onInit();
   }
 
-
-
   @override
   void onClose() {
-
-   searchDrawerEC.dispose();
-   super.onClose();
+    searchDrawerEC.dispose();
+    super.onClose();
   }
 
   Future<List<Post>> getAlbum([bool isFavoritedPage = false]) async {
-   final  response =
-        await repository.getAlbum(isFavoritedPage: isFavoritedPage);
+    final posts = await repository.getAlbum(isFavoritedPage: isFavoritedPage);
+    return _filterNonFuturePosts(posts);
+  }
 
-    return response;
+  List<Post> _filterNonFuturePosts(List<Post> posts) {
+    final filteredPosts = posts.where((post) {
+      if (post.dateEventString == null) return true;
+      final format = DateFormat('dd/MM/yyyy');
+      final dateEvent = format.parse(post.dateEventString!);
+      final todayLastMinute = format
+          .parse(format.format(DateTime.now()))
+          .add(const Duration(days: 1))
+          .subtract(const Duration(seconds: 1));
+      return dateEvent.isBefore(todayLastMinute);
+    }).toList();
+
+    return filteredPosts;
   }
 
   Future<void> favoritePost(Post post, [bool isLike = true]) async {
@@ -151,8 +144,4 @@ class HomeController extends GetxController {
   Future<List<EditorModel>> searchByUser() async {
     return await repository.searchByUser(searchDrawerEC.text);
   }
-
-
-
-
 }
