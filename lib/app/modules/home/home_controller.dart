@@ -6,7 +6,6 @@ import 'package:azerox/app/modules/home/home_repository.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_social_content_share/flutter_social_content_share.dart';
 import 'package:get/get.dart';
-import 'package:intl/intl.dart';
 
 class HomeController extends GetxController {
   final HomeRepository repository;
@@ -103,23 +102,11 @@ class HomeController extends GetxController {
   }
 
   Future<List<Post>> getAlbum([bool isFavoritedPage = false]) async {
-    final posts = await repository.getAlbum(isFavoritedPage: isFavoritedPage);
-    return _filterNonFuturePosts(posts);
-  }
-
-  List<Post> _filterNonFuturePosts(List<Post> posts) {
-    final filteredPosts = posts.where((post) {
-      if (post.dateEventString == null) return true;
-      final format = DateFormat('dd/MM/yyyy');
-      final dateEvent = format.parse(post.dateEventString!);
-      final todayLastMinute = format
-          .parse(format.format(DateTime.now()))
-          .add(const Duration(days: 1))
-          .subtract(const Duration(seconds: 1));
-      return dateEvent.isBefore(todayLastMinute);
-    }).toList();
-
-    return filteredPosts;
+    final posts = await repository.getAlbum(
+      isFavoritedPage: isFavoritedPage,
+      page: 1,
+    );
+    return posts;
   }
 
   Future<void> favoritePost(Post post, [bool isLike = true]) async {
