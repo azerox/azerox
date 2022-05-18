@@ -43,16 +43,19 @@ class CreatePostRepository {
     String? image,
   }) async {
     final user = Get.find<AppController>().currentUser;
-    dio.options.headers['Cookie'] = 'ASP.NET_SessionId=${user.sessionID}'; 
+    dio.options.headers['Cookie'] = 'ASP.NET_SessionId=${user.sessionID}';
     dio.options.headers['Content-Type'] = 'multipart/form-data;';
     String? imageResponse;
-    String? audioResponse;
+    String? audioUrl;
 
     if (image != null && image != '') {
       imageResponse = await sendImage(image);
     }
     if (mp3 != null && mp3 != '') {
-      audioResponse = await sendAudio(mp3);
+      final audioResponse = await sendAudio(mp3);
+      audioUrl = audioResponse
+          .replaceAll('http://s.azerox.com.br/Audios/', '')
+          .replaceAll('https://s.azerox.com.br/Audios/', '');
     }
 
     final response = await dio.get(
@@ -63,7 +66,7 @@ class CreatePostRepository {
         'nameEvent': title,
         'dateEvent': date,
         'Post': content,
-        'MP3': audioResponse?.substring(47) ?? '',
+        'MP3': audioUrl ?? '',
         'Image': imageResponse?.substring(47) ?? '',
       },
     );
