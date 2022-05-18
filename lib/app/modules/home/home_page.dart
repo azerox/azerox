@@ -14,9 +14,6 @@ import 'widgets/drawer/custom_drawer.dart';
 class HomePage extends GetView<HomeController> {
   const HomePage({Key? key}) : super(key: key);
 
-
-
-
   @override
   Widget build(BuildContext context) {
     var showShearch = false.obs;
@@ -54,10 +51,7 @@ class HomePage extends GetView<HomeController> {
                   color: AppColors.primary,
                   child: Row(
                     children: [
-                      Image.asset(
-                        AppImages.nomeData,
-                        height: 20,
-                      ),
+                      Image.asset(AppImages.nomeData, height: 20),
                       Expanded(
                         child: Padding(
                           padding: const EdgeInsets.all(7),
@@ -71,19 +65,13 @@ class HomePage extends GetView<HomeController> {
                               decoration: InputDecoration(
                                 hintText: 'Capítulos',
                                 hintStyle: const TextStyle(fontSize: 10),
-                                prefixIcon: const Icon(
-                                  Icons.search,
-                                  size: 15,
-                                ),
-                                suffixIcon: IconButton(
-                                  icon: const Icon(
-                                    Icons.close,
-                                    size: 6,
-                                  ),
-                                  onPressed: () {},
-                                ),
+                                prefixIcon: const Icon(Icons.search, size: 15),
                                 filled: true,
                                 fillColor: Colors.white,
+                                suffixIcon: IconButton(
+                                  icon: const Icon(Icons.close, size: 6),
+                                  onPressed: () {},
+                                ),
                               ),
                             ),
                           ),

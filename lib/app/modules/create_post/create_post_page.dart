@@ -2,7 +2,6 @@ import 'dart:io';
 
 import 'package:azerox/app/config/app_colors.dart';
 import 'package:azerox/app/config/app_images.dart';
-import 'package:azerox/app/config/app_routes.dart';
 import 'package:azerox/app/core/core.dart';
 import 'package:azerox/app/modules/create_post/widgets/image_source_widget.dart';
 import 'package:cached_network_image/cached_network_image.dart';
@@ -163,7 +162,7 @@ class CreatePostPage extends StatelessWidget {
                                     animation: controller,
                                     builder: (context, child) {
                                       return Text(
-                                        controller.dateFormated,
+                                        controller.dateFormatted,
                                         style: const TextStyle(
                                           color: Colors.black,
                                           fontWeight: FontWeight.bold,

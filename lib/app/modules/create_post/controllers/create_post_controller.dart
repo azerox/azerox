@@ -35,7 +35,8 @@ class CreatePostController extends ChangeNotifier {
   String? contentChapter;
   String? titleChapter;
 
-  String dateFormated = DateFormat('dd/MM/yyyy').format(DateTime.now());
+  DateTime date = DateTime.now();
+  String get dateFormatted => DateFormat('dd/MM/yyyy').format(date);
 
   bool isRecordVisible = false;
   bool isLoading = false;
@@ -51,7 +52,7 @@ class CreatePostController extends ChangeNotifier {
   }
 
   void onDateTimeChanged(DateTime newValue) {
-    dateFormated = DateFormat('dd/MM/yyyy').format(newValue);
+    date = newValue;
     notifyListeners();
   }
 
@@ -114,7 +115,7 @@ class CreatePostController extends ChangeNotifier {
   Future<Post> _createPost(String? mp3FilePath, String? image) async {
     final post = await _repository.createPost(
       content: contentChapter!,
-      date: dateFormated,
+      date: date,
       title: titleChapter!,
       mp3: mp3FilePath,
       image: image,
