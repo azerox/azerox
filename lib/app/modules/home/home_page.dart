@@ -8,102 +8,129 @@ import 'package:get/get.dart';
 import 'package:lazy_load_scrollview/lazy_load_scrollview.dart';
 
 import '../../config/app_images.dart';
-import 'home_controller.dart';
+import 'controllers/chapters_controller.dart';
 import 'widgets/drawer/custom_drawer.dart';
 
-class HomePage extends GetView<HomeController> {
+class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
 
   @override
-  Widget build(BuildContext context) {
-    var showShearch = false.obs;
+  State<HomePage> createState() => _HomePageState();
+}
 
+class _HomePageState extends State<HomePage> {
+  final ChaptersController controller = GetInstance().find();
+  var showShearch = false;
+
+  @override
+  void initState() {
+    super.initState();
+    controller.refreshChapters();
+  }
+
+  @override
+  Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         toolbarHeight: 65,
         title: Image.asset(AppImages.logo),
         centerTitle: true,
         actions: [
-          Obx(() {
-            return IconButton(
-              icon: Icon(
-                Icons.search,
-                color: showShearch.value ? Colors.blue : Colors.white,
-                size: 29,
-              ),
-              onPressed: () {
-                showShearch.value = !showShearch.value;
-              },
-            );
-          })
+          IconButton(
+            icon: Icon(
+              Icons.search,
+              color: showShearch ? Colors.blue : Colors.white,
+              size: 29,
+            ),
+            onPressed: () {
+              setState(() => showShearch = !showShearch);
+            },
+          ),
         ],
       ),
       drawer: const CustomDrawer(),
-      body: Padding(
-        padding: const EdgeInsets.all(10),
-        child: Column(
-          children: [
-            Obx(() {
-              return Visibility(
-                visible: showShearch.value,
-                child: Container(
-                  height: 50,
-                  color: AppColors.primary,
-                  child: Row(
-                    children: [
-                      Image.asset(AppImages.nomeData, height: 20),
-                      Expanded(
-                        child: Padding(
-                          padding: const EdgeInsets.all(7),
-                          child: SizedBox(
-                            height: 17,
-                            child: TextFormField(
-                              style: const TextStyle(
-                                color: Colors.black,
-                                fontSize: 13,
-                              ),
-                              decoration: InputDecoration(
-                                hintText: 'Capítulos',
-                                hintStyle: const TextStyle(fontSize: 10),
-                                prefixIcon: const Icon(Icons.search, size: 15),
-                                filled: true,
-                                fillColor: Colors.white,
-                                suffixIcon: IconButton(
-                                  icon: const Icon(Icons.close, size: 6),
-                                  onPressed: () {},
-                                ),
-                              ),
+      body: Column(
+        children: [
+          Visibility(
+            visible: showShearch,
+            child: Container(
+              height: 50,
+              color: AppColors.primary,
+              child: Row(
+                children: [
+                  Image.asset(AppImages.nomeData, height: 20),
+                  Expanded(
+                    child: Padding(
+                      padding: const EdgeInsets.all(7),
+                      child: SizedBox(
+                        height: 17,
+                        child: TextFormField(
+                          style: const TextStyle(
+                            color: Colors.black,
+                            fontSize: 13,
+                          ),
+                          decoration: InputDecoration(
+                            hintText: 'Capítulos',
+                            hintStyle: const TextStyle(fontSize: 10),
+                            prefixIcon: const Icon(Icons.search, size: 15),
+                            filled: true,
+                            fillColor: Colors.white,
+                            suffixIcon: IconButton(
+                              icon: const Icon(Icons.close, size: 6),
+                              onPressed: () {},
                             ),
                           ),
                         ),
                       ),
-                    ],
+                    ),
                   ),
-                ),
-              );
-            }),
-            Expanded(
-              child: FutureBuilder<List<Post>>(
-                future: controller.getAlbum(),
-                builder: (context, snapshot) {
-                  final List<Post> posts = snapshot.data ?? [];
-
-                  if (snapshot.connectionState == ConnectionState.waiting) {
-                    return const Center(child: CupertinoActivityIndicator());
-                  }
-
-                  return ListView.builder(
-                    physics: const BouncingScrollPhysics(),
-                    itemCount: posts.length,
-                    itemBuilder: (context, index) {
-                      return PostWidget(post: posts[index]);
-                    },
-                  );
-                },
+                ],
               ),
             ),
-          ],
-        ),
+          ),
+          Expanded(
+            child: AnimatedBuilder(
+              animation: controller,
+              builder: (context, child) {
+                final List<Post>? posts = controller.value.chaptersList;
+                if (posts == null) {
+                  return const Center(child: CupertinoActivityIndicator());
+                }
+
+                return LazyLoadScrollView(
+                  onEndOfPage: () => controller.loadMoreChapters(),
+                  isLoading: controller.value.isLoading,
+                  scrollOffset: 200,
+                  child: RefreshIndicator(
+                    onRefresh: () => controller.refreshChapters(),
+                    child: ListView.builder(
+                      padding: const EdgeInsets.all(10),
+                      physics: const BouncingScrollPhysics(),
+                      itemCount: posts.length,
+                      itemBuilder: (context, index) {
+                        final isLastest = index == posts.length - 1;
+                        final isLoading = controller.value.isLoading;
+                        if (isLastest && isLoading) {
+                          return Column(
+                            children: [
+                              PostWidget(post: posts[index]),
+                              Container(
+                                alignment: Alignment.topCenter,
+                                padding: EdgeInsets.symmetric(vertical: 15),
+                                child: CupertinoActivityIndicator(),
+                              ),
+                            ],
+                          );
+                        }
+                        return PostWidget(post: posts[index]);
+                      },
+                    ),
+                  ),
+                );
+              },
+            ),
+          ),
+        ],
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
       floatingActionButton: Container(
