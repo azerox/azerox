@@ -2,7 +2,7 @@ import 'package:azerox/app/config/app_constants.dart';
 import 'package:azerox/app/config/app_routes.dart';
 import 'package:azerox/app/models/user.dart';
 import 'package:azerox/app/modules/home/home_controller.dart';
-import 'package:azerox/app/modules/home/widgets/ImageProfileWidget.dart';
+import 'package:azerox/app/modules/home/widgets/image_profile_widget.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';

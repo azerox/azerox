@@ -2,10 +2,12 @@ import 'dart:io';
 
 import 'package:azerox/app/app_controller.dart';
 import 'package:azerox/app/models/editor_model.dart';
+import 'package:azerox/app/models/user.dart';
 import 'package:azerox/app/models/user_profile.dart';
 import 'package:dio/dio.dart';
 import 'package:get/instance_manager.dart';
 import 'package:path_provider/path_provider.dart';
+
 import '../../config/app_constants.dart';
 import '../../models/post.dart';
 
@@ -13,8 +15,7 @@ class HomeRepository {
   final Dio dio;
   HomeRepository(this.dio);
 
-
-  final user = Get.find<AppController>().currentUser;
+  UserModel get user => Get.find<AppController>().currentUser;
 
   Future<List<Post>> getAlbum({
     bool isFavoritedPage = false,
@@ -91,7 +92,6 @@ class HomeRepository {
     }
   }
 
-
   Future<String?> sendImage(String? image) async {
     final formData = FormData.fromMap({
       "": await MultipartFile.fromFile((image!), filename: image),
@@ -100,32 +100,35 @@ class HomeRepository {
     final response = await dio.post(
       AppConstants.apiUploadImage,
       data: formData,
+      options: Options(
+        contentType: 'multipart/form-data;',
+        headers: {'Cookie': 'ASP.NET_SessionId=${user.sessionID}'},
+      ),
     );
     return response.data;
   }
 
-  Future<UserProfile> uploadProfile({
-    String? image,
-  }) async {
-    final user = Get.find<AppController>().currentUser;
-    dio.options.headers['Cookie'] = 'ASP.NET_SessionId=${user.sessionID}';
-    dio.options.headers['Content-Type'] = 'multipart/form-data;';
+  Future<UserProfile?> uploadProfilePicture(String imagePath) async {
     String? imageResponse;
-
-    if (image != null && image != '') {
-      imageResponse = await sendImage(image);
-    }
+    // https://s.azerox.com.br/Images/Users/Profiles/Max/https://s.azerox.com.br/Images/Users/Photos/Min/2022/5/20220518164742651.jpg"
+    imageResponse = await sendImage(imagePath);
+    if (imageResponse == null) return null;
 
     final response = await dio.get(
       AppConstants.apiUploadImageProfile,
       queryParameters: {
         'sessionId': user.sessionID,
         'CodUser': '${user.codUser!}',
-        'FilePicture': imageResponse?.substring(47) ?? '',
+        'FilePicture': imageResponse.substring(47),
       },
+      options: Options(
+        headers: {'Cookie': 'ASP.NET_SessionId=${user.sessionID}'},
+      ),
     );
-
-    return UserProfile.fromJson(response.data);
+    return UserProfile(
+      codUser: user.codUser,
+      sessionID: user.sessionID,
+      filePicture: imageResponse,
+    );
   }
-
 }
