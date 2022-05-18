@@ -49,61 +49,62 @@ class _HomePageState extends State<HomePage> {
         ],
       ),
       drawer: const CustomDrawer(),
-      body: Padding(
-        padding: const EdgeInsets.all(10),
-        child: Column(
-          children: [
-            Visibility(
-              visible: showShearch,
-              child: Container(
-                height: 50,
-                color: AppColors.primary,
-                child: Row(
-                  children: [
-                    Image.asset(AppImages.nomeData, height: 20),
-                    Expanded(
-                      child: Padding(
-                        padding: const EdgeInsets.all(7),
-                        child: SizedBox(
-                          height: 17,
-                          child: TextFormField(
-                            style: const TextStyle(
-                              color: Colors.black,
-                              fontSize: 13,
-                            ),
-                            decoration: InputDecoration(
-                              hintText: 'Capítulos',
-                              hintStyle: const TextStyle(fontSize: 10),
-                              prefixIcon: const Icon(Icons.search, size: 15),
-                              filled: true,
-                              fillColor: Colors.white,
-                              suffixIcon: IconButton(
-                                icon: const Icon(Icons.close, size: 6),
-                                onPressed: () {},
-                              ),
+      body: Column(
+        children: [
+          Visibility(
+            visible: showShearch,
+            child: Container(
+              height: 50,
+              color: AppColors.primary,
+              child: Row(
+                children: [
+                  Image.asset(AppImages.nomeData, height: 20),
+                  Expanded(
+                    child: Padding(
+                      padding: const EdgeInsets.all(7),
+                      child: SizedBox(
+                        height: 17,
+                        child: TextFormField(
+                          style: const TextStyle(
+                            color: Colors.black,
+                            fontSize: 13,
+                          ),
+                          decoration: InputDecoration(
+                            hintText: 'Capítulos',
+                            hintStyle: const TextStyle(fontSize: 10),
+                            prefixIcon: const Icon(Icons.search, size: 15),
+                            filled: true,
+                            fillColor: Colors.white,
+                            suffixIcon: IconButton(
+                              icon: const Icon(Icons.close, size: 6),
+                              onPressed: () {},
                             ),
                           ),
                         ),
                       ),
                     ),
-                  ],
-                ),
+                  ),
+                ],
               ),
             ),
-            Expanded(
-              child: AnimatedBuilder(
-                animation: controller,
-                builder: (context, child) {
-                  final List<Post>? posts = controller.value.chaptersList;
-                  if (posts == null) {
-                    return const Center(child: CupertinoActivityIndicator());
-                  }
+          ),
+          Expanded(
+            child: AnimatedBuilder(
+              animation: controller,
+              builder: (context, child) {
+                final List<Post>? posts = controller.value.chaptersList;
+                if (posts == null) {
+                  return const Center(child: CupertinoActivityIndicator());
+                }
 
-                  return LazyLoadScrollView(
-                    onEndOfPage: () => controller.loadMoreChapters(),
-                    isLoading: controller.value.isLoading,
-                    scrollOffset: 200,
+                return LazyLoadScrollView(
+                  onEndOfPage: () => controller.loadMoreChapters(),
+                  isLoading: controller.value.isLoading,
+                  scrollOffset: 200,
+                  child: RefreshIndicator(
+                    onRefresh: () => controller.refreshChapters(),
                     child: ListView.builder(
+                      padding: const EdgeInsets.all(10),
                       physics: const BouncingScrollPhysics(),
                       itemCount: posts.length,
                       itemBuilder: (context, index) {
@@ -124,12 +125,12 @@ class _HomePageState extends State<HomePage> {
                         return PostWidget(post: posts[index]);
                       },
                     ),
-                  );
-                },
-              ),
+                  ),
+                );
+              },
             ),
-          ],
-        ),
+          ),
+        ],
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
       floatingActionButton: Container(
