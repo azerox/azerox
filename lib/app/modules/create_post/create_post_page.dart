@@ -127,12 +127,14 @@ class CreatePostPage extends StatelessWidget {
                           ),
                         ),
                         GestureDetector(
-                          onTap: () async {
+                          onTap: () {
                             showCupertinoModalPopup(
                               context: context,
                               builder: (builder) => SizedBox(
                                 height: 255,
                                 child: CupertinoDatePicker(
+                                  maximumDate: DateTime.now()
+                                      .add(const Duration(minutes: 1)),
                                   backgroundColor: Colors.white,
                                   mode: CupertinoDatePickerMode.date,
                                   onDateTimeChanged:
@@ -285,7 +287,7 @@ class CreatePostPage extends StatelessWidget {
                             ),
                           ),
                           context: context,
-                          builder: (context) => ImageSourceWidget(),
+                          builder: (context) => const ImageSourceWidget(),
                         );
                       },
                       style: ElevatedButton.styleFrom(
