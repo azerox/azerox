@@ -14,13 +14,15 @@ class AppConstants {
   static const apiGetPUserBySearch =
       '$apiBase/jsonfriends.asmx/GetFriendsBySearch';
   static const apiInsertPost = '$apiBase/jsonposts.asmx/InsertPost';
+  static const apiUploadProfileImage =
+      'https://s.azerox.com.br/Services/ImageProfileHandler.ashx';
   static const apiUploadImage =
       'https://s.azerox.com.br/Services/ImageHandler.ashx';
   static const apiUploadMp3 =
       'https://s.azerox.com.br/Services/AudioHandlerConverterIOS.ashx';
 
-  static const apiUploadImageProfile =
-      'http://azerox.com.br/services/jsonusers.asmx/UpdateFilePicture';
+  static const apiSaveImageProfile =
+      'https://azerox.com.br/services/jsonusers.asmx/UpdateFilePicture';
 
   static const uf = {
     "Acre": "AC",

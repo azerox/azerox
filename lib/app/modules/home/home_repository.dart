@@ -40,8 +40,6 @@ class HomeRepository {
   }
 
   Future<void> favoritePost(Post post, [bool isLike = true]) async {
-    dio.options.headers['Cookie'] = 'ASP.NET_SessionId=${user.sessionID}';
-
     await dio.get(
       isLike ? AppConstants.apiFavoritePost : AppConstants.apiDislikePost,
       queryParameters: {
@@ -53,8 +51,6 @@ class HomeRepository {
   }
 
   Future<List<EditorModel>> searchByUser(String userStr) async {
-    dio.options.headers['Cookie'] = 'ASP.NET_SessionId=${user.sessionID}';
-
     final response = await dio.get(
       AppConstants.apiGetPUserBySearch,
       queryParameters: {
@@ -74,8 +70,6 @@ class HomeRepository {
   }
 
   Future<String> downloadAudioFile(String audioUrl) async {
-    dio.options.headers['Cookie'] = 'ASP.NET_SessionId=${user.sessionID}';
-
     final uri = Uri.parse(audioUrl);
     final fileName = uri.pathSegments.last.replaceAll('.mp3', '');
     final tempFolder = await getTemporaryDirectory();
@@ -92,43 +86,45 @@ class HomeRepository {
     }
   }
 
-  Future<String?> sendImage(String? image) async {
+  Future<String?> sendProfileImage(String imageFilePath) async {
+    dio.options.headers['Content-type'] = 'multipart/form-data;';
     final formData = FormData.fromMap({
-      "": await MultipartFile.fromFile((image!), filename: image),
+      "": await MultipartFile.fromFile(
+        imageFilePath,
+        filename: 'profile_image.jpg',
+      ),
     });
 
     final response = await dio.post(
-      AppConstants.apiUploadImage,
+      AppConstants.apiUploadProfileImage,
       data: formData,
-      options: Options(
-        contentType: 'multipart/form-data;',
-        headers: {'Cookie': 'ASP.NET_SessionId=${user.sessionID}'},
-      ),
     );
     return response.data;
   }
 
   Future<UserProfile?> uploadProfilePicture(String imagePath) async {
     String? imageResponse;
-    // https://s.azerox.com.br/Images/Users/Profiles/Max/https://s.azerox.com.br/Images/Users/Photos/Min/2022/5/20220518164742651.jpg"
-    imageResponse = await sendImage(imagePath);
+    imageResponse = await sendProfileImage(imagePath);
     if (imageResponse == null) return null;
 
     final response = await dio.get(
-      AppConstants.apiUploadImageProfile,
+      AppConstants.apiSaveImageProfile,
       queryParameters: {
-        'sessionId': user.sessionID,
         'CodUser': '${user.codUser!}',
-        'FilePicture': imageResponse.substring(47),
+        'FilePicture': cropImagePath(imageResponse),
       },
-      options: Options(
-        headers: {'Cookie': 'ASP.NET_SessionId=${user.sessionID}'},
-      ),
     );
     return UserProfile(
       codUser: user.codUser,
       sessionID: user.sessionID,
       filePicture: imageResponse,
     );
+  }
+
+  String cropImagePath(String fullUrl) {
+    final uri = Uri.parse(fullUrl);
+    final path =
+        uri.pathSegments.sublist(uri.pathSegments.length - 3).join('/');
+    return path;
   }
 }

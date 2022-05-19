@@ -1,15 +1,13 @@
+import 'dart:async';
+
 import 'package:azerox/app/app_controller.dart';
 import 'package:azerox/app/config/app_images.dart';
 import 'package:azerox/app/config/app_routes.dart';
 import 'package:azerox/app/models/editor_model.dart';
-import 'package:azerox/app/models/user_profile.dart';
 import 'package:azerox/app/modules/home/home_repository.dart';
-import 'package:azerox/app/user_controller.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
 import 'package:flutter_social_content_share/flutter_social_content_share.dart';
-import 'dart:async';
+import 'package:get/get.dart';
 
 import '../../models/post.dart';
 
