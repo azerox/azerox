@@ -14,7 +14,7 @@ class ChaptersController extends ValueNotifier<ChapterState> {
 
   Future<void> refreshChapters() async {
     value = ChapterState.empty;
-    final chaptersList = await _getCurrentPageChapters();
+    final chaptersList = await getCurrentPageChapters();
     value = value.copyWith(chaptersList: chaptersList);
   }
 
@@ -24,7 +24,7 @@ class ChaptersController extends ValueNotifier<ChapterState> {
 
     try {
       _setLoading(true);
-      final currentPageChapters = await _getCurrentPageChapters();
+      final currentPageChapters = await getCurrentPageChapters();
       final newChaptersList = value.chaptersList! + currentPageChapters;
       value = value.copyWith(chaptersList: newChaptersList);
     } catch (ex, stack) {
@@ -34,10 +34,10 @@ class ChaptersController extends ValueNotifier<ChapterState> {
     }
   }
 
-  Future<List<Post>> _getCurrentPageChapters(
-      [bool isFavoritedPage = false]) async {
+  @protected
+  Future<List<Post>> getCurrentPageChapters() async {
     final posts = await repository.getAlbum(
-      isFavoritedPage: isFavoritedPage,
+      isFavoritedPage: false,
       page: value.page,
     );
     value = value.copyWith(page: value.page + 1);
