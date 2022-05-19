@@ -80,7 +80,7 @@ class _ImageProfileWidgetState extends State<ImageProfileWidget> {
 
                 loadingController.show('Enviando...');
                 await controller.updateImageProfile(compressedFilePath);
-                chaptersController.refreshChapters();
+                chaptersController.refreshItems();
                 Navigator.of(context).pop();
               } catch (ex, stack) {
                 rethrow;
@@ -108,7 +108,7 @@ class _ImageProfileWidgetState extends State<ImageProfileWidget> {
 
                 loadingController.show('Enviando...');
                 await controller.updateImageProfile(compressedFilePath);
-                chaptersController.refreshChapters();
+                chaptersController.refreshItems();
                 Navigator.of(context).pop();
               } catch (ex, stack) {
                 rethrow;

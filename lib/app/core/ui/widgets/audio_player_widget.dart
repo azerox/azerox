@@ -1,7 +1,7 @@
 import 'package:azerox/app/config/app_colors.dart';
 import 'package:flutter/material.dart';
 
-import '../../controllers/audio_controller.dart';
+import '../controllers/audio_controller.dart';
 
 class AudioPlayerWidget extends StatelessWidget {
   final AudioController audioController;
