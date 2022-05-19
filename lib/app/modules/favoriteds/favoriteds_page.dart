@@ -34,7 +34,7 @@ class FavoritedsPage extends StatelessWidget {
                   SizedBox(width: 10),
                   Icon(Icons.favorite, color: Colors.white),
                   SizedBox(width: 10),
-                  Text('Favoritos (2)'),
+                  Text('Favoritos'),
                 ],
               ),
             ),
