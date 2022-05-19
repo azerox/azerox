@@ -41,8 +41,7 @@ class CreatePostRepository {
     String? mp3,
     String? image,
   }) async {
-    final user = Get.find<AppController>().currentUser;
-    dio.options.headers['Cookie'] = 'ASP.NET_SessionId=${user.sessionID}';
+    final user = Get.find<AppController>().currentUser.value;
     // dio.options.headers['Content-Type'] = 'multipart/form-data;';
     String? imageResponse;
     String? audioUrl;

@@ -15,7 +15,7 @@ class HomeRepository {
   final Dio dio;
   HomeRepository(this.dio);
 
-  UserModel get user => Get.find<AppController>().currentUser;
+  UserModel get user => Get.find<AppController>().currentUser.value;
 
   Future<List<Post>> getAlbum({
     bool isFavoritedPage = false,

@@ -141,7 +141,7 @@ class HomeController extends GetxController {
   Future<void> updateImageProfile(String imagePath) async {
     final userProfile = await repository.uploadProfilePicture(imagePath);
     if (userProfile == null) return;
-    _appController.currentUser = _appController.currentUser.copyWith(
+    _appController.currentUser.value = _appController.currentUser.value.copyWith(
       filePicture: userProfile.filePicture,
     );
   }

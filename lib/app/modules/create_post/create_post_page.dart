@@ -64,8 +64,10 @@ class CreatePostPage extends StatelessWidget {
                           height: 70,
                           width: 68,
                           fit: BoxFit.cover,
-                          imageUrl:
-                              Get.find<AppController>().currentUser.filePicture,
+                          imageUrl: Get.find<AppController>()
+                              .currentUser
+                              .value
+                              .filePicture,
                           placeholder: (context, url) {
                             return const CupertinoActivityIndicator();
                           },

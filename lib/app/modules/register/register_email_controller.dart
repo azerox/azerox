@@ -142,7 +142,7 @@ class CadastroEmailController extends GetxController {
             password: passwordEC.text,
             profile: apelidoEC.text,
           );
-          Get.find<AppController>().currentUser = user;
+          Get.find<AppController>().currentUser.value = user;
           isLoading.value = false;
           Get.snackbar(
             "Sucesso",

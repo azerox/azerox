@@ -17,7 +17,7 @@ class CardOptions extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final bool commentIsMine =
-        post?.user?.codUser == Get.find<AppController>().currentUser.codUser;
+        post?.user?.codUser == Get.find<AppController>().currentUser.value.codUser;
 
     return Padding(
       padding: const EdgeInsets.symmetric(

@@ -7,7 +7,7 @@ class ConfigurationRepository extends GetConnect {
   final Dio dio;
   ConfigurationRepository(this.dio);
 
-  final user = Get.find<AppController>().currentUser;
+  final user = Get.find<AppController>().currentUser.value;
 
   Future<List<String>> validCreateAccount({
     required String email,
@@ -33,7 +33,6 @@ class ConfigurationRepository extends GetConnect {
     required String nickName,
     required String name,
     required String password,
-
     required String profile,
   }) async {
     final response = await dio.get(
@@ -56,8 +55,6 @@ class ConfigurationRepository extends GetConnect {
   }
 
   Future<List<UserModel>> getUser() async {
-    dio.options.headers['Cookie'] = 'ASP.NET_SessionId=${user.sessionID}';
-
     final response = await dio.get(
       "/jsonusers.asmx/UpdateUserCompact",
       queryParameters: {
@@ -70,5 +67,4 @@ class ConfigurationRepository extends GetConnect {
     final body = response.data['ListPosts'] as List;
     return body.map((post) => UserModel.fromJson(post)).toList();
   }
-
 }

@@ -137,9 +137,10 @@ class ConfigurationController extends GetxController {
             name: nomeEC.text,
             nickName: nickNameEC.text,
             password: passwordEC.text,
-            profile: apelidoEC.text, codUser: '',
+            profile: apelidoEC.text,
+            codUser: '',
           );
-          Get.find<AppController>().currentUser = user;
+          Get.find<AppController>().currentUser.value = user;
           isLoading.value = false;
           Get.snackbar(
             "Sucesso",
@@ -149,7 +150,6 @@ class ConfigurationController extends GetxController {
           );
         }
       } catch (e) {
-
         Get.snackbar(
           "Ops",
           "Não foi possível criar sua conta",

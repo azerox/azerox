@@ -42,7 +42,7 @@ class LoginController extends GetxController {
         password.trim(),
       );
       await Get.delete<HomeController>();
-      Get.find<AppController>().currentUser = user;
+      Get.find<AppController>().currentUser.value = user;
       isLoading.value = false;
       Get.offAllNamed(Routes.home);
     } catch (e) {

@@ -1,11 +1,9 @@
 import 'package:azerox/app/config/app_constants.dart';
 import 'package:azerox/app/models/user.dart';
-import 'package:azerox/app/modules/home/home_controller.dart';
 import 'package:azerox/app/modules/home/widgets/image_profile_widget.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 
 import '../../../config/app_colors.dart';
@@ -28,8 +26,6 @@ class CardInfoWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-
-    final HomeController controller = GetInstance().find();
     final dateFormated = DateFormat('dd/MM/yyyy')
         .format(DateTime.parse(editor.birthString ?? '00000000'));
 
@@ -55,7 +51,8 @@ class CardInfoWidget extends StatelessWidget {
                     placeholder: (context, url) {
                       return const CupertinoActivityIndicator();
                     },
-                    errorWidget: (context, url, error) => const Icon(Icons.error),
+                    errorWidget: (context, url, error) =>
+                        const Icon(Icons.error),
                   ),
                 ),
                 const SizedBox(width: 10),
@@ -68,9 +65,7 @@ class CardInfoWidget extends StatelessWidget {
                       child: Text(
                         editor.name,
                         style: const TextStyle(
-                            fontWeight: FontWeight.bold,
-                            color: Colors.white
-                        ),
+                            fontWeight: FontWeight.bold, color: Colors.white),
                         maxLines: 2,
                         overflow: TextOverflow.ellipsis,
                         softWrap: false,
@@ -84,9 +79,8 @@ class CardInfoWidget extends StatelessWidget {
                           Text(
                             editor.nick ?? '',
                             style: const TextStyle(
-                              fontWeight: FontWeight.bold,
-                                color: Colors.white
-                            ),
+                                fontWeight: FontWeight.bold,
+                                color: Colors.white),
                             overflow: TextOverflow.ellipsis,
                           ),
                           const SizedBox(width: 5),
@@ -100,9 +94,7 @@ class CardInfoWidget extends StatelessWidget {
                         children: [
                           Text(
                             '${editor.state} - ${AppConstants.uf[editor.state]}',
-                            style: TextStyle(
-                                color: Colors.white
-                            ),
+                            style: TextStyle(color: Colors.white),
                           ),
                           const SizedBox(width: 5),
                         ],
@@ -115,10 +107,8 @@ class CardInfoWidget extends StatelessWidget {
                           Image.asset(AppImages.signo),
                           const SizedBox(width: 5),
                           Text(
-                              dateFormated,
-                              style: TextStyle(
-                                color: Colors.white
-                              ),
+                            dateFormated,
+                            style: TextStyle(color: Colors.white),
                           ),
                           const SizedBox(width: 5),
                           Visibility(

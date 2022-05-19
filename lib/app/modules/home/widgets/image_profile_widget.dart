@@ -4,6 +4,7 @@ import 'package:azerox/app/core/core.dart';
 import 'package:azerox/app/modules/create_post/controllers/capture_image_controller.dart';
 import 'package:azerox/app/modules/create_post/controllers/compress_image_controller.dart';
 import 'package:azerox/app/modules/create_post/controllers/select_image_file_controller.dart';
+import 'package:azerox/app/modules/home/controllers/chapters_controller.dart';
 import 'package:azerox/app/modules/home/home_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -17,7 +18,8 @@ class ImageProfileWidget extends StatefulWidget {
 }
 
 class _ImageProfileWidgetState extends State<ImageProfileWidget> {
-  final HomeController controller = GetInstance().find();
+  final controller = Get.find<HomeController>();
+  final chaptersController = Get.find<ChaptersController>();
   final galeryController = SelectImageFileController();
   final cameraController = CaptureCameraImageController();
   final compressionController = CompressImageController();
@@ -78,6 +80,7 @@ class _ImageProfileWidgetState extends State<ImageProfileWidget> {
 
                 loadingController.show('Enviando...');
                 await controller.updateImageProfile(compressedFilePath);
+                chaptersController.refreshChapters();
                 Navigator.of(context).pop();
               } catch (ex, stack) {
                 rethrow;
@@ -105,6 +108,7 @@ class _ImageProfileWidgetState extends State<ImageProfileWidget> {
 
                 loadingController.show('Enviando...');
                 await controller.updateImageProfile(compressedFilePath);
+                chaptersController.refreshChapters();
                 Navigator.of(context).pop();
               } catch (ex, stack) {
                 rethrow;

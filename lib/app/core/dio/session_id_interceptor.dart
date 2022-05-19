@@ -12,8 +12,8 @@ class SessionIdInterceptor extends Interceptor {
       final newSessionId =
           RegExp(r'ASP.NET_SessionId=(\w*);').firstMatch(cookie!)?.group(1);
       final AppController appController = Get.find();
-      appController.currentUser =
-          appController.currentUser.copyWith(sessionID: newSessionId);
+      appController.currentUser.value =
+          appController.currentUser.value.copyWith(sessionID: newSessionId);
     }
     handler.next(response);
   }
@@ -22,9 +22,9 @@ class SessionIdInterceptor extends Interceptor {
   void onRequest(RequestOptions options, RequestInterceptorHandler handler) {
     final AppController appController = Get.find();
     if (cookie != null) options.headers.addAll({'Cookie': cookie});
-    if (appController.currentUser.sessionID != null) {
+    if (appController.currentUser.value.sessionID != null) {
       options.queryParameters['sessionId'] =
-          appController.currentUser.sessionID;
+          appController.currentUser.value.sessionID;
     }
     handler.next(options);
   }
