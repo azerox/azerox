@@ -1,19 +1,21 @@
 import 'dart:io';
 
-import 'package:azerox/app/config/app_constants.dart';
+import 'package:azerox/app/app_controller.dart';
 import 'package:azerox/app/models/editor_model.dart';
-import 'package:azerox/app/models/post.dart';
+import 'package:azerox/app/models/user.dart';
+import 'package:azerox/app/models/user_profile.dart';
 import 'package:dio/dio.dart';
-import 'package:get/get.dart';
+import 'package:get/instance_manager.dart';
 import 'package:path_provider/path_provider.dart';
 
-import '../../app_controller.dart';
+import '../../config/app_constants.dart';
+import '../../models/post.dart';
 
 class HomeRepository {
   final Dio dio;
   HomeRepository(this.dio);
 
-  final user = Get.find<AppController>().currentUser;
+  UserModel get user => Get.find<AppController>().currentUser;
 
   Future<List<Post>> getAlbum({
     bool isFavoritedPage = false,
@@ -39,8 +41,6 @@ class HomeRepository {
   }
 
   Future<void> favoritePost(Post post, [bool isLike = true]) async {
-    dio.options.headers['Cookie'] = 'ASP.NET_SessionId=${user.sessionID}';
-
     await dio.get(
       isLike ? AppConstants.apiFavoritePost : AppConstants.apiDislikePost,
       queryParameters: {
@@ -52,8 +52,6 @@ class HomeRepository {
   }
 
   Future<List<EditorModel>> searchByUser(String userStr) async {
-    dio.options.headers['Cookie'] = 'ASP.NET_SessionId=${user.sessionID}';
-
     final response = await dio.get(
       AppConstants.apiGetPUserBySearch,
       queryParameters: {
@@ -73,8 +71,6 @@ class HomeRepository {
   }
 
   Future<String> downloadAudioFile(String audioUrl) async {
-    dio.options.headers['Cookie'] = 'ASP.NET_SessionId=${user.sessionID}';
-
     final uri = Uri.parse(audioUrl);
     final fileName = uri.pathSegments.last.replaceAll('.mp3', '');
     final tempFolder = await getTemporaryDirectory();
@@ -89,5 +85,47 @@ class HomeRepository {
       print(ex);
       rethrow;
     }
+  }
+
+  Future<String?> sendProfileImage(String imageFilePath) async {
+    dio.options.headers['Content-type'] = 'multipart/form-data;';
+    final formData = FormData.fromMap({
+      "": await MultipartFile.fromFile(
+        imageFilePath,
+        filename: 'profile_image.jpg',
+      ),
+    });
+
+    final response = await dio.post(
+      AppConstants.apiUploadProfileImage,
+      data: formData,
+    );
+    return response.data;
+  }
+
+  Future<UserProfile?> uploadProfilePicture(String imagePath) async {
+    String? imageResponse;
+    imageResponse = await sendProfileImage(imagePath);
+    if (imageResponse == null) return null;
+
+    final response = await dio.get(
+      AppConstants.apiSaveImageProfile,
+      queryParameters: {
+        'CodUser': '${user.codUser!}',
+        'FilePicture': cropImagePath(imageResponse),
+      },
+    );
+    return UserProfile(
+      codUser: user.codUser,
+      sessionID: user.sessionID,
+      filePicture: imageResponse,
+    );
+  }
+
+  String cropImagePath(String fullUrl) {
+    final uri = Uri.parse(fullUrl);
+    final path =
+        uri.pathSegments.sublist(uri.pathSegments.length - 3).join('/');
+    return path;
   }
 }

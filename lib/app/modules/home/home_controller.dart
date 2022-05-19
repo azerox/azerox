@@ -1,3 +1,6 @@
+import 'dart:async';
+
+import 'package:azerox/app/app_controller.dart';
 import 'package:azerox/app/config/app_images.dart';
 import 'package:azerox/app/config/app_routes.dart';
 import 'package:azerox/app/models/editor_model.dart';
@@ -9,9 +12,12 @@ import 'package:get/get.dart';
 
 class HomeController extends GetxController {
   final HomeRepository repository;
-  HomeController(this.repository);
+  final AppController _appController;
+  HomeController(this.repository, this._appController);
 
   final searchDrawerEC = TextEditingController();
+
+  ChangeNotifier changeNotifier = ChangeNotifier();
 
   //Variáveis para compor o menu
   final _selectedIndex = 0.obs;
@@ -130,5 +136,13 @@ class HomeController extends GetxController {
 
   Future<List<EditorModel>> searchByUser() async {
     return await repository.searchByUser(searchDrawerEC.text);
+  }
+
+  Future<void> updateImageProfile(String imagePath) async {
+    final userProfile = await repository.uploadProfilePicture(imagePath);
+    if (userProfile == null) return;
+    _appController.currentUser = _appController.currentUser.copyWith(
+      filePicture: userProfile.filePicture,
+    );
   }
 }

@@ -33,4 +33,5 @@ class AppImages {
   static const microfone = 'assets/images/microfone.png';
   static const interrogacao = 'assets/images/interrogacao.png';
   static const audio = 'assets/images/audio.png';
+  static const home = 'assets/images/home.png';
 }

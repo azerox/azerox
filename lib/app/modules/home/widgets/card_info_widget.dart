@@ -1,8 +1,11 @@
 import 'package:azerox/app/config/app_constants.dart';
 import 'package:azerox/app/models/user.dart';
+import 'package:azerox/app/modules/home/home_controller.dart';
+import 'package:azerox/app/modules/home/widgets/image_profile_widget.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 
 import '../../../config/app_colors.dart';
@@ -14,7 +17,6 @@ class CardInfoWidget extends StatelessWidget {
   final Color color;
   final UserModel editor;
   final bool isShearch;
-
   const CardInfoWidget({
     Key? key,
     this.showNet = true,
@@ -26,6 +28,8 @@ class CardInfoWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+
+    final HomeController controller = GetInstance().find();
     final dateFormated = DateFormat('dd/MM/yyyy')
         .format(DateTime.parse(editor.birthString ?? '00000000'));
 
@@ -152,7 +156,19 @@ class CardInfoWidget extends StatelessWidget {
               child: Positioned(
                 left: 35,
                 child: GestureDetector(
-                  onTap: () {},
+                  onTap: () {
+                    showModalBottomSheet(
+                      isScrollControlled: true,
+                      shape: const RoundedRectangleBorder(
+                        borderRadius: BorderRadius.only(
+                          topLeft: Radius.circular(32),
+                          topRight: Radius.circular(32),
+                        ),
+                      ),
+                      context: context,
+                      builder: (context) => ImageProfileWidget(),
+                    );
+                  },
                   child: const CircleAvatar(
                     minRadius: 17,
                     backgroundColor: Colors.black,
