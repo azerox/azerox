@@ -1,8 +1,14 @@
 
+import 'package:azerox/app/modules/comments/account/infinite/infinite_comments_bindings.dart';
+import 'package:azerox/app/modules/comments/account/infinite/infinite_comments_page.dart';
 import 'package:azerox/app/modules/configuration/configuration_binding.dart';
 import 'package:azerox/app/modules/configuration/configuration_page.dart';
 import 'package:azerox/app/modules/following/seguindo_bindings.dart';
 import 'package:azerox/app/modules/following/seguindo_page.dart';
+import 'package:azerox/app/modules/mmn/mmn_bindings.dart';
+import 'package:azerox/app/modules/mmn/mmn_page.dart';
+import 'package:azerox/app/modules/net/net_bindings.dart';
+import 'package:azerox/app/modules/net/net_page.dart';
 import 'package:azerox/app/modules/new_editions/new_editions_page.dart';
 import 'package:azerox/app/modules/publishers/editores_bindings.dart';
 import 'package:azerox/app/modules/publishers/editores_page.dart';
@@ -94,6 +100,21 @@ class AppRoutes {
       page: () => SeguindoPage(),
       binding:SeguindoBindings(),
     ),
+    GetPage(
+      name: Routes.net,
+      page: () => NetPage(),
+      binding:NetBindings(),
+    ),
+    GetPage(
+      name: Routes.mmn,
+      page: () => MMNPage(),
+      binding:MMNBindings(),
+    ),
+    GetPage(
+      name: Routes.infiniteComments,
+      page: () => InfiniteCommentsPage(),
+      binding: InfiniteCommentsBindings(),
+    ),
   ];
 }
 
@@ -103,6 +124,7 @@ class Routes {
   static const home = '/home';
   static const comments = '/comments';
   static const favoriteds = '/favoriteds';
+  static const net = '/net';
   static const newEditions = '/newEditions';
   static const publishers = '/publishers';
   static const following = '/following';
@@ -112,4 +134,6 @@ class Routes {
   static const useTerms = '/useTerms';
   static const consentientTerms = '/consentientTerms';
   static const configuration = '/configuration';
+  static const mmn = '/mmn';
+  static const infiniteComments = '/infiniteComments';
 }
