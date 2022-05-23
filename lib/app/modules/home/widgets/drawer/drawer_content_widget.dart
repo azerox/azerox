@@ -272,7 +272,7 @@ class DrawerContentWidget extends GetView<HomeController> {
                                   ),
                                 ),
                               );
-                            } else if (_item['titulo'] == 'Net') {
+                            } else if (_item['rota'] == Routes.net) {
                               return Obx(
                                 () => Container(
                                   decoration:
@@ -314,7 +314,7 @@ class DrawerContentWidget extends GetView<HomeController> {
                                   ),
                                 ),
                               );
-                            } else if (_item['titulo'] == 'Configurações') {
+                            } else if (_item['rota'] == Routes.configuration) {
                               return Obx(
                                 () => Container(
                                   decoration:
@@ -356,7 +356,7 @@ class DrawerContentWidget extends GetView<HomeController> {
                                   ),
                                 ),
                               );
-                            } else if (_item['titulo'] == 'MMN') {
+                            } else if (_item['rota'] == Routes.mmn) {
                               return Obx(
                                 () => Container(
                                   decoration:

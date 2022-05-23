@@ -70,7 +70,7 @@ class HomeController extends GetxController {
       {
         'titulo': 'Net',
         'icone': Image.asset(AppImages.net1),
-        'rota': '/',
+        'rota': Routes.net,
       },
     );
 
@@ -78,7 +78,7 @@ class HomeController extends GetxController {
       {
         'titulo': 'Configurações',
         'icone': const Icon(Icons.settings, color: Colors.white),
-        'rota': '/',
+        'rota': Routes.configuration,
       },
     );
 
@@ -86,7 +86,7 @@ class HomeController extends GetxController {
       {
         'titulo': 'MMN',
         'icone': const Icon(Icons.person, color: Colors.white),
-        'rota': '/',
+        'rota': Routes.mmn,
       },
     );
 
