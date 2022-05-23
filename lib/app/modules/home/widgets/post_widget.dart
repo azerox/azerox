@@ -12,7 +12,7 @@ import 'card_options.dart';
 import 'post_button.dart';
 import 'post_item_widget.dart';
 
-class PostWidget extends StatefulWidget {
+class PostWidget extends StatelessWidget {
   final Post post;
   final bool isComment;
   final bool isFavoritedsPage;
@@ -25,18 +25,13 @@ class PostWidget extends StatefulWidget {
   }) : super(key: key);
 
   @override
-  State<PostWidget> createState() => _PostWidgetState();
-}
-
-class _PostWidgetState extends State<PostWidget> {
-  @override
   Widget build(BuildContext context) {
     int? currentIndex;
     final homeController = Get.find<HomeController>();
 
     return Container(
       width: double.infinity,
-      margin: EdgeInsets.only(top: widget.isComment ? 0 : 16),
+      margin: EdgeInsets.only(top: isComment ? 0 : 16),
       padding: const EdgeInsets.symmetric(
         horizontal: 12,
         vertical: 9,
@@ -56,7 +51,7 @@ class _PostWidgetState extends State<PostWidget> {
                 height: 60,
                 width: 58,
                 fit: BoxFit.cover,
-                imageUrl: widget.post.user!.filePicture,
+                imageUrl: post.user!.filePicture,
                 placeholder: (context, url) {
                   return const CupertinoActivityIndicator();
                 },
@@ -64,13 +59,13 @@ class _PostWidgetState extends State<PostWidget> {
               ),
             ),
             title: Text(
-              widget.post.user!.nick ?? widget.post.user!.name.split(' ')[0],
+              post.user!.nick ?? post.user!.name.split(' ')[0],
               style: const TextStyle(
                 fontWeight: FontWeight.bold,
                 color: Colors.black,
               ),
             ),
-            subtitle: Text(widget.post.date ?? ''),
+            subtitle: Text(post.date ?? ''),
             trailing: IconButton(
               iconSize: 29,
               icon: Image.asset(AppImages.optionsMore),
@@ -86,8 +81,8 @@ class _PostWidgetState extends State<PostWidget> {
                   context: context,
                   builder: (context) {
                     return CardOptions(
-                      isComment: widget.isComment,
-                      post: widget.post,
+                      isComment: isComment,
+                      post: post,
                     );
                   },
                 );
@@ -95,9 +90,9 @@ class _PostWidgetState extends State<PostWidget> {
             ),
           ),
           Visibility(
-            visible: widget.post.nameEvent != null,
+            visible: post.nameEvent != null,
             child: Text(
-              widget.post.nameEvent ?? '',
+              post.nameEvent ?? '',
               style: const TextStyle(
                 color: Colors.black,
                 fontWeight: FontWeight.bold,
@@ -105,9 +100,9 @@ class _PostWidgetState extends State<PostWidget> {
             ),
           ),
           Visibility(
-            visible: widget.post.dateEventString != null,
+            visible: post.dateEventString != null,
             child: Text(
-              widget.post.dateEventString ?? '',
+              post.dateEventString ?? '',
               style: const TextStyle(
                 color: Colors.black,
                 fontWeight: FontWeight.bold,
@@ -117,10 +112,10 @@ class _PostWidgetState extends State<PostWidget> {
           ListView.builder(
             physics: const NeverScrollableScrollPhysics(),
             shrinkWrap: true,
-            itemCount: widget.post.postItens?.length,
+            itemCount: post.postItens?.length,
             itemBuilder: (context, int index) {
               currentIndex = index;
-              final currentItem = widget.post.postItens?[index];
+              final currentItem = post.postItens?[index];
               if (currentItem == null) return Container();
               return PostItemWidget(
                 model: currentItem,
@@ -133,10 +128,10 @@ class _PostWidgetState extends State<PostWidget> {
           ),
           const SizedBox(height: 9),
           Visibility(
-            visible: !widget.isComment,
+            visible: !isComment,
             child: TextButton(
               child: Text(
-                '${widget.post.listRepost?.length ?? 0} comentários',
+                '${post.listRepost?.length ?? 0} comentários',
                 style: const TextStyle(
                   color: AppColors.grey,
                   fontSize: 15,
@@ -144,15 +139,15 @@ class _PostWidgetState extends State<PostWidget> {
               ),
               onPressed: () {
                 Get.toNamed(Routes.comments, arguments: {
-                  'post': widget.post,
-                  'listRepost': widget.post.listRepost ?? [],
+                  'post': post,
+                  'listRepost': post.listRepost ?? [],
                 });
               },
             ),
           ),
           const SizedBox(height: 10),
           Visibility(
-            visible: !widget.isComment,
+            visible: !isComment,
             child: Row(
               children: [
                 Expanded(
@@ -165,11 +160,9 @@ class _PostWidgetState extends State<PostWidget> {
                   child: PostButtonWidget(
                     image: AppImages.fb,
                     onPressed: () async {
-                      if (widget.post.postItens?[currentIndex!].codPostType ==
-                          3) {
+                      if (post.postItens?[currentIndex!].codPostType == 3) {
                         await homeController.sendToFacebook(
-                            widget.post.postItens?[currentIndex!].postItemMax ??
-                                '');
+                            post.postItens?[currentIndex!].postItemMax ?? '');
                       }
                     },
                   ),
@@ -177,15 +170,15 @@ class _PostWidgetState extends State<PostWidget> {
                 Expanded(
                   child: PostButtonWidget(
                     isLikeBtn: true,
-                    post: widget.post,
+                    post: post,
                     icon: const Icon(
                       Icons.favorite,
                       color: Colors.red,
                     ),
                     onPressed: () async {
                       await homeController.favoritePost(
-                        widget.post,
-                        widget.post.isFavorite ? false : true,
+                        post,
+                        post.isFavorite ? false : true,
                       );
                     },
                   ),
@@ -194,11 +187,9 @@ class _PostWidgetState extends State<PostWidget> {
                   child: PostButtonWidget(
                     image: AppImages.insta,
                     onPressed: () async {
-                      if (widget.post.postItens?[currentIndex!].codPostType ==
-                          3) {
+                      if (post.postItens?[currentIndex!].codPostType == 3) {
                         await homeController.sendToInstagram(
-                            widget.post.postItens?[currentIndex!].postItemMax ??
-                                '');
+                            post.postItens?[currentIndex!].postItemMax ?? '');
                       }
                     },
                   ),

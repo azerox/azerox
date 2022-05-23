@@ -1,8 +1,7 @@
-import 'dart:io';
-
 import 'package:azerox/app/app_controller.dart';
 import 'package:dio/dio.dart';
 import 'package:get/instance_manager.dart';
+import 'package:intl/intl.dart';
 
 import '../../config/app_constants.dart';
 import '../../models/post.dart';
@@ -38,21 +37,23 @@ class CreatePostRepository {
   Future<Post> createPost({
     required String content,
     required String title,
-    required String date,
+    required DateTime date,
     String? mp3,
     String? image,
   }) async {
-    final user = Get.find<AppController>().currentUser;
-    dio.options.headers['Cookie'] = 'ASP.NET_SessionId=${user.sessionID}'; 
-    dio.options.headers['Content-Type'] = 'multipart/form-data;';
+    final user = Get.find<AppController>().currentUser.value;
+    // dio.options.headers['Content-Type'] = 'multipart/form-data;';
     String? imageResponse;
-    String? audioResponse;
+    String? audioUrl;
 
     if (image != null && image != '') {
       imageResponse = await sendImage(image);
     }
     if (mp3 != null && mp3 != '') {
-      audioResponse = await sendAudio(mp3);
+      final audioResponse = await sendAudio(mp3);
+      audioUrl = audioResponse
+          .replaceAll('http://s.azerox.com.br/Audios/', '')
+          .replaceAll('https://s.azerox.com.br/Audios/', '');
     }
 
     final response = await dio.get(
@@ -60,14 +61,13 @@ class CreatePostRepository {
       queryParameters: {
         'sessionId': user.sessionID,
         'CodUser': '${user.codUser!}',
-        'nameEvent': title,
-        'dateEvent': date,
         'Post': content,
-        'MP3': audioResponse?.substring(47) ?? '',
+        'MP3': audioUrl ?? '',
         'Image': imageResponse?.substring(47) ?? '',
+        'Name': title,
+        'Date': DateFormat('yyyy-MM-dd').format(date),
       },
     );
-
     return Post.fromJson(response.data);
   }
 }

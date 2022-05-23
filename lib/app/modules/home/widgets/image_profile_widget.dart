@@ -1,10 +1,10 @@
 import 'dart:io';
 
-import 'package:azerox/app/config/app_colors.dart';
 import 'package:azerox/app/core/core.dart';
 import 'package:azerox/app/modules/create_post/controllers/capture_image_controller.dart';
 import 'package:azerox/app/modules/create_post/controllers/compress_image_controller.dart';
 import 'package:azerox/app/modules/create_post/controllers/select_image_file_controller.dart';
+import 'package:azerox/app/modules/home/controllers/chapters_controller.dart';
 import 'package:azerox/app/modules/home/home_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -17,15 +17,13 @@ class ImageProfileWidget extends StatefulWidget {
   State<ImageProfileWidget> createState() => _ImageProfileWidgetState();
 }
 
-class _ImageProfileWidgetState extends State<ImageProfileWidget>
-    with NotifierLoadingMixin {
-  final HomeController controller = GetInstance().find();
+class _ImageProfileWidgetState extends State<ImageProfileWidget> {
+  final controller = Get.find<HomeController>();
+  final chaptersController = Get.find<ChaptersController>();
   final galeryController = SelectImageFileController();
   final cameraController = CaptureCameraImageController();
   final compressionController = CompressImageController();
-
-  @override
-  late final loadingNotifier = compressionController;
+  final loadingController = LoadingController();
 
   Future<void> _compressImage(String filePath) async {
     final fileBytes = await File(filePath).readAsBytes();
@@ -47,31 +45,7 @@ class _ImageProfileWidgetState extends State<ImageProfileWidget>
     galeryController.dispose();
     cameraController.dispose();
     compressionController.dispose();
-  }
-
-  @override
-  Widget loadingBuilder(BuildContext context) {
-    return Container(
-      padding: const EdgeInsets.fromLTRB(15, 15, 15, 10),
-      decoration: BoxDecoration(
-        color: Colors.white,
-        borderRadius: BorderRadius.circular(5),
-      ),
-      child: Column(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          const CircularProgressIndicator(
-            valueColor: AlwaysStoppedAnimation(AppColors.primary),
-          ),
-          const SizedBox(height: 15),
-          Text("Comprimindo imagem",
-              style: Theme.of(context)
-                  .textTheme
-                  .bodyText1
-                  ?.copyWith(color: AppColors.primary)),
-        ],
-      ),
-    );
+    loadingController.hide();
   }
 
   @override
@@ -91,38 +65,56 @@ class _ImageProfileWidgetState extends State<ImageProfileWidget>
             leading: const Icon(Icons.camera_alt),
             title: const Text('Câmera'),
             onTap: () async {
-              await cameraController.capture();
-              final filePath = cameraController.value;
-              if (filePath == null) return;
+              try {
+                await cameraController.capture();
+                final filePath = cameraController.value;
+                if (filePath == null) return;
 
-              final croppedImage = await _cropImage(filePath);
-              if (croppedImage == null) return;
+                final croppedImage = await _cropImage(filePath);
+                if (croppedImage == null) return;
 
-              await _compressImage(filePath);
-              final compressedFilePath = compressionController.value.filePath;
-              if (compressedFilePath == null) return;
+                loadingController.show('Compactando imagem...');
+                await _compressImage(filePath);
+                final compressedFilePath = compressionController.value.filePath;
+                if (compressedFilePath == null) return;
 
-              await controller.updateImageProfile(compressedFilePath);
-              Navigator.of(context).pop();
+                loadingController.show('Enviando...');
+                await controller.updateImageProfile(compressedFilePath);
+                chaptersController.refreshItems();
+                Navigator.of(context).pop();
+              } catch (ex, stack) {
+                rethrow;
+              } finally {
+                loadingController.hide();
+              }
             },
           ),
           ListTile(
             leading: const Icon(Icons.image),
             title: const Text('Galeria'),
             onTap: () async {
-              await galeryController.onSelectFilePressed();
-              final filePath = galeryController.value;
-              if (filePath == null) return;
+              try {
+                await galeryController.onSelectFilePressed();
+                final filePath = galeryController.value;
+                if (filePath == null) return;
 
-              final croppedImage = await _cropImage(filePath);
-              if (croppedImage == null) return;
+                final croppedImage = await _cropImage(filePath);
+                if (croppedImage == null) return;
 
-              await _compressImage(filePath);
-              final compressedFilePath = compressionController.value.filePath;
-              if (compressedFilePath == null) return;
+                loadingController.show('Compactando imagem...');
+                await _compressImage(croppedImage);
+                final compressedFilePath = compressionController.value.filePath;
+                if (compressedFilePath == null) return;
 
-              await controller.updateImageProfile(compressedFilePath);
-              Navigator.of(context).pop();
+                loadingController.show('Enviando...');
+                await controller.updateImageProfile(compressedFilePath);
+                chaptersController.refreshItems();
+                Navigator.of(context).pop();
+              } catch (ex, stack) {
+                rethrow;
+              } finally {
+                loadingController.hide();
+              }
             },
           ),
         ],

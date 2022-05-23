@@ -9,7 +9,7 @@ class NewEditionsRepository {
   final Dio dio;
   NewEditionsRepository(this.dio);
 
-  final user = Get.find<AppController>().currentUser;
+  final user = Get.find<AppController>().currentUser.value;
 
   Future<List<Post>> getNewEditions() async {
     dio.options.headers['Cookie'] = 'ASP.NET_SessionId=${user.sessionID}';

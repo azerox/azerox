@@ -59,10 +59,10 @@ class CompressImageState {
   @override
   bool operator ==(Object other) {
     if (identical(this, other)) return true;
-  
+
     return other is CompressImageState &&
-      other.filePath == filePath &&
-      other.isLoading == isLoading;
+        other.filePath == filePath &&
+        other.isLoading == isLoading;
   }
 
   @override

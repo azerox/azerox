@@ -13,7 +13,7 @@ class AppConstants {
   static const apiGetPostsByUser = '$apiBase/jsonposts.asmx/GetPostsByUser';
   static const apiGetPUserBySearch =
       '$apiBase/jsonfriends.asmx/GetFriendsBySearch';
-  static const apiInsertPost = '$apiBase/jsonposts.asmx/InsertPost';
+  static const apiInsertPost = '$apiBase/jsonposts.asmx/InsertPostV2';
   static const apiUploadProfileImage =
       'https://s.azerox.com.br/Services/ImageProfileHandler.ashx';
   static const apiUploadImage =

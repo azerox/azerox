@@ -72,7 +72,7 @@ class InitialController extends GetxController {
       final userExists = await getUserByEmail(userFb.email!);
 
       if (userExists != null) {
-        Get.find<AppController>().currentUser = userExists;
+        Get.find<AppController>().currentUser.value = userExists;
       }
       Get.offNamed(Routes.home);
     }

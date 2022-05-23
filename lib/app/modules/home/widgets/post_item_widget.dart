@@ -3,6 +3,8 @@ import 'package:azerox/app/models/post_item.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_widget_from_html_core/flutter_widget_from_html_core.dart';
+import 'package:url_launcher/url_launcher_string.dart';
 
 typedef DownloadFileCallback = Future<String> Function(String networkUrl);
 
@@ -47,10 +49,30 @@ class _PostItemWidgetState extends State<PostItemWidget> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               const SizedBox(height: 10),
-              Text(
+              HtmlWidget(
                 widget.model.postItem ?? '',
-                style: const TextStyle(color: Colors.black, fontSize: 15),
+                onTapUrl: (url) async {
+                  await launchUrlString(
+                    url,
+                    mode: LaunchMode.externalApplication,
+                  );
+                  return true;
+                },
+                // style: const TextStyle(color: Colors.black, fontSize: 15),
               ),
+              // Linkify(
+              //   text: widget.model.postItem ?? '',
+              //   style: const TextStyle(color: Colors.black, fontSize: 15),
+              //   linkStyle: const TextStyle(color: Colors.blue, fontSize: 15),
+              //   options: LinkifyOptions(humanize: true),
+              //   onOpen: (link) async {
+              //     if (await canLaunchUrl(Uri.parse(link.url))) {
+              //       await launchUrl(Uri.parse(link.url));
+              //     } else {
+              //       throw 'Could not launch $link';
+              //     }
+              //   },
+              // ),
               const SizedBox(height: 10),
             ],
           );

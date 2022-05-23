@@ -1,7 +1,6 @@
-import 'package:flutter/cupertino.dart';
+import 'package:azerox/app/core/core.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:lazy_load_scrollview/lazy_load_scrollview.dart';
 
 import '../../config/app_colors.dart';
 import '../../config/app_images.dart';
@@ -10,11 +9,13 @@ import '../home/widgets/drawer/custom_drawer.dart';
 import '../home/widgets/post_widget.dart';
 import 'new_editions_controller.dart';
 
-class NewEditionsPage extends GetView<NewEditionsController> {
+class NewEditionsPage extends StatelessWidget {
   const NewEditionsPage({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    final controller = Get.find<NewEditionsController>();
+
     return Scaffold(
       appBar: AppBar(
         toolbarHeight: 65,
@@ -34,28 +35,14 @@ class NewEditionsPage extends GetView<NewEditionsController> {
                   const SizedBox(width: 10),
                   Image.asset(AppImages.novasEdicoes),
                   const SizedBox(width: 10),
-                  const Text('Novas edições (2)'),
+                  const Text('Novas edições'),
                 ],
               ),
             ),
             Expanded(
-              child: FutureBuilder<List<Post>>(
-                future: controller.getNewEditions(),
-                builder: (context, snapshot) {
-                  final List<Post> posts = snapshot.data ?? [];
-
-                  if (snapshot.connectionState == ConnectionState.waiting) {
-                    return const Center(child: CupertinoActivityIndicator());
-                  }
-
-                  return ListView.builder(
-                    physics: const BouncingScrollPhysics(),
-                    itemCount: posts.length,
-                    itemBuilder: (context, index) {
-                      return PostWidget(post: posts[index]);
-                    },
-                  );
-                },
+              child: PaginationWidget<Post>(
+                controller: controller,
+                builder: (context, post) => PostWidget(post: post),
               ),
             ),
           ],

@@ -2,7 +2,6 @@ import 'dart:io';
 
 import 'package:azerox/app/config/app_colors.dart';
 import 'package:azerox/app/config/app_images.dart';
-import 'package:azerox/app/config/app_routes.dart';
 import 'package:azerox/app/core/core.dart';
 import 'package:azerox/app/modules/create_post/widgets/image_source_widget.dart';
 import 'package:cached_network_image/cached_network_image.dart';
@@ -39,17 +38,11 @@ class CreatePostPage extends StatelessWidget {
               style: TextStyle(color: Colors.white, fontSize: 21),
             ),
             TextButton(
+              onPressed: controller.onCreatePostPressed,
               child: const Text(
                 'Ok',
                 style: TextStyle(color: Colors.white, fontSize: 21),
               ),
-              onPressed: () async {
-                if (controller.contentChapter != null) {
-                  await controller.createPost(
-                      controller.recordedMp3FilePath, controller.imagePath);
-                  Get.offAllNamed(Routes.home);
-                }
-              },
             ),
           ],
         ),
@@ -71,8 +64,10 @@ class CreatePostPage extends StatelessWidget {
                           height: 70,
                           width: 68,
                           fit: BoxFit.cover,
-                          imageUrl:
-                              Get.find<AppController>().currentUser.filePicture,
+                          imageUrl: Get.find<AppController>()
+                              .currentUser
+                              .value
+                              .filePicture,
                           placeholder: (context, url) {
                             return const CupertinoActivityIndicator();
                           },
@@ -132,12 +127,14 @@ class CreatePostPage extends StatelessWidget {
                           ),
                         ),
                         GestureDetector(
-                          onTap: () async {
+                          onTap: () {
                             showCupertinoModalPopup(
                               context: context,
                               builder: (builder) => SizedBox(
                                 height: 255,
                                 child: CupertinoDatePicker(
+                                  maximumDate: DateTime.now()
+                                      .add(const Duration(minutes: 1)),
                                   backgroundColor: Colors.white,
                                   mode: CupertinoDatePickerMode.date,
                                   onDateTimeChanged:
@@ -169,7 +166,7 @@ class CreatePostPage extends StatelessWidget {
                                     animation: controller,
                                     builder: (context, child) {
                                       return Text(
-                                        controller.dateFormated,
+                                        controller.dateFormatted,
                                         style: const TextStyle(
                                           color: Colors.black,
                                           fontWeight: FontWeight.bold,
@@ -290,7 +287,7 @@ class CreatePostPage extends StatelessWidget {
                             ),
                           ),
                           context: context,
-                          builder: (context) => ImageSourceWidget(),
+                          builder: (context) => const ImageSourceWidget(),
                         );
                       },
                       style: ElevatedButton.styleFrom(

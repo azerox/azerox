@@ -15,11 +15,12 @@ class HomeRepository {
   final Dio dio;
   HomeRepository(this.dio);
 
-  UserModel get user => Get.find<AppController>().currentUser;
+  UserModel get user => Get.find<AppController>().currentUser.value;
 
   Future<List<Post>> getAlbum({
     bool isFavoritedPage = false,
     bool isNewEdition = false,
+    required int page,
   }) async {
     dio.options.headers['Cookie'] = 'ASP.NET_SessionId=${user.sessionID}';
 
@@ -29,7 +30,7 @@ class HomeRepository {
         'sessionId': user.sessionID,
         'CodUserProfile': '${user.codUser!}',
         'CodUserLogged': '${user.codUser!}',
-        'Page': '1',
+        'Page': page,
         'pagesize': '10',
         'myPostOnly': isFavoritedPage ? 'true' : 'false',
       },
