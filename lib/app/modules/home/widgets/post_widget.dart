@@ -117,13 +117,7 @@ class PostWidget extends StatelessWidget {
               currentIndex = index;
               final currentItem = post.postItens?[index];
               if (currentItem == null) return Container();
-              return PostItemWidget(
-                model: currentItem,
-                downloadFileCallback: (networkAudioUrl) async {
-                  return await homeController.repository
-                      .downloadAudioFile(networkAudioUrl);
-                },
-              );
+              return PostItemWidget(model: currentItem);
             },
           ),
           const SizedBox(height: 9),

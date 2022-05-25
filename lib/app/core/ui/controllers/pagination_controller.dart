@@ -13,6 +13,7 @@ abstract class PaginationController<T>
 
   Future<void> refreshItems() async {
     value = PaginationState.empty<T>();
+    print('Loading page ${value.page}');
     final itemsList = await getCurrentPageItems();
     value = value.copyWith(itemsList: itemsList);
   }
@@ -20,12 +21,13 @@ abstract class PaginationController<T>
   Future<void> loadMoreItems() async {
     if (value.itemsList == null) return refreshItems();
     if (value.isLoading) return;
-    print('Loading page ${value.page}');
     try {
       _setLoading(true);
+      value = value.copyWith(page: value.page + 1);
+      print('Loading page ${value.page}');
       final currentPageItems = await getCurrentPageItems();
       final newItemsList = value.itemsList! + currentPageItems;
-      value = value.copyWith(itemsList: newItemsList, page: value.page + 1);
+      value = value.copyWith(itemsList: newItemsList);
     } catch (ex, stack) {
       rethrow;
     } finally {

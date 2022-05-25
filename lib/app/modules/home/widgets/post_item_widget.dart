@@ -10,11 +10,9 @@ typedef DownloadFileCallback = Future<String> Function(String networkUrl);
 
 class PostItemWidget extends StatefulWidget {
   final PostItens model;
-  final DownloadFileCallback downloadFileCallback;
   const PostItemWidget({
     Key? key,
     required this.model,
-    required this.downloadFileCallback,
   }) : super(key: key);
 
   @override
