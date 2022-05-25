@@ -22,6 +22,10 @@ class PostItemWidget extends StatefulWidget {
 }
 
 class _PostItemWidgetState extends State<PostItemWidget> {
+  // with AutomaticKeepAliveClientMixin {
+  // @override
+  // final wantKeepAlive = true;
+
   final audioController = AudioController();
 
   @override
@@ -40,6 +44,7 @@ class _PostItemWidgetState extends State<PostItemWidget> {
 
   @override
   Widget build(BuildContext context) {
+    // super.build(context);
     return AnimatedBuilder(
       animation: audioController,
       builder: (context, child) {
