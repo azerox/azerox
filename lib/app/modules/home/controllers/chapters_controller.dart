@@ -15,7 +15,6 @@ class ChaptersController extends PaginationController<Post> {
       isFavoritedPage: false,
       page: value.page,
     );
-    value = value.copyWith(page: value.page + 1);
     return posts;
   }
 }
