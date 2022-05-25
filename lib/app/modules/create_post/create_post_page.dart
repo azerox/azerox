@@ -13,10 +13,22 @@ import '../../app_controller.dart';
 import 'controllers/create_post_controller.dart';
 import 'widgets/recording_widget.dart';
 
-class CreatePostPage extends StatelessWidget {
+class CreatePostPage extends StatefulWidget {
   CreatePostPage({Key? key}) : super(key: key);
 
+  @override
+  State<CreatePostPage> createState() => _CreatePostPageState();
+}
+
+class _CreatePostPageState extends State<CreatePostPage> {
   final CreatePostController controller = GetInstance().find();
+
+  @override
+  void dispose() {
+    super.dispose();
+    controller.removeImage();
+    controller.onRemoveMp3File();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -256,7 +268,15 @@ class CreatePostPage extends StatelessWidget {
                           icon: const Icon(Icons.delete),
                           color: Colors.red,
                           onPressed: controller.onRemoveMp3File,
-                        )
+                        ),
+                        if (controller.recordedMp3FilePath != null)
+                          FutureBuilder<FileStat>(
+                            future:
+                                File(controller.recordedMp3FilePath!).stat(),
+                            builder: (context, snapshot) {
+                              return Text('${snapshot.data?.size}');
+                            },
+                          )
                       ],
                     ),
                   );

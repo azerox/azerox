@@ -7,6 +7,7 @@ import 'package:flutter_sound/flutter_sound.dart';
 import 'package:intl/intl.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:permission_handler/permission_handler.dart';
+import 'package:uuid/uuid.dart';
 
 class RecorderController extends ChangeNotifier {
   StreamSubscription? _recorderSubscription;
@@ -26,24 +27,24 @@ class RecorderController extends ChangeNotifier {
     await recorderModule
         .setSubscriptionDuration(const Duration(milliseconds: 10));
 
-    final session = await AudioSession.instance;
-    await session.configure(AudioSessionConfiguration(
-      avAudioSessionCategory: AVAudioSessionCategory.playAndRecord,
-      avAudioSessionCategoryOptions:
-          AVAudioSessionCategoryOptions.allowBluetooth |
-              AVAudioSessionCategoryOptions.defaultToSpeaker,
-      avAudioSessionMode: AVAudioSessionMode.spokenAudio,
-      avAudioSessionRouteSharingPolicy:
-          AVAudioSessionRouteSharingPolicy.defaultPolicy,
-      avAudioSessionSetActiveOptions: AVAudioSessionSetActiveOptions.none,
-      androidAudioAttributes: const AndroidAudioAttributes(
-        contentType: AndroidAudioContentType.speech,
-        flags: AndroidAudioFlags.none,
-        usage: AndroidAudioUsage.voiceCommunication,
-      ),
-      androidAudioFocusGainType: AndroidAudioFocusGainType.gain,
-      androidWillPauseWhenDucked: true,
-    ));
+    // final session = await AudioSession.instance;
+    // await session.configure(AudioSessionConfiguration(
+    //   avAudioSessionCategory: AVAudioSessionCategory.playAndRecord,
+    //   avAudioSessionCategoryOptions:
+    //       AVAudioSessionCategoryOptions.allowBluetooth |
+    //           AVAudioSessionCategoryOptions.defaultToSpeaker,
+    //   avAudioSessionMode: AVAudioSessionMode.spokenAudio,
+    //   avAudioSessionRouteSharingPolicy:
+    //       AVAudioSessionRouteSharingPolicy.defaultPolicy,
+    //   avAudioSessionSetActiveOptions: AVAudioSessionSetActiveOptions.none,
+    //   androidAudioAttributes: const AndroidAudioAttributes(
+    //     contentType: AndroidAudioContentType.speech,
+    //     flags: AndroidAudioFlags.none,
+    //     usage: AndroidAudioUsage.voiceCommunication,
+    //   ),
+    //   androidAudioFocusGainType: AndroidAudioFocusGainType.gain,
+    //   androidWillPauseWhenDucked: true,
+    // ));
   }
 
   Future<void> openRecorder() async {
@@ -82,8 +83,8 @@ class RecorderController extends ChangeNotifier {
       var path = '';
 
       var tempDir = await getTemporaryDirectory();
-      path = '${tempDir.path}/flutter_sound${ext[_codec.index]}';
-
+      final fileName = Uuid().v4();
+      path = '${tempDir.path}/$fileName${ext[_codec.index]}';
       await recorderModule.startRecorder(
         toFile: path,
         codec: _codec,
