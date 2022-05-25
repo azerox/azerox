@@ -84,7 +84,10 @@ class _HomePageState extends State<HomePage> {
           Expanded(
             child: PaginationWidget<Post>(
               controller: controller,
-              builder: (context, post) => PostWidget(post: post),
+              builder: (context, post) => PostWidget(
+                key: ValueKey(post.codPost),
+                post: post,
+              ),
             ),
           ),
         ],

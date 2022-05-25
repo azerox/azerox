@@ -122,6 +122,13 @@ class HomeRepository {
     );
   }
 
+  Future<void> removeChapterById(int chapterId) async {
+    final response = await dio.get(
+      AppConstants.apiDeletePost,
+      queryParameters: {'CodPost': chapterId},
+    );
+  }
+
   String cropImagePath(String fullUrl) {
     final uri = Uri.parse(fullUrl);
     final path =

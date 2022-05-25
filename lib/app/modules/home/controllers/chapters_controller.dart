@@ -17,4 +17,10 @@ class ChaptersController extends PaginationController<Post> {
     );
     return posts;
   }
+
+  void removeChapterById(int chapterId) {
+    final newList = value.itemsList?.toList();
+    newList?.removeWhere((chapter) => chapter.codPost == chapterId);
+    value = value.copyWith(itemsList: newList);
+  }
 }

@@ -4,6 +4,8 @@ import 'package:azerox/app/models/post.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
+import '../controllers/chapter_bottomsheet_controller.dart';
+
 class CardOptions extends StatelessWidget {
   final Post? post;
   final bool isComment;
@@ -16,8 +18,9 @@ class CardOptions extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final bool commentIsMine =
-        post?.user?.codUser == Get.find<AppController>().currentUser.value.codUser;
+    final controller = Get.find<ChapterBottomsheetController>();
+    final bool commentIsMine = post?.user?.codUser ==
+        Get.find<AppController>().currentUser.value.codUser;
 
     return Padding(
       padding: const EdgeInsets.symmetric(
@@ -105,7 +108,9 @@ class CardOptions extends StatelessWidget {
             Padding(
               padding: const EdgeInsets.only(bottom: 20),
               child: GestureDetector(
-                onTap: () {},
+                onTap: () {
+                  controller.onRemoveItemButtonPressed(context, post!.codPost!);
+                },
                 child: Container(
                   height: 94,
                   decoration: BoxDecoration(
