@@ -18,21 +18,20 @@ class HomeRepository {
   UserModel get user => Get.find<AppController>().currentUser.value;
 
   Future<List<Post>> getAlbum({
-    bool isFavoritedPage = false,
     bool isNewEdition = false,
     required int page,
   }) async {
     dio.options.headers['Cookie'] = 'ASP.NET_SessionId=${user.sessionID}';
 
     final response = await dio.get(
-      isFavoritedPage ? AppConstants.apiFavoritedsPost : AppConstants.apiPosts,
+      AppConstants.apiPosts,
       queryParameters: {
         'sessionId': user.sessionID,
         'CodUserProfile': '${user.codUser!}',
         'CodUserLogged': '${user.codUser!}',
         'Page': page,
         'pagesize': '10',
-        'myPostOnly': isFavoritedPage ? 'true' : 'false',
+        'myPostOnly': 'false',
       },
     );
 

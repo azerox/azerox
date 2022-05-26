@@ -107,11 +107,8 @@ class HomeController extends GetxController {
     super.onClose();
   }
 
-  Future<List<Post>> getAlbum([bool isFavoritedPage = false]) async {
-    final posts = await repository.getAlbum(
-      isFavoritedPage: isFavoritedPage,
-      page: 1,
-    );
+  Future<List<Post>> getAlbum() async {
+    final posts = await repository.getAlbum(page: 1);
     return posts;
   }
 

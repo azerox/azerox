@@ -11,10 +11,7 @@ class ChaptersController extends PaginationController<Post> {
   @protected
   @override
   Future<List<Post>> getCurrentPageItems() async {
-    final posts = await repository.getAlbum(
-      isFavoritedPage: false,
-      page: value.page,
-    );
+    final posts = await repository.getAlbum(page: value.page);
     return posts;
   }
 

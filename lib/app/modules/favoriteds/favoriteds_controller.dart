@@ -1,19 +1,17 @@
 import 'package:azerox/app/core/core.dart';
 import 'package:azerox/app/models/post.dart';
-import 'package:azerox/app/modules/home/home_repository.dart';
 import 'package:flutter/foundation.dart';
 
+import 'favoriteds_repository.dart';
+
 class FavoritedsController extends PaginationController<Post> {
-  final HomeRepository repository;
+  final FavoritedsRepository repository;
   FavoritedsController(this.repository);
 
   @protected
   @override
   Future<List<Post>> getCurrentPageItems() async {
-    final posts = await repository.getAlbum(
-      isFavoritedPage: true,
-      page: value.page,
-    );
+    final posts = await repository.getAlbum(page: value.page);
     return posts;
   }
 }

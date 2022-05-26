@@ -1,16 +1,16 @@
 import 'package:azerox/app/core/core.dart';
+import 'package:azerox/app/models/post.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 
 import '../home_repository.dart';
-import 'chapters_controller.dart';
 
 class ChapterBottomsheetController {
-  final ChaptersController chaptersController;
+  final PaginationController<Post> _paginationController;
   final HomeRepository _repository;
 
   ChapterBottomsheetController(
-    this.chaptersController,
+    this._paginationController,
     this._repository,
   );
 
@@ -25,12 +25,19 @@ class ChapterBottomsheetController {
       if (userConfirmed) {
         loadingController.show('Removendo capítulo...');
         await _repository.removeChapterById(chapterId);
-        chaptersController.removeChapterById(chapterId);
+        _removeChapterFromListById(chapterId);
         Get.back();
       }
     } finally {
       loadingController.hide();
     }
+  }
+
+  void _removeChapterFromListById(int chapterId) {
+    final newList = _paginationController.value.itemsList?.toList();
+    newList?.removeWhere((chapter) => chapter.codPost == chapterId);
+    _paginationController.value =
+        _paginationController.value.copyWith(itemsList: newList);
   }
 
   Future<bool> _showConfirmationMessage(BuildContext context) async {
