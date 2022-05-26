@@ -6,9 +6,9 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 
-import '../controllers/create_post_controller.dart';
-import '../controllers/recorder_controller.dart';
-import '../controllers/select_audio_file_controller.dart';
+import '../create_post_controller.dart';
+import '../../../core/ui/controllers/devices/audio/recorder_controller.dart';
+import '../../../core/ui/controllers/devices/audio/select_audio_file_controller.dart';
 
 class RecordingWidget extends StatefulWidget {
   const RecordingWidget({Key? key}) : super(key: key);

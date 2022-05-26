@@ -10,6 +10,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_social_content_share/flutter_social_content_share.dart';
 import 'package:get/get.dart';
 
+import '../../models/assinante_model.dart';
+
 class HomeController extends GetxController {
   final HomeRepository repository;
   final AppController _appController;
@@ -30,7 +32,7 @@ class HomeController extends GetxController {
     items.add(
       {
         'titulo': 'Home',
-        'icone': const Icon(Icons.house_rounded, color: Colors.white),
+        'icone': AppImages.home,
         'rota': Routes.home,
       },
     );
@@ -38,14 +40,14 @@ class HomeController extends GetxController {
     items.add(
       {
         'titulo': 'Novas Edições',
-        'icone': Image.asset(AppImages.novasEdicoes),
+        'icone': AppImages.novasEdicoes,
         'rota': Routes.newEditions,
       },
     );
     items.add(
       {
         'titulo': 'Editores',
-        'icone': Image.asset(AppImages.editores),
+        'icone': AppImages.editores,
         'rota': Routes.publishers,
       },
     );
@@ -53,7 +55,7 @@ class HomeController extends GetxController {
     items.add(
       {
         'titulo': 'Seguindo',
-        'icone': Image.asset(AppImages.seguinte),
+        'icone': AppImages.seguinte,
         'rota': Routes.following,
       },
     );
@@ -61,7 +63,7 @@ class HomeController extends GetxController {
     items.add(
       {
         'titulo': 'Favoritos',
-        'icone': Image.asset(AppImages.favorite, color: Colors.white),
+        'icone': AppImages.favorite,
         'rota': Routes.favoriteds,
       },
     );
@@ -69,7 +71,7 @@ class HomeController extends GetxController {
     items.add(
       {
         'titulo': 'Net',
-        'icone': Image.asset(AppImages.net1),
+        'icone': AppImages.net1,
         'rota': Routes.net,
       },
     );
@@ -77,7 +79,7 @@ class HomeController extends GetxController {
     items.add(
       {
         'titulo': 'Configurações',
-        'icone': const Icon(Icons.settings, color: Colors.white),
+        'icone': AppImages.configuration,
         'rota': Routes.configuration,
       },
     );
@@ -85,7 +87,7 @@ class HomeController extends GetxController {
     items.add(
       {
         'titulo': 'MMN',
-        'icone': const Icon(Icons.person, color: Colors.white),
+        'icone': AppImages.mmn,
         'rota': Routes.mmn,
       },
     );
@@ -93,7 +95,7 @@ class HomeController extends GetxController {
     items.add(
       {
         'titulo': 'Sair',
-        'icone': Image.asset(AppImages.sair),
+        'icone': AppImages.sair,
         'rota': '/',
       },
     );
@@ -117,6 +119,10 @@ class HomeController extends GetxController {
 
   Future<void> favoritePost(Post post, [bool isLike = true]) async {
     await repository.favoritePost(post, isLike);
+  }
+
+  Future<AssinanteModel?> statusAssinante(int? codUser) async {
+    return await repository.localizaAssinante(codUser: codUser!);
   }
 
   Future<void> sendToInstagram(String imageUrl) async {

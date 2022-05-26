@@ -8,8 +8,8 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 
-import '../create_post_repository.dart';
-import 'compress_image_controller.dart';
+import 'create_post_repository.dart';
+import '../../core/ui/controllers/devices/image/compress_image_controller.dart';
 
 class CreatePostController extends ChangeNotifier {
   final CreatePostRepository _repository;

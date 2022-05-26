@@ -153,7 +153,9 @@ class PostWidget extends StatelessWidget {
                 Expanded(
                   child: PostButtonWidget(
                     image: AppImages.balao,
-                    onPressed: () {},
+                    onPressed: () {
+                      Get.toNamed(Routes.infiniteComments);
+                    },
                   ),
                 ),
                 Expanded(

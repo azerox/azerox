@@ -1,24 +1,19 @@
-import 'dart:io';
-
 import 'package:azerox/app/config/app_colors.dart';
-import 'package:azerox/app/core/core.dart';
-import 'package:azerox/app/modules/create_post/controllers/capture_image_controller.dart';
-import 'package:azerox/app/modules/create_post/controllers/compress_image_controller.dart';
+import 'package:azerox/app/core/ui/controllers/devices/image/capture_image_controller.dart';
+import 'package:azerox/app/core/ui/controllers/devices/image/select_image_file_controller.dart';
+import 'package:azerox/app/modules/comments/account/infinite/infinite_comments_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-import '../controllers/create_post_controller.dart';
-import '../controllers/select_image_file_controller.dart';
-
-class ImageSourceWidget extends StatefulWidget {
-  const ImageSourceWidget({Key? key}) : super(key: key);
+class ImageSourceWidgetInfiniteComment extends StatefulWidget {
+  const ImageSourceWidgetInfiniteComment({Key? key}) : super(key: key);
 
   @override
-  State<ImageSourceWidget> createState() => _ImageSourceWidgetState();
+  State<ImageSourceWidgetInfiniteComment> createState() => _ImageSourceWidgetInfiniteCommentState();
 }
 
-class _ImageSourceWidgetState extends State<ImageSourceWidget> {
-  final CreatePostController controller = GetInstance().find();
+class _ImageSourceWidgetInfiniteCommentState extends State<ImageSourceWidgetInfiniteComment> {
+  final InfiniteCommentsController controller = GetInstance().find();
 
   final galeryController = SelectImageFileController();
   final cameraController = CaptureCameraImageController();

@@ -3,23 +3,26 @@ import 'dart:io';
 import 'package:azerox/app/config/app_colors.dart';
 import 'package:azerox/app/config/app_images.dart';
 import 'package:azerox/app/core/core.dart';
-import 'package:azerox/app/modules/create_post/widgets/image_source_widget.dart';
+import 'package:azerox/app/modules/create_post/widgets/image_source_widget_create_post.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import '../../app_controller.dart';
-import 'controllers/create_post_controller.dart';
-import 'widgets/recording_widget.dart';
+import 'create_post_controller.dart';
+import 'controller/recording_widget.dart';
 
 class CreatePostPage extends StatelessWidget {
   CreatePostPage({Key? key}) : super(key: key);
+
+
 
   final CreatePostController controller = GetInstance().find();
 
   @override
   Widget build(BuildContext context) {
+
     return Scaffold(
       appBar: AppBar(
         automaticallyImplyLeading: false,

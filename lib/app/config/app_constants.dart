@@ -2,7 +2,8 @@ class AppConstants {
   static const apiBase = 'https://azerox.com.br/services';
 
   static const apiLogin = '$apiBase/jsonusers.asmx/GetUserLogin';
-
+  static const apiAssinante = '$apiBase/jsonusers.asmx/GetUserProfileByCodUser';
+  static const apiInsertCommentPost = '$apiBase/jsonusers.asmx/InsertCommentPost';
   static const apiRegister = '$apiBase/jsonusers.asmx/InsertUserFacebook';
   static const apiGetUserByEmail = '$apiBase/jsonusers.asmx/GetUserByEmail';
   static const apiFavoritePost = '$apiBase/jsonposts.asmx/InsertFavorite';

@@ -65,7 +65,7 @@ class CardInfoWidget extends StatelessWidget {
                       child: Text(
                         editor.name,
                         style: const TextStyle(
-                            fontWeight: FontWeight.bold, color: Colors.white),
+                            fontWeight: FontWeight.bold, color: Colors.black),
                         maxLines: 2,
                         overflow: TextOverflow.ellipsis,
                         softWrap: false,
