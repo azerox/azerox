@@ -1,3 +1,4 @@
+import 'package:azerox/app/app_controller.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -28,6 +29,10 @@ class PostWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     int? currentIndex;
     final homeController = Get.find<HomeController>();
+    final appController = Get.find<AppController>();
+
+    bool isPostOwner =
+        appController.currentUser.value.codUser == post.user?.codUser;
 
     return Container(
       width: double.infinity,
@@ -66,27 +71,30 @@ class PostWidget extends StatelessWidget {
               ),
             ),
             subtitle: Text(post.date ?? ''),
-            trailing: IconButton(
-              iconSize: 29,
-              icon: Image.asset(AppImages.optionsMore),
-              onPressed: () {
-                showModalBottomSheet(
-                  isScrollControlled: true,
-                  shape: const RoundedRectangleBorder(
-                    borderRadius: BorderRadius.only(
-                      topLeft: Radius.circular(32),
-                      topRight: Radius.circular(32),
+            trailing: Visibility(
+              visible: isPostOwner,
+              child: IconButton(
+                iconSize: 29,
+                icon: Image.asset(AppImages.optionsMore),
+                onPressed: () {
+                  showModalBottomSheet(
+                    isScrollControlled: true,
+                    shape: const RoundedRectangleBorder(
+                      borderRadius: BorderRadius.only(
+                        topLeft: Radius.circular(32),
+                        topRight: Radius.circular(32),
+                      ),
                     ),
-                  ),
-                  context: context,
-                  builder: (context) {
-                    return CardOptions(
-                      isComment: isComment,
-                      post: post,
-                    );
-                  },
-                );
-              },
+                    context: context,
+                    builder: (context) {
+                      return CardOptions(
+                        isComment: isComment,
+                        post: post,
+                      );
+                    },
+                  );
+                },
+              ),
             ),
           ),
           Visibility(
