@@ -5,6 +5,7 @@ import 'package:azerox/app/app_controller.dart';
 import 'package:azerox/app/config/app_colors.dart';
 import 'package:azerox/app/config/app_images.dart';
 import 'package:azerox/app/core/core.dart';
+import 'package:azerox/app/models/post.dart';
 import 'package:azerox/app/modules/comments/account/infinite/infinite_comments_controller.dart';
 import 'package:azerox/app/modules/comments/account/infinite/widgets/image_source_widget_infinite_comments.dart';
 import 'package:azerox/app/modules/create_post/controller/recording_widget.dart';
@@ -14,7 +15,9 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 class InfiniteCommentsPage extends StatelessWidget {
-  InfiniteCommentsPage({Key? key}) : super(key: key);
+  InfiniteCommentsPage({
+    Key? key
+  }) : super(key: key);
 
   final InfiniteCommentsController controller = GetInstance().find();
 

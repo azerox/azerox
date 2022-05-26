@@ -1,4 +1,5 @@
 
+import 'package:azerox/app/models/post.dart';
 import 'package:azerox/app/modules/comments/account/infinite/infinite_comments_bindings.dart';
 import 'package:azerox/app/modules/comments/account/infinite/infinite_comments_page.dart';
 import 'package:azerox/app/modules/configuration/configuration_binding.dart';
@@ -32,7 +33,9 @@ import '../modules/login/login_bindings.dart';
 import '../modules/login/login_page.dart';
 import '../modules/new_editions/new_editions_bindings.dart';
 
+
 class AppRoutes {
+  late final Post post;
   static final pages = [
     GetPage(
       name: Routes.initial,
