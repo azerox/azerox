@@ -11,7 +11,7 @@ class NewEditionsRepository {
 
   final user = Get.find<AppController>().currentUser.value;
 
-  Future<List<Post>> getNewEditions() async {
+  Future<List<Post>> getNewEditions(int page) async {
     dio.options.headers['Cookie'] = 'ASP.NET_SessionId=${user.sessionID}';
 
     final response = await dio.get(
@@ -20,7 +20,7 @@ class NewEditionsRepository {
         'sessionId': user.sessionID,
         'CodUserProfile': '${user.codUser!}',
         'CodUserLogged': '${user.codUser!}',
-        'Page': '1',
+        'Page': page,
         'pagesize': '10',
         'myPostOnly': 'false',
       },

@@ -11,6 +11,6 @@ class NewEditionsController extends PaginationController<Post> {
   @protected
   @override
   Future<List<Post>> getCurrentPageItems() async {
-    return await repository.getNewEditions();
+    return await repository.getNewEditions(value.page);
   }
 }
