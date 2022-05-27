@@ -16,18 +16,12 @@ class AudioPlayerWidget extends StatelessWidget {
           children: [
             IconButton(
               icon: Icon(
-                audioController.state == PlayerState.PAUSED
-                    ? Icons.play_arrow
-                    : Icons.pause,
+                audioController.state.playing ? Icons.pause : Icons.play_arrow,
                 color: AppColors.green,
               ),
               onPressed: () {
-                if (audioController.state == PlayerState.PLAYING) {
-                  audioController.pause();
-                }
-                if (audioController.state == PlayerState.PAUSED) {
-                  audioController.play();
-                }
+                if (audioController.state.playing) audioController.pause();
+                if (!audioController.state.playing) audioController.play();
               },
             ),
             Expanded(

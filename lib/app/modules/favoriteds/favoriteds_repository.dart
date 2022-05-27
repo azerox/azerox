@@ -1,28 +1,31 @@
+import 'package:azerox/app/app_controller.dart';
+import 'package:azerox/app/config/app_constants.dart';
+import 'package:azerox/app/models/post.dart';
+import 'package:azerox/app/models/user.dart';
 import 'package:dio/dio.dart';
 import 'package:get/get.dart';
 
-import '../../app_controller.dart';
-import '../../config/app_constants.dart';
-import '../../models/post.dart';
-
-class NewEditionsRepository {
+class FavoritedsRepository {
   final Dio dio;
-  NewEditionsRepository(this.dio);
+  FavoritedsRepository(this.dio);
 
-  final user = Get.find<AppController>().currentUser.value;
+  UserModel get user => Get.find<AppController>().currentUser.value;
 
-  Future<List<Post>> getNewEditions(int page) async {
+  Future<List<Post>> getAlbum({
+    bool isNewEdition = false,
+    required int page,
+  }) async {
     dio.options.headers['Cookie'] = 'ASP.NET_SessionId=${user.sessionID}';
 
     final response = await dio.get(
-      AppConstants.apiGetPostsByUser,
+      AppConstants.apiFavoritedsPost,
       queryParameters: {
         'sessionId': user.sessionID,
         'CodUserProfile': '${user.codUser!}',
         'CodUserLogged': '${user.codUser!}',
         'Page': page,
         'pagesize': '10',
-        'myPostOnly': 'false',
+        'myPostOnly': 'true',
       },
     );
 

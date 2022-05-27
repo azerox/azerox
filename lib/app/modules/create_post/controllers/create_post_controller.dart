@@ -126,7 +126,7 @@ class CreatePostController extends ChangeNotifier {
 
   Future<void> saveRecord(String recordPath) async {
     recordedMp3FilePath = recordPath;
-    audioController.initLocal(recordPath);
+    audioController.initFile(recordPath);
     onCloseRecordDialogPressed();
   }
 
