@@ -1,65 +1,71 @@
 import 'dart:async';
 
-import 'package:audioplayers/audioplayers.dart';
 import 'package:flutter/material.dart';
 
-export 'package:audioplayers/audioplayers.dart';
+import 'master_audio_controller.dart';
+
+export 'package:just_audio/just_audio.dart';
 
 class AudioController extends ChangeNotifier {
-  AudioPlayer? audioPlayer;
-  PlayerState state = PlayerState.PAUSED;
-  Duration duration = const Duration();
-  Duration position = const Duration();
+  static final master = MasterAudio();
+  PlayerState state = PlayerState(false, ProcessingState.loading);
+  var duration = Duration.zero;
+  var position = Duration.zero;
   final _subscriptions = <StreamSubscription>[];
 
-  AudioController();
-
-  Future<void> initNetwork(String url) async => _init(url, true);
-  Future<void> initLocal(String localAudioPath) async {
-    return _init(localAudioPath, false);
+  AudioSource? _source;
+  AudioSource get source {
+    if (_source == null) {
+      throw Exception(
+        "The source cannot be null. Call `initNetwork()` or `initFile()` before",
+      );
+    }
+    return _source!;
   }
 
-  Future<void> _init(String url, bool isLocal) async {
-    closeSubscriptions();
-    audioPlayer = AudioPlayer();
-    _subscriptions.add(audioPlayer!.onPlayerStateChanged.listen((state) {
-      this.state = state;
-      if (state == PlayerState.COMPLETED) {
-        audioPlayer!.seek(const Duration(seconds: 0));
-        audioPlayer!.pause();
-      }
-      notifyListeners();
-    }));
+  bool get isCurrentAudioPlaying {
+    final playingSourceUri = master.getAudioSourceUri(_source);
+    return (playingSourceUri != null) &&
+        (master.currentSourceUri == playingSourceUri);
+  }
 
-    _subscriptions.add(audioPlayer!.onDurationChanged.listen((duration) {
-      this.duration = duration;
-      notifyListeners();
-    }));
+  Future<void> initNetwork(String url) async {
+    _source = LockCachingAudioSource(Uri.parse(url));
+    final duration = await master.cacheAudio(url);
+    _setDuration(duration);
+  }
 
-    _subscriptions.add(audioPlayer!.onAudioPositionChanged.listen((position) {
-      this.position = position;
-      notifyListeners();
-    }));
-
-    await audioPlayer!.setUrl(url, isLocal: isLocal);
-    audioPlayer!.pause();
+  Future<void> initFile(String filePath) async {
+    _source = ProgressiveAudioSource(Uri.parse(filePath));
+    final duration = await master.getAudioDuration(source);
+    _setDuration(duration);
   }
 
   Future<void> play() async {
-    await audioPlayer?.resume();
+    try {
+      await master.playAudioBySource(
+        source: source,
+        position: position,
+        stopSubscriptionCallback: _closeSubscriptions,
+      );
+      _startSubscriptions();
+    } catch (ex, stack) {
+      print(ex);
+      print(stack);
+    }
   }
 
   Future<void> pause() async {
-    await audioPlayer?.pause();
+    await master.audioPlayer.pause();
   }
 
   Future<void> stop() async {
-    await audioPlayer!.seek(Duration.zero);
-    await audioPlayer?.pause();
+    await master.audioPlayer.seek(Duration.zero);
+    await master.audioPlayer.pause();
   }
 
   Future<void> seek(Duration position) async {
-    await audioPlayer?.seek(position);
+    await master.audioPlayer.seek(position);
   }
 
   Duration get remainingTime => duration - position;
@@ -72,16 +78,49 @@ class AudioController extends ChangeNotifier {
     return '$minutes:$seconds';
   }
 
-  void closeSubscriptions() {
+  void _closeSubscriptions() {
     for (var subscription in _subscriptions) {
       subscription.cancel();
     }
     _subscriptions.clear();
   }
 
+  void _setPlayerState(PlayerState state) {
+    this.state = state;
+    if (state.processingState == ProcessingState.completed) {
+      master.audioPlayer.seek(const Duration(seconds: 0));
+      master.audioPlayer.pause();
+    }
+    notifyListeners();
+  }
+
+  void _setDuration(Duration? duration) {
+    this.duration = duration ?? Duration.zero;
+    notifyListeners();
+  }
+
+  void _setPosition(Duration position) {
+    this.position = position;
+    notifyListeners();
+  }
+
+  void _startSubscriptions() {
+    if (isCurrentAudioPlaying) {
+      _subscriptions
+          .add(master.audioPlayer.playerStateStream.listen(_setPlayerState));
+      _subscriptions
+          .add(master.audioPlayer.positionStream.listen(_setPosition));
+    } else {
+      _closeSubscriptions();
+      this.state = PlayerState(false, ProcessingState.ready);
+      notifyListeners();
+    }
+  }
+
   @override
   void dispose() {
-    closeSubscriptions();
+    _closeSubscriptions();
+    if (isCurrentAudioPlaying) master.audioPlayer.stop();
     super.dispose();
   }
 }

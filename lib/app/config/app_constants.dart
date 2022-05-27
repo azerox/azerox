@@ -12,6 +12,7 @@ class AppConstants {
   static const apiFavoritedsPost =
       '$apiBase/jsonposts.asmx/GetPostsFavoritesByUser';
   static const apiGetPostsByUser = '$apiBase/jsonposts.asmx/GetPostsByUser';
+  static const apiDeletePost = '$apiBase/jsonposts.asmx/DeletePost';
   static const apiGetPUserBySearch =
       '$apiBase/jsonfriends.asmx/GetFriendsBySearch';
   static const apiInsertPost = '$apiBase/jsonposts.asmx/InsertPostV2';

@@ -11,11 +11,13 @@ class ChaptersController extends PaginationController<Post> {
   @protected
   @override
   Future<List<Post>> getCurrentPageItems() async {
-    final posts = await repository.getAlbum(
-      isFavoritedPage: false,
-      page: value.page,
-    );
-    value = value.copyWith(page: value.page + 1);
+    final posts = await repository.getAlbum(page: value.page);
     return posts;
+  }
+
+  void removeChapterById(int chapterId) {
+    final newList = value.itemsList?.toList();
+    newList?.removeWhere((chapter) => chapter.codPost == chapterId);
+    value = value.copyWith(itemsList: newList);
   }
 }

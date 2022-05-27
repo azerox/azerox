@@ -3,7 +3,6 @@ import 'package:azerox/app/config/app_routes.dart';
 import 'package:azerox/app/core/core.dart';
 import 'package:azerox/app/models/post.dart';
 import 'package:azerox/app/modules/home/widgets/post_widget.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -85,7 +84,10 @@ class _HomePageState extends State<HomePage> {
           Expanded(
             child: PaginationWidget<Post>(
               controller: controller,
-              builder: (context, post) => PostWidget(post: post),
+              builder: (context, post) => PostWidget(
+                key: ValueKey(post.codPost),
+                post: post,
+              ),
             ),
           ),
         ],

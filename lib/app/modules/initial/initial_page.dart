@@ -148,7 +148,7 @@ class _InitialPageState extends State<InitialPage>
                         style: ElevatedButton.styleFrom(
                           primary: const Color(0XFF7D7D7D),
                         ),
-                        onPressed: () => Get.toNamed(Routes.login),
+                        onPressed: () => Get.offNamed(Routes.login),
                       ),
                     ),
                   ],

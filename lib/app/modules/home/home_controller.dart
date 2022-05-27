@@ -109,11 +109,8 @@ class HomeController extends GetxController {
     super.onClose();
   }
 
-  Future<List<Post>> getAlbum([bool isFavoritedPage = false]) async {
-    final posts = await repository.getAlbum(
-      isFavoritedPage: isFavoritedPage,
-      page: 1,
-    );
+  Future<List<Post>> getAlbum() async {
+    final posts = await repository.getAlbum(page: 1);
     return posts;
   }
 
@@ -147,7 +144,8 @@ class HomeController extends GetxController {
   Future<void> updateImageProfile(String imagePath) async {
     final userProfile = await repository.uploadProfilePicture(imagePath);
     if (userProfile == null) return;
-    _appController.currentUser.value = _appController.currentUser.value.copyWith(
+    _appController.currentUser.value =
+        _appController.currentUser.value.copyWith(
       filePicture: userProfile.filePicture,
     );
   }

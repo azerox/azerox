@@ -10,11 +10,9 @@ typedef DownloadFileCallback = Future<String> Function(String networkUrl);
 
 class PostItemWidget extends StatefulWidget {
   final PostItens model;
-  final DownloadFileCallback downloadFileCallback;
   const PostItemWidget({
     Key? key,
     required this.model,
-    required this.downloadFileCallback,
   }) : super(key: key);
 
   @override
@@ -22,6 +20,10 @@ class PostItemWidget extends StatefulWidget {
 }
 
 class _PostItemWidgetState extends State<PostItemWidget> {
+  // with AutomaticKeepAliveClientMixin {
+  // @override
+  // final wantKeepAlive = true;
+
   final audioController = AudioController();
 
   @override
@@ -40,6 +42,7 @@ class _PostItemWidgetState extends State<PostItemWidget> {
 
   @override
   Widget build(BuildContext context) {
+    // super.build(context);
     return AnimatedBuilder(
       animation: audioController,
       builder: (context, child) {
