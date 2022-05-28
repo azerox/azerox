@@ -17,19 +17,10 @@ class HomeRepository {
 
   HomeRepository(this.dio);
 
-  UserModel get user =>
-      Get
-          .find<AppController>()
-          .currentUser
-          .value;
+  UserModel get user => Get.find<AppController>().currentUser.value;
 
   AssinanteModel get assinante =>
-      Get
-          .find<AppController>()
-          .currentAssinante
-          .value;
-
-
+      Get.find<AppController>().currentAssinante.value;
 
   Future<AssinanteModel?> localizaAssinante({
     required int codUser,
@@ -48,7 +39,6 @@ class HomeRepository {
       sessionID: assinante.sessionID,
     );
   }
-
 
   Future<List<Post>> getAlbum({
     bool isNewEdition = false,
@@ -167,5 +157,4 @@ class HomeRepository {
         uri.pathSegments.sublist(uri.pathSegments.length - 3).join('/');
     return path;
   }
-
 }

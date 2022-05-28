@@ -8,21 +8,28 @@ import '../../../config/app_colors.dart';
 import '../../../config/app_images.dart';
 import '../../../config/app_routes.dart';
 import '../../../models/post.dart';
+import '../controllers/chapter_bottomsheet_controller.dart';
 import '../home_controller.dart';
 import 'card_options.dart';
 import 'post_button.dart';
 import 'post_item_widget.dart';
 
+typedef AddCommentCallback = void Function(Post comment);
+
 class PostWidget extends StatelessWidget {
   final Post post;
   final bool isComment;
   final bool isFavoritedsPage;
+  final AddCommentCallback? onAddCommentCallback;
+  final ChapterBottomsheetController? bottomsheetController;
 
   const PostWidget({
     Key? key,
     required this.post,
     this.isComment = false,
     this.isFavoritedsPage = false,
+    this.onAddCommentCallback,
+    this.bottomsheetController,
   }) : super(key: key);
 
   @override
@@ -37,10 +44,7 @@ class PostWidget extends StatelessWidget {
     return Container(
       width: double.infinity,
       margin: EdgeInsets.only(top: isComment ? 0 : 16),
-      padding: const EdgeInsets.symmetric(
-        horizontal: 12,
-        vertical: 9,
-      ),
+      padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 9),
       decoration: BoxDecoration(
         border: Border.all(color: AppColors.primary),
         color: Colors.white,
@@ -90,6 +94,7 @@ class PostWidget extends StatelessWidget {
                       return CardOptions(
                         isComment: isComment,
                         post: post,
+                        bottomsheetController: bottomsheetController,
                       );
                     },
                   );
@@ -141,8 +146,8 @@ class PostWidget extends StatelessWidget {
               ),
               onPressed: () {
                 Get.toNamed(Routes.comments, arguments: {
-                  'post': post,
-                  'listRepost': post.listRepost ?? [],
+                  'chapter': post,
+                  'comments': post.listRepost ?? [],
                 });
               },
             ),
@@ -155,8 +160,14 @@ class PostWidget extends StatelessWidget {
                 Expanded(
                   child: PostButtonWidget(
                     image: AppImages.balao,
-                    onPressed: () {
-                      Get.toNamed(Routes.infiniteComments);
+                    onPressed: () async {
+                      final newComment = await Get.toNamed(
+                        Routes.createComment,
+                        arguments: post,
+                      );
+                      if (newComment != null && newComment is Post) {
+                        onAddCommentCallback?.call(newComment);
+                      }
                     },
                   ),
                 ),

@@ -1,18 +1,15 @@
 import 'dart:io';
 
-import 'package:azerox/app/config/app_routes.dart';
-import 'package:azerox/app/core/ui/controllers/audio_controller.dart';
-import 'package:azerox/app/core/ui/controllers/devices/image/compress_image_controller.dart';
-import 'package:azerox/app/core/ui/controllers/loading_controller.dart';
+import 'package:azerox/app/core/core.dart';
 import 'package:azerox/app/models/post.dart';
-import 'package:azerox/app/modules/comments/account/infinite/infinite_comments_repository.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:intl/intl.dart';
 
-class InfiniteCommentsController extends ChangeNotifier {
-  final InfiniteCommentsRepository _repository;
-  InfiniteCommentsController(this._repository) {
+import '../repositories/comments_repository.dart';
+
+class CreateCommentController extends ChangeNotifier {
+  final CommentsRepository _repository;
+  CreateCommentController(this._repository) {
     compressImageController.addListener(_compressLoadingListener);
   }
 
@@ -31,19 +28,18 @@ class InfiniteCommentsController extends ChangeNotifier {
   String? imagePath;
   String? compressedImagePath;
   String? recordedMp3FilePath;
-  String? contentChapter;
-
+  String? contentComment;
+  Post? _chapter;
 
   bool isRecordVisible = false;
   bool isLoading = false;
 
+  void setChapter(Post chapter) => _chapter = chapter;
 
-
-  void onContentChapterChanged(String newValue) {
-    contentChapter = newValue;
+  void onCommentContentChanged(String newValue) {
+    contentComment = newValue;
     notifyListeners();
   }
-
 
   void removeImage() {
     if (imagePath != null) {
@@ -76,13 +72,14 @@ class InfiniteCommentsController extends ChangeNotifier {
     notifyListeners();
   }
 
-  Future<void> onCreatePostPressed() async {
-    if (contentChapter != null) {
+  Future<void> onCreateCommentPressed() async {
+    if (contentComment != null) {
       try {
         await _compressImageIfNeed();
         loadingController.show('Enviando...');
-        await _createPost(recordedMp3FilePath, compressedImagePath);
-        Get.offAllNamed(Routes.home);
+        final newComment =
+            await _createComment(recordedMp3FilePath, compressedImagePath);
+        Get.back(result: newComment);
       } catch (ex, stack) {
         rethrow;
       } finally {
@@ -101,11 +98,12 @@ class InfiniteCommentsController extends ChangeNotifier {
     }
   }
 
-  Future<Post> _createPost(String? mp3FilePath, String? image) async {
+  Future<Post> _createComment(String? mp3FilePath, String? image) async {
     final post = await _repository.createPost(
-      content: contentChapter!,
+      content: contentComment!,
       mp3: mp3FilePath,
       image: image,
+      masterChapterId: _chapter!.codPost!,
     );
     if (mp3FilePath != null) await File(mp3FilePath).delete();
     return post;
@@ -113,7 +111,7 @@ class InfiniteCommentsController extends ChangeNotifier {
 
   Future<void> saveRecord(String recordPath) async {
     recordedMp3FilePath = recordPath;
-    audioController.initLocal(recordPath);
+    audioController.initFile(recordPath);
     onCloseRecordDialogPressed();
   }
 
@@ -130,5 +128,4 @@ class InfiniteCommentsController extends ChangeNotifier {
     loadingController.hide();
     super.dispose();
   }
-
 }

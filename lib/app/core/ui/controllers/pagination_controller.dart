@@ -5,7 +5,7 @@ abstract class PaginationController<T>
   PaginationController() : super(PaginationState.empty<T>());
 
   @protected
-  Future<List<T>> getCurrentPageItems();
+  Future<List<T>> getCurrentPageItems(int page);
 
   void _setLoading(bool isLoading) {
     value = value.copyWith(isLoading: isLoading);
@@ -14,7 +14,7 @@ abstract class PaginationController<T>
   Future<void> refreshItems() async {
     value = PaginationState.empty<T>();
     print('Loading page ${value.page}');
-    final itemsList = await getCurrentPageItems();
+    final itemsList = await getCurrentPageItems(value.page);
     value = value.copyWith(itemsList: itemsList);
   }
 
@@ -25,7 +25,7 @@ abstract class PaginationController<T>
       _setLoading(true);
       value = value.copyWith(page: value.page + 1);
       print('Loading page ${value.page}');
-      final currentPageItems = await getCurrentPageItems();
+      final currentPageItems = await getCurrentPageItems(value.page);
       final newItemsList = value.itemsList! + currentPageItems;
       value = value.copyWith(itemsList: newItemsList);
     } catch (ex, stack) {

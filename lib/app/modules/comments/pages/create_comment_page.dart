@@ -1,4 +1,3 @@
-
 import 'dart:io';
 
 import 'package:azerox/app/app_controller.dart';
@@ -6,20 +5,33 @@ import 'package:azerox/app/config/app_colors.dart';
 import 'package:azerox/app/config/app_images.dart';
 import 'package:azerox/app/core/core.dart';
 import 'package:azerox/app/models/post.dart';
-import 'package:azerox/app/modules/comments/account/infinite/infinite_comments_controller.dart';
-import 'package:azerox/app/modules/comments/account/infinite/widgets/image_source_widget_infinite_comments.dart';
-import 'package:azerox/app/modules/create_post/controller/recording_widget.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-class InfiniteCommentsPage extends StatelessWidget {
-  InfiniteCommentsPage({
-    Key? key
-  }) : super(key: key);
+import '../controllers/create_comment_controller.dart';
+import '../widgets/image_source_widget.dart';
+import '../widgets/recording_widget.dart';
 
-  final InfiniteCommentsController controller = GetInstance().find();
+class CreateCommentPage extends StatefulWidget {
+  final Post chapter;
+  const CreateCommentPage.fromRouteArguments(dynamic arguments, {Key? key})
+      : chapter = arguments,
+        super(key: key);
+
+  @override
+  State<CreateCommentPage> createState() => _CreateCommentPageState();
+}
+
+class _CreateCommentPageState extends State<CreateCommentPage> {
+  final CreateCommentController controller = GetInstance().find();
+
+  @override
+  void initState() {
+    super.initState();
+    controller.setChapter(widget.chapter);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -41,7 +53,7 @@ class InfiniteCommentsPage extends StatelessWidget {
               style: TextStyle(color: Colors.white, fontSize: 21),
             ),
             TextButton(
-              onPressed: controller.onCreatePostPressed,
+              onPressed: controller.onCreateCommentPressed,
               child: const Text(
                 'Ok',
                 style: TextStyle(color: Colors.white, fontSize: 21),
@@ -75,7 +87,7 @@ class InfiniteCommentsPage extends StatelessWidget {
                             return const CupertinoActivityIndicator();
                           },
                           errorWidget: (context, url, error) =>
-                          const Icon(Icons.error),
+                              const Icon(Icons.error),
                         ),
                       ),
                       const SizedBox(height: 10),
@@ -108,10 +120,9 @@ class InfiniteCommentsPage extends StatelessWidget {
                   Expanded(
                     child: Column(
                       children: [
-
                         TextField(
                           style: const TextStyle(color: Colors.black),
-                          onChanged: controller.onContentChapterChanged,
+                          onChanged: controller.onCommentContentChanged,
                           maxLength: 500,
                           maxLines: 6,
                           decoration: InputDecoration(
@@ -125,7 +136,7 @@ class InfiniteCommentsPage extends StatelessWidget {
                             counter: AnimatedBuilder(
                               animation: controller,
                               builder: (context, child) => Text(
-                                '${controller.contentChapter?.length ?? 0}/500',
+                                '${controller.contentComment?.length ?? 0}/500',
                                 style: Theme.of(context).textTheme.caption,
                               ),
                             ),
@@ -217,7 +228,8 @@ class InfiniteCommentsPage extends StatelessWidget {
                             ),
                           ),
                           context: context,
-                          builder: (context) => const ImageSourceWidgetInfiniteComment(),
+                          builder: (context) =>
+                              const ImageSourceWidget(),
                         );
                       },
                       style: ElevatedButton.styleFrom(

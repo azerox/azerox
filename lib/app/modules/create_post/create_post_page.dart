@@ -11,7 +11,7 @@ import 'package:get/get.dart';
 
 import '../../app_controller.dart';
 import 'create_post_controller.dart';
-import 'controller/recording_widget.dart';
+import 'widgets/recording_widget.dart';
 
 class CreatePostPage extends StatefulWidget {
   const CreatePostPage({Key? key}) : super(key: key);

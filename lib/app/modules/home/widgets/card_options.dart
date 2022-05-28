@@ -9,16 +9,19 @@ import '../controllers/chapter_bottomsheet_controller.dart';
 class CardOptions extends StatelessWidget {
   final Post? post;
   final bool isComment;
+  final ChapterBottomsheetController? bottomsheetController;
 
   const CardOptions({
     Key? key,
     this.isComment = false,
     required this.post,
+    this.bottomsheetController,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    final controller = Get.find<ChapterBottomsheetController>();
+    final controller =
+        bottomsheetController ?? Get.find<ChapterBottomsheetController>();
     final bool commentIsMine = post?.user?.codUser ==
         Get.find<AppController>().currentUser.value.codUser;
 

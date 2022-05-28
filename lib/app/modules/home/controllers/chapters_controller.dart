@@ -10,14 +10,22 @@ class ChaptersController extends PaginationController<Post> {
 
   @protected
   @override
-  Future<List<Post>> getCurrentPageItems() async {
-    final posts = await repository.getAlbum(page: value.page);
-    return posts;
+  Future<List<Post>> getCurrentPageItems(int page) async {
+    try {
+      final posts = await repository.getAlbum(page: page);
+      return posts;
+    } catch (ex, stack) {
+      rethrow;
+    }
   }
 
   void removeChapterById(int chapterId) {
     final newList = value.itemsList?.toList();
     newList?.removeWhere((chapter) => chapter.codPost == chapterId);
     value = value.copyWith(itemsList: newList);
+  }
+
+  void onAddCommentCallback(Post newComment) {
+    refreshItems();
   }
 }

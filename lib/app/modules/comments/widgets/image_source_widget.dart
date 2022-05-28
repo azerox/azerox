@@ -1,19 +1,18 @@
-import 'package:azerox/app/config/app_colors.dart';
-import 'package:azerox/app/core/ui/controllers/devices/image/capture_image_controller.dart';
-import 'package:azerox/app/core/ui/controllers/devices/image/select_image_file_controller.dart';
-import 'package:azerox/app/modules/comments/account/infinite/infinite_comments_controller.dart';
+import 'package:azerox/app/core/core.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-class ImageSourceWidgetInfiniteComment extends StatefulWidget {
-  const ImageSourceWidgetInfiniteComment({Key? key}) : super(key: key);
+import '../controllers/create_comment_controller.dart';
+
+class ImageSourceWidget extends StatefulWidget {
+  const ImageSourceWidget({Key? key}) : super(key: key);
 
   @override
-  State<ImageSourceWidgetInfiniteComment> createState() => _ImageSourceWidgetInfiniteCommentState();
+  State<ImageSourceWidget> createState() => _ImageSourceWidgetState();
 }
 
-class _ImageSourceWidgetInfiniteCommentState extends State<ImageSourceWidgetInfiniteComment> {
-  final InfiniteCommentsController controller = GetInstance().find();
+class _ImageSourceWidgetState extends State<ImageSourceWidget> {
+  final CreateCommentController controller = GetInstance().find();
 
   final galeryController = SelectImageFileController();
   final cameraController = CaptureCameraImageController();
@@ -48,31 +47,6 @@ class _ImageSourceWidgetInfiniteCommentState extends State<ImageSourceWidgetInfi
     galeryController.dispose();
     cameraController.dispose();
     // compressionController.dispose();
-  }
-
-  @override
-  Widget loadingBuilder(BuildContext context) {
-    return Container(
-      padding: const EdgeInsets.fromLTRB(15, 15, 15, 10),
-      decoration: BoxDecoration(
-        color: Colors.white,
-        borderRadius: BorderRadius.circular(5),
-      ),
-      child: Column(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          const CircularProgressIndicator(
-            valueColor: AlwaysStoppedAnimation(AppColors.primary),
-          ),
-          const SizedBox(height: 15),
-          Text("Comprimindo imagem",
-              style: Theme.of(context)
-                  .textTheme
-                  .bodyText1
-                  ?.copyWith(color: AppColors.primary)),
-        ],
-      ),
-    );
   }
 
   @override

@@ -1,7 +1,14 @@
 export 'ui/controllers/audio_controller.dart';
+export 'ui/controllers/devices/audio/recorder_controller.dart';
+export 'ui/controllers/devices/audio/select_audio_file_controller.dart';
+export 'ui/controllers/devices/image/capture_image_controller.dart';
+export 'ui/controllers/devices/image/compress_image_controller.dart';
+export 'ui/controllers/devices/image/select_image_file_controller.dart';
 export 'ui/controllers/loading_controller.dart';
+export 'ui/controllers/master_audio_controller.dart';
 export 'ui/controllers/pagination_controller.dart';
 export 'ui/widgets/app_drop.dart';
 export 'ui/widgets/app_field.dart';
 export 'ui/widgets/audio_player_widget.dart';
 export 'ui/widgets/pagination_widget.dart';
+export 'value_objects/attached_uri_value.dart';

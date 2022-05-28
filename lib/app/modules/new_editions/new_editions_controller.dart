@@ -10,7 +10,11 @@ class NewEditionsController extends PaginationController<Post> {
 
   @protected
   @override
-  Future<List<Post>> getCurrentPageItems() async {
-    return await repository.getNewEditions(value.page);
+  Future<List<Post>> getCurrentPageItems(int page) async {
+    return await repository.getNewEditions(page);
+  }
+
+  void onAddCommentCallback(Post newComment) {
+    refreshItems();
   }
 }
