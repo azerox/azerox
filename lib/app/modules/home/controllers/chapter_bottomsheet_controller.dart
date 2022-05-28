@@ -3,11 +3,11 @@ import 'package:azerox/app/models/post.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 
-import '../home_repository.dart';
+import '../repositories/chapter_bottomsheet_repository.dart';
 
 class ChapterBottomsheetController {
   final PaginationController<Post> _paginationController;
-  final HomeRepository _repository;
+  final ChapterBottomsheetRepository _repository;
 
   ChapterBottomsheetController(
     this._paginationController,

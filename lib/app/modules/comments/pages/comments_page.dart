@@ -2,7 +2,7 @@ import 'package:azerox/app/config/app_colors.dart';
 import 'package:azerox/app/core/core.dart';
 import 'package:azerox/app/models/post.dart';
 import 'package:azerox/app/modules/home/controllers/chapter_bottomsheet_controller.dart';
-import 'package:azerox/app/modules/home/home_repository.dart';
+import 'package:azerox/app/modules/home/repositories/chapter_bottomsheet_repository.dart';
 import 'package:azerox/app/modules/home/widgets/post_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -31,7 +31,7 @@ class _CommentsPageState extends State<CommentsPage> {
     controller.setChapterId(widget.chapter.codPost!);
     bottomSheetController = ChapterBottomsheetController(
       Get.find<CommentsController>(),
-      Get.find<HomeRepository>(),
+      Get.find<ChapterBottomsheetRepository>(),
     );
   }
 

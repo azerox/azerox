@@ -9,12 +9,11 @@ import 'package:dio/dio.dart';
 import 'package:get/instance_manager.dart';
 import 'package:path_provider/path_provider.dart';
 
-import '../../config/app_constants.dart';
-import '../../models/post.dart';
+import '../../../config/app_constants.dart';
+import '../../../models/post.dart';
 
 class HomeRepository {
   final Dio dio;
-
   HomeRepository(this.dio);
 
   UserModel get user => Get.find<AppController>().currentUser.value;
@@ -141,13 +140,6 @@ class HomeRepository {
       codUser: user.codUser,
       sessionID: user.sessionID,
       filePicture: imageResponse,
-    );
-  }
-
-  Future<void> removeChapterById(int chapterId) async {
-    final response = await dio.get(
-      AppConstants.apiDeletePost,
-      queryParameters: {'CodPost': chapterId},
     );
   }
 

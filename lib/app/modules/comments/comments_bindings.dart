@@ -1,3 +1,4 @@
+import 'package:azerox/app/modules/home/repositories/chapter_bottomsheet_repository.dart';
 import 'package:dio/dio.dart';
 import 'package:get/get.dart';
 
@@ -10,6 +11,7 @@ class CommentsBindings implements Bindings {
   void dependencies() {
     //Repositories
     Get.lazyPut(() => CommentsRepository(Get.find<Dio>()));
+    Get.lazyPut(() => ChapterBottomsheetRepository(Get.find<Dio>()));
 
     //Controllers
     Get.lazyPut(() => CommentsController(Get.find<CommentsRepository>()));

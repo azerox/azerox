@@ -5,7 +5,7 @@ import 'package:azerox/app/config/app_images.dart';
 import 'package:azerox/app/config/app_routes.dart';
 import 'package:azerox/app/models/editor_model.dart';
 import 'package:azerox/app/models/post.dart';
-import 'package:azerox/app/modules/home/home_repository.dart';
+import 'package:azerox/app/modules/home/repositories/home_repository.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_social_content_share/flutter_social_content_share.dart';
 import 'package:get/get.dart';
