@@ -1,3 +1,4 @@
+import 'package:azerox/app/core/color/configuration_color.dart';
 import 'package:flutter/material.dart';
 
 class AppColors {
@@ -6,4 +7,5 @@ class AppColors {
   static const grey = Color(0XFF838383);
   static const green = Color(0XFFA6D42B);
   static const preto = Colors.black;
+
 }

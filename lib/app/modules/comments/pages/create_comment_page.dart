@@ -5,10 +5,12 @@ import 'package:azerox/app/config/app_colors.dart';
 import 'package:azerox/app/config/app_images.dart';
 import 'package:azerox/app/core/core.dart';
 import 'package:azerox/app/models/post.dart';
+import 'package:azerox/app/modules/comments/pages/aviso_modal_comment.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 
 import '../controllers/create_comment_controller.dart';
 import '../widgets/image_source_widget.dart';
@@ -16,6 +18,7 @@ import '../widgets/recording_widget.dart';
 
 class CreateCommentPage extends StatefulWidget {
   final Post chapter;
+
   const CreateCommentPage.fromRouteArguments(dynamic arguments, {Key? key})
       : chapter = arguments,
         super(key: key);
@@ -111,7 +114,15 @@ class _CreateCommentPageState extends State<CreateCommentPage> {
                             ),
                           ),
                           const SizedBox(width: 3),
-                          Image.asset(AppImages.interrogacao),
+                          IconButton(
+                            icon: Image.asset(AppImages.interrogacao),
+                            iconSize: 50,
+                            onPressed: ()  {
+                              showBarModalBottomSheet(
+                                  context: context,
+                                  builder: (context) => AvisoModalComment());
+                            },
+                          ),
                         ],
                       ),
                     ],
@@ -228,8 +239,7 @@ class _CreateCommentPageState extends State<CreateCommentPage> {
                             ),
                           ),
                           context: context,
-                          builder: (context) =>
-                              const ImageSourceWidget(),
+                          builder: (context) => const ImageSourceWidget(),
                         );
                       },
                       style: ElevatedButton.styleFrom(
