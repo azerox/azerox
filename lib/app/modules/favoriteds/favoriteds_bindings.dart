@@ -12,7 +12,7 @@ class FavoritedsBindings implements Bindings {
     Get.lazyPut(() => FavoritedsRepository(Get.find<Dio>()));
     Get.lazyPut(() => ChapterBottomsheetRepository(Get.find<Dio>()));
     Get.lazyPut(() => FavoritedsController(Get.find<FavoritedsRepository>()));
-    Get.lazyPut(() => ChapterBottomsheetController(
+    Get.lazyPut(() => ChapterBottomsheetController.chapter(
           Get.find<FavoritedsController>().removeItemById,
           Get.find<ChapterBottomsheetRepository>(),
         ));

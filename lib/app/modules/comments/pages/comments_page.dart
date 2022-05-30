@@ -24,7 +24,7 @@ class CommentsPage extends StatefulWidget {
         chapterId = null,
         super(key: key);
 
-  CommentsPage.byChapterId(int chapterId, {Key? key})
+  const CommentsPage.byChapterId(int chapterId, {Key? key})
       : chapter = null,
         chapterId = chapterId,
         super(key: key);
@@ -42,23 +42,25 @@ class _CommentsPageState extends State<CommentsPage> {
     super.initState();
     controller = Get.find<CommentsController>();
 
-    bottomSheetController = ChapterBottomsheetController(
+    bottomSheetController = ChapterBottomsheetController.comment(
       controller.removeCommentById,
       Get.find<ChapterBottomsheetRepository>(),
     );
 
-    if (widget.chapterId != null) {
-      controller.refresh(widget.chapterId);
-      return;
-    }
+    if (widget.chapterId != null) _loadChapterById(widget.chapterId!);
+    if (widget.chapter != null) _loadChapterByModel(widget.chapter!);
+  }
 
-    if (widget.chapter != null) {
-      controller.setChapter(widget.chapter!);
-      if (widget.chapter!.listRepost != null) controller.setCommentsList(widget.chapter!.listRepost!);
-      WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
-        controller.refresh();
-      });
-    }
+  void _loadChapterById(int chapterId) {
+    controller.refresh(chapterId);
+  }
+
+  void _loadChapterByModel(Post chapter) {
+    controller.setChapter(chapter);
+    if (chapter.listRepost != null) controller.setCommentsList(chapter.listRepost!);
+    WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
+      controller.refresh();
+    });
   }
 
   @override

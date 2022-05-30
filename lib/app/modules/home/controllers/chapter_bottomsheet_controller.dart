@@ -10,10 +10,23 @@ class ChapterBottomsheetController {
   final RemoveItemByIdCallback _removeItemByIdCallback;
   final ChapterBottomsheetRepository _repository;
 
-  ChapterBottomsheetController(
+  final String removeMessageTitle;
+  final String removeMessageContent;
+  final String removeLoadingText;
+
+  ChapterBottomsheetController.chapter(
     this._removeItemByIdCallback,
     this._repository,
-  );
+  )   : removeMessageTitle = 'Remover',
+        removeMessageContent = 'Deseja realmente remover este Capítulo?',
+        removeLoadingText = 'Removendo capítulo...';
+
+  ChapterBottomsheetController.comment(
+    this._removeItemByIdCallback,
+    this._repository,
+  )   : removeMessageTitle = 'Remover',
+        removeMessageContent = 'Deseja realmente remover este Comentário?',
+        removeLoadingText = 'Removendo comentário...';
 
   final loadingController = LoadingController();
 
@@ -24,7 +37,7 @@ class ChapterBottomsheetController {
     try {
       final userConfirmed = await _showConfirmationMessage(context);
       if (userConfirmed) {
-        loadingController.show('Removendo capítulo...');
+        loadingController.show(removeLoadingText);
         await _repository.removeChapterById(chapterId);
         _removeItemByIdCallback(chapterId);
         Get.back();
@@ -39,8 +52,8 @@ class ChapterBottomsheetController {
       context: context,
       builder: (_) {
         return CupertinoAlertDialog(
-          title: const Text("Remover"),
-          content: const Text("Deseja realmente remover este Capítulo?"),
+          title: Text(removeMessageTitle),
+          content: Text(removeMessageContent),
           actions: [
             CupertinoDialogAction(
               isDefaultAction: false,
