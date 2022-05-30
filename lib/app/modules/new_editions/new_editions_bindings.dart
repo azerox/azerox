@@ -13,7 +13,7 @@ class NewEditionsBindings implements Bindings {
     Get.lazyPut(() => ChapterBottomsheetRepository(Get.find<Dio>()));
     Get.put(NewEditionsController(Get.find<NewEditionsRepository>()));
     Get.lazyPut(() => ChapterBottomsheetController(
-          Get.find<NewEditionsController>(),
+          Get.find<NewEditionsController>().removeItemById,
           Get.find<ChapterBottomsheetRepository>(),
         ));
   }

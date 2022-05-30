@@ -1,16 +1,17 @@
 import 'package:azerox/app/core/core.dart';
-import 'package:azerox/app/models/post.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 
 import '../repositories/chapter_bottomsheet_repository.dart';
 
+typedef RemoveItemByIdCallback = void Function(int id);
+
 class ChapterBottomsheetController {
-  final PaginationController<Post> _paginationController;
+  final RemoveItemByIdCallback _removeItemByIdCallback;
   final ChapterBottomsheetRepository _repository;
 
   ChapterBottomsheetController(
-    this._paginationController,
+    this._removeItemByIdCallback,
     this._repository,
   );
 
@@ -25,19 +26,12 @@ class ChapterBottomsheetController {
       if (userConfirmed) {
         loadingController.show('Removendo capítulo...');
         await _repository.removeChapterById(chapterId);
-        _removeChapterFromListById(chapterId);
+        _removeItemByIdCallback(chapterId);
         Get.back();
       }
     } finally {
       loadingController.hide();
     }
-  }
-
-  void _removeChapterFromListById(int chapterId) {
-    final newList = _paginationController.value.itemsList?.toList();
-    newList?.removeWhere((chapter) => chapter.codPost == chapterId);
-    _paginationController.value =
-        _paginationController.value.copyWith(itemsList: newList);
   }
 
   Future<bool> _showConfirmationMessage(BuildContext context) async {

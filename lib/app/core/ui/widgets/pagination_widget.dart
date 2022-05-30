@@ -36,16 +36,14 @@ class _PaginationWidgetState<T> extends State<PaginationWidget<T>> {
       builder: (context, child) {
         final List<T>? itemsList = widget.controller.value.itemsList;
         if (itemsList == null) {
-          return Padding(
+          return ListView(
             padding: const EdgeInsets.all(10),
-            child: Column(
-              children: [
-                if (widget.header != null) widget.header!,
-                const Expanded(
-                  child: Center(child: CupertinoActivityIndicator()),
-                ),
-              ],
-            ),
+            children: [
+              if (widget.header != null) widget.header!,
+              const Expanded(
+                child: Center(child: CupertinoActivityIndicator()),
+              ),
+            ],
           );
         }
         int itemsLength = itemsList.length;

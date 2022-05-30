@@ -1,7 +1,6 @@
 import 'package:flutter/foundation.dart';
 
-abstract class PaginationController<T>
-    extends ValueNotifier<PaginationState<T>> {
+abstract class PaginationController<T> extends ValueNotifier<PaginationState<T>> {
   PaginationController() : super(PaginationState.empty<T>());
 
   @protected
@@ -9,6 +8,12 @@ abstract class PaginationController<T>
 
   void _setLoading(bool isLoading) {
     value = value.copyWith(isLoading: isLoading);
+  }
+
+  void removeItemById(int itemId) {
+    final newList = value.itemsList?.toList();
+    newList?.removeWhere((chapter) => (chapter as dynamic).codPost == itemId);
+    value = value.copyWith(itemsList: newList);
   }
 
   Future<void> refreshItems() async {
@@ -68,16 +73,12 @@ class PaginationState<T> {
   bool operator ==(Object other) {
     if (identical(this, other)) return true;
 
-    return other is PaginationState<T> &&
-        listEquals(other.itemsList, itemsList) &&
-        other.isLoading == isLoading &&
-        other.page == page;
+    return other is PaginationState<T> && listEquals(other.itemsList, itemsList) && other.isLoading == isLoading && other.page == page;
   }
 
   @override
   int get hashCode => itemsList.hashCode ^ isLoading.hashCode ^ page.hashCode;
 
   @override
-  String toString() =>
-      'PaginationState(itemsList: $itemsList, isLoading: $isLoading, page: $page)';
+  String toString() => 'PaginationState(itemsList: $itemsList, isLoading: $isLoading, page: $page)';
 }

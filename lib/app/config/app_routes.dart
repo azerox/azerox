@@ -52,10 +52,7 @@ class AppRoutes {
     ),
     GetPage(
       name: Routes.comments,
-      page: () => CommentsPage(
-        chapter: Get.arguments['chapter'],
-        comments: Get.arguments['comments'],
-      ),
+      page: () => CommentsPage.fromRouteArguments(Get.arguments),
       binding: CommentsBindings(),
     ),
     GetPage(

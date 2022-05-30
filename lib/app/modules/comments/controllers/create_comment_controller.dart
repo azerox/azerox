@@ -99,7 +99,7 @@ class CreateCommentController extends ChangeNotifier {
   }
 
   Future<Post> _createComment(String? mp3FilePath, String? image) async {
-    final post = await _repository.createPost(
+    final post = await _repository.createComment(
       content: contentComment!,
       mp3: mp3FilePath,
       image: image,

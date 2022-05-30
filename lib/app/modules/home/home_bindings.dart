@@ -18,7 +18,7 @@ class HomeBindings implements Bindings {
     //Controllers
     Get.lazyPut(() => ChaptersController(Get.find<HomeRepository>()));
     Get.lazyPut(() => ChapterBottomsheetController(
-          Get.find<ChaptersController>(),
+          Get.find<ChaptersController>().removeItemById,
           Get.find<ChapterBottomsheetRepository>(),
         ));
     Get.put(

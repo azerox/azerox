@@ -12,23 +12,28 @@ class CommentsRepository {
 
   UserModel get user => Get.find<AppController>().currentUser.value;
 
-  Future<List<Post>> getComments(int chapterId, int page) async {
+  Future<List<Post>> getComments(int chapterId) async {
     final response = await dio.get(
-      AppConstants.apiPosts,
+      AppConstants.apiPostOnly,
       queryParameters: {
-        'sessionId': user.sessionID,
-        'CodUserProfile': '${user.codUser!}',
-        'CodPostMaster': '$chapterId',
-        'CodUserLogged': '${user.codUser!}',
-        'Page': page,
-        'pagesize': '10',
-        'myPostOnly': 'false',
+        'CodPost': chapterId,
       },
     );
 
-    final body = response.data['ListPosts'] as List;
-    final items = body.map((post) => Post.fromJson(post)).toList();
-    return items.first.listRepost ?? [];
+    final items = Post.fromJson(response.data);
+    return items.listRepost ?? [];
+  }
+
+  Future<Post> getChapterById(int chapterId) async {
+    final response = await dio.get(
+      AppConstants.apiPostOnly,
+      queryParameters: {
+        'CodPost': chapterId,
+      },
+    );
+
+    final items = Post.fromJson(response.data);
+    return items;
   }
 
   Future<AttachedUriValue?> sendAudio(String? mp3) async {
@@ -55,7 +60,7 @@ class CommentsRepository {
     return AttachedUriValue.fromUrl(response.data);
   }
 
-  Future<Post> createPost({
+  Future<Post> createComment({
     required String content,
     String? mp3,
     String? image,
