@@ -59,8 +59,8 @@ class _AvisoModalCommentState extends State<AvisoModalComment> {
                     children: [
                       Center(
                         child: Text(
-                          'O Azero fornece 10 capítulos Grátis para você contar sua história!'
-                          'O número no aviso indica a quantidade de capítulos que você ainda tem direito.'
+                          'O Azero fornece 10 capítulos Grátis para você contar sua história! '
+                          'O número no aviso indica a quantidade de capítulos que você ainda tem direito. '
                           'Mas a sua história merece ser sem limite!',
                           textAlign: TextAlign.justify,
                           style: TextStyle(fontSize: 16),
