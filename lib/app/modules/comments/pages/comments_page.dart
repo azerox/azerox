@@ -70,6 +70,7 @@ class _CommentsPageState extends State<CommentsPage> {
         title: const Text('Comentários'),
         centerTitle: true,
         leading: GestureDetector(
+          behavior: HitTestBehavior.opaque,
           onTap: () => Get.back(),
           child: Padding(
             padding: const EdgeInsets.only(left: 20),
