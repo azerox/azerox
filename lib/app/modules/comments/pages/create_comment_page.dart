@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:azerox/app/app_controller.dart';
 import 'package:azerox/app/config/app_colors.dart';
 import 'package:azerox/app/config/app_images.dart';
+import 'package:azerox/app/core/color/configuration_color.dart';
 import 'package:azerox/app/core/core.dart';
 import 'package:azerox/app/models/post.dart';
 import 'package:azerox/app/modules/comments/pages/aviso_modal_comment.dart';
@@ -35,6 +36,8 @@ class _CreateCommentPageState extends State<CreateCommentPage> {
     super.initState();
     controller.setChapter(widget.chapter);
   }
+
+
 
   @override
   Widget build(BuildContext context) {
@@ -118,7 +121,7 @@ class _CreateCommentPageState extends State<CreateCommentPage> {
                             icon: Image.asset(AppImages.interrogacao),
                             iconSize: 50,
                             onPressed: ()  {
-                              showBarModalBottomSheet(
+                              showModalBottomSheet(
                                   context: context,
                                   builder: (context) => AvisoModalComment());
                             },

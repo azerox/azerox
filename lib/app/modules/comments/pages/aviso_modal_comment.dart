@@ -29,7 +29,7 @@ class _AvisoModalCommentState extends State<AvisoModalComment> {
 
     return Scaffold(
       body: Container(
-        height: MediaQuery.of(context).size.height * 0.60,
+        height: MediaQuery.of(context).size.height * 0.43,
         child: Padding(
           padding: EdgeInsets.all(30),
           child: Form(
@@ -45,7 +45,7 @@ class _AvisoModalCommentState extends State<AvisoModalComment> {
                     onPressed: () => Get.back(),
                     child: const Icon(Icons.close),
                     mini: true,
-                    backgroundColor: AppColors.primary,
+                    backgroundColor: HexColor("d72c2e"),
                   ),
                 ),
                 Text(
@@ -53,7 +53,7 @@ class _AvisoModalCommentState extends State<AvisoModalComment> {
                   style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold),
                 ),
                 Container(
-                  height: MediaQuery.of(context).size.height * 0.26,
+
                   margin: const EdgeInsets.all(10),
                   child: Column(
                     children: [
@@ -63,15 +63,15 @@ class _AvisoModalCommentState extends State<AvisoModalComment> {
                           'O número no aviso indica a quantidade de capítulos que você ainda tem direito. '
                           'Mas a sua história merece ser sem limite!',
                           textAlign: TextAlign.justify,
-                          style: TextStyle(fontSize: 16),
+                          style: TextStyle(fontSize: 13),
                         ),
                       ),
                       Center(
                         child: Text(
                           'Faça uma assinatura, registre infinitos capítulos e passe a fazer comentários também com áudios ilimitados.',
-                          textAlign: TextAlign.center,
+                          textAlign: TextAlign.justify,
                           style: TextStyle(
-                              fontSize: 16, fontWeight: FontWeight.bold),
+                              fontSize: 13, fontWeight: FontWeight.bold),
                         ),
                       ),
                       SizedBox(height: 6),
@@ -86,14 +86,22 @@ class _AvisoModalCommentState extends State<AvisoModalComment> {
                   ),
                 ),
                 Card(
+                  elevation: 4,
                   color: HexColor("03acf1"),
-                  child: FlatButton(
-                      onPressed: openURL,
-                      textColor: Colors.white,
-                      child: Text(
-                          "Assinar",
-                        style: TextStyle(fontSize: 16),
-                      )
+                  child: Container(
+                    width: 100,
+                    height: 35,
+                    child: FlatButton(
+                        onPressed: openURL,
+                        textColor: Colors.white,
+                        child: const Text(
+                            "Assinar",
+                          style: TextStyle(
+                              fontSize: 16,
+                            decoration:  TextDecoration.none,
+                          ),
+                        )
+                    ),
                   ),
                 ),
 
