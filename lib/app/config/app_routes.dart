@@ -33,6 +33,7 @@ import '../modules/login/login_page.dart';
 import '../modules/new_editions/new_editions_bindings.dart';
 
 class AppRoutes {
+
   late final Post post;
   static final pages = [
     GetPage(

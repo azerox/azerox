@@ -15,6 +15,7 @@ class CardInfoWidget extends StatelessWidget {
   final Color color;
   final UserModel editor;
   final bool isShearch;
+
   const CardInfoWidget({
     Key? key,
     this.showNet = true,
@@ -64,8 +65,7 @@ class CardInfoWidget extends StatelessWidget {
                       width: 130,
                       child: Text(
                         editor.name,
-                        style: const TextStyle(
-                            fontWeight: FontWeight.bold, color: Colors.black),
+                        style: const TextStyle(color: Colors.white),
                         maxLines: 2,
                         overflow: TextOverflow.ellipsis,
                         softWrap: false,

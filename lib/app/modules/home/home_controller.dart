@@ -88,7 +88,7 @@ class HomeController extends GetxController {
       {
         'titulo': 'MMN',
         'icone': AppImages.mmn,
-        'rota': Routes.mmn,
+        'rota': Routes.mmn,// https://azerox.maxxmultinivel.com.br/cadastro
       },
     );
 

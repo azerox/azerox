@@ -121,7 +121,7 @@ class _CreateCommentPageState extends State<CreateCommentPage> {
                             icon: Image.asset(AppImages.interrogacao),
                             iconSize: 50,
                             onPressed: ()  {
-                              showModalBottomSheet(
+                              showBarModalBottomSheet(
                                   context: context,
                                   builder: (context) => AvisoModalComment());
                             },
