@@ -29,13 +29,13 @@ class _AvisoModalCommentState extends State<AvisoModalComment> {
 
     return Scaffold(
       body: Container(
-        height: MediaQuery.of(context).size.height * 0.43,
+        height: MediaQuery.of(context).size.height * 0.50,
         child: Padding(
           padding: EdgeInsets.all(30),
           child: Form(
               child: Card(
                 elevation: 3,
-            color: HexColor("c6e3e9"),
+            color: HexColor("b2ccd2"),
             child: Column(
               mainAxisAlignment: MainAxisAlignment.start,
               children: [
@@ -55,42 +55,40 @@ class _AvisoModalCommentState extends State<AvisoModalComment> {
                 Container(
 
                   margin: const EdgeInsets.all(10),
-                  child: Column(
-                    children: [
-                      Center(
-                        child: Text(
-                          'O Azero fornece 10 capítulos Grátis para você contar sua história! '
-                          'O número no aviso indica a quantidade de capítulos que você ainda tem direito. '
-                          'Mas a sua história merece ser sem limite!',
-                          textAlign: TextAlign.justify,
-                          style: TextStyle(fontSize: 13),
-                        ),
-                      ),
-                      Center(
-                        child: Text(
-                          'Faça uma assinatura, registre infinitos capítulos e passe a fazer comentários também com áudios ilimitados.',
-                          textAlign: TextAlign.justify,
-                          style: TextStyle(
-                              fontSize: 13, fontWeight: FontWeight.bold),
-                        ),
-                      ),
-                      SizedBox(height: 6),
-                      Center(
-                        child: Text(
-                          'E muito barato',
-                          textAlign: TextAlign.right,
-                          style: TextStyle(fontSize: 16),
-                        ),
-                      ),
-                    ],
-                  ),
+                  child: RichText(
+                      text: const TextSpan(
+                        children: [
+                          TextSpan(text: 'O Azero fornece 10 capítulos Grátis para você contar sua história! '
+                              'O número no aviso indica a quantidade de capítulos que você ainda tem direito. '
+                              'Mas a sua história merece ser sem limite! ',
+                            style: TextStyle(
+                                fontSize: 13,
+                              color: Colors.black
+                            ),
+                          ),
+                          TextSpan(text: ' Faça uma assinatura, registre infinitos capítulos e passe a fazer comentários também com áudios ilimitados.',
+                            style: TextStyle(
+                                fontSize: 13,
+                                fontWeight: FontWeight.bold,
+                                color: Colors.black
+                            ),
+                          ),
+                          TextSpan(text:  ' E muito barato',
+                            style: TextStyle(
+                                fontSize: 13,
+                                color: Colors.black
+                            ),
+                          ),
+                        ]
+                      )
+                  )
                 ),
                 Card(
                   elevation: 4,
                   color: HexColor("03acf1"),
                   child: Container(
                     width: 100,
-                    height: 35,
+                    height: 33,
                     child: FlatButton(
                         onPressed: openURL,
                         textColor: Colors.white,
@@ -98,7 +96,7 @@ class _AvisoModalCommentState extends State<AvisoModalComment> {
                             "Assinar",
                           style: TextStyle(
                               fontSize: 16,
-                            decoration:  TextDecoration.none,
+                              fontWeight: FontWeight.bold,
                           ),
                         )
                     ),
