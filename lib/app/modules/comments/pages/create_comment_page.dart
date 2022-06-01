@@ -1,38 +1,40 @@
 import 'dart:io';
 
+import 'package:azerox/app/app_controller.dart';
 import 'package:azerox/app/config/app_colors.dart';
 import 'package:azerox/app/config/app_images.dart';
 import 'package:azerox/app/core/core.dart';
-import 'package:azerox/app/modules/create_post/widgets/image_source_widget_create_post.dart';
+import 'package:azerox/app/models/post.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-import '../../app_controller.dart';
-import 'create_post_controller.dart';
-import 'widgets/recording_widget.dart';
+import '../controllers/create_comment_controller.dart';
+import '../widgets/image_source_widget.dart';
+import '../widgets/recording_widget.dart';
 
-class CreatePostPage extends StatefulWidget {
-  const CreatePostPage({Key? key}) : super(key: key);
+class CreateCommentPage extends StatefulWidget {
+  final Post chapter;
+  const CreateCommentPage.fromRouteArguments(dynamic arguments, {Key? key})
+      : chapter = arguments,
+        super(key: key);
 
   @override
-  State<CreatePostPage> createState() => _CreatePostPageState();
+  State<CreateCommentPage> createState() => _CreateCommentPageState();
 }
 
-class _CreatePostPageState extends State<CreatePostPage> {
-  final CreatePostController controller = GetInstance().find();
+class _CreateCommentPageState extends State<CreateCommentPage> {
+  final CreateCommentController controller = GetInstance().find();
 
   @override
-  void dispose() {
-    super.dispose();
-    controller.removeImage();
-    controller.onRemoveMp3File();
+  void initState() {
+    super.initState();
+    controller.setChapter(widget.chapter);
   }
 
   @override
   Widget build(BuildContext context) {
-
     return Scaffold(
       appBar: AppBar(
         automaticallyImplyLeading: false,
@@ -47,11 +49,11 @@ class _CreatePostPageState extends State<CreatePostPage> {
               ),
             ),
             const Text(
-              'Capítulo',
+              'Comentar',
               style: TextStyle(color: Colors.white, fontSize: 21),
             ),
             TextButton(
-              onPressed: controller.onCreatePostPressed,
+              onPressed: controller.onCreateCommentPressed,
               child: const Text(
                 'Ok',
                 style: TextStyle(color: Colors.white, fontSize: 21),
@@ -120,81 +122,7 @@ class _CreatePostPageState extends State<CreatePostPage> {
                       children: [
                         TextField(
                           style: const TextStyle(color: Colors.black),
-                          maxLength: 50,
-                          onChanged: controller.onTitleChapterChanged,
-                          decoration: InputDecoration(
-                            border: InputBorder.none,
-                            hintText: 'Título do capítulo',
-                            hintStyle: const TextStyle(
-                              color: AppColors.grey,
-                              fontSize: 15,
-                              fontWeight: FontWeight.bold,
-                            ),
-                            counter: AnimatedBuilder(
-                              animation: controller,
-                              builder: (context, child) => Text(
-                                '${controller.titleChapter?.length ?? 0}/50',
-                                style: Theme.of(context).textTheme.caption,
-                              ),
-                            ),
-                          ),
-                        ),
-                        GestureDetector(
-                          onTap: () {
-                            showCupertinoModalPopup(
-                              context: context,
-                              builder: (builder) => SizedBox(
-                                height: 255,
-                                child: CupertinoDatePicker(
-                                  maximumDate: DateTime.now()
-                                      .add(const Duration(minutes: 1)),
-                                  backgroundColor: Colors.white,
-                                  mode: CupertinoDatePickerMode.date,
-                                  onDateTimeChanged:
-                                      controller.onDateTimeChanged,
-                                ),
-                              ),
-                            );
-                          },
-                          child: Row(
-                            children: [
-                              const Text(
-                                'Data:',
-                                style: TextStyle(
-                                  color: AppColors.grey,
-                                  fontSize: 15,
-                                  fontWeight: FontWeight.bold,
-                                ),
-                              ),
-                              const SizedBox(width: 10),
-                              Container(
-                                height: 40,
-                                width: 150,
-                                decoration: BoxDecoration(
-                                  color: Colors.grey[350],
-                                  borderRadius: BorderRadius.circular(15),
-                                ),
-                                child: Center(
-                                  child: AnimatedBuilder(
-                                    animation: controller,
-                                    builder: (context, child) {
-                                      return Text(
-                                        controller.dateFormatted,
-                                        style: const TextStyle(
-                                          color: Colors.black,
-                                          fontWeight: FontWeight.bold,
-                                        ),
-                                      );
-                                    },
-                                  ),
-                                ),
-                              ),
-                            ],
-                          ),
-                        ),
-                        TextField(
-                          style: const TextStyle(color: Colors.black),
-                          onChanged: controller.onContentChapterChanged,
+                          onChanged: controller.onCommentContentChanged,
                           maxLength: 500,
                           maxLines: 6,
                           decoration: InputDecoration(
@@ -208,7 +136,7 @@ class _CreatePostPageState extends State<CreatePostPage> {
                             counter: AnimatedBuilder(
                               animation: controller,
                               builder: (context, child) => Text(
-                                '${controller.contentChapter?.length ?? 0}/500',
+                                '${controller.contentComment?.length ?? 0}/500',
                                 style: Theme.of(context).textTheme.caption,
                               ),
                             ),
@@ -269,15 +197,7 @@ class _CreatePostPageState extends State<CreatePostPage> {
                           icon: const Icon(Icons.delete),
                           color: Colors.red,
                           onPressed: controller.onRemoveMp3File,
-                        ),
-                        if (controller.recordedMp3FilePath != null)
-                          FutureBuilder<FileStat>(
-                            future:
-                                File(controller.recordedMp3FilePath!).stat(),
-                            builder: (context, snapshot) {
-                              return Text('${snapshot.data?.size}');
-                            },
-                          )
+                        )
                       ],
                     ),
                   );
@@ -308,7 +228,8 @@ class _CreatePostPageState extends State<CreatePostPage> {
                             ),
                           ),
                           context: context,
-                          builder: (context) => const ImageSourceWidget(),
+                          builder: (context) =>
+                              const ImageSourceWidget(),
                         );
                       },
                       style: ElevatedButton.styleFrom(

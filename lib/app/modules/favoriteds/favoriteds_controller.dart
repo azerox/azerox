@@ -10,8 +10,12 @@ class FavoritedsController extends PaginationController<Post> {
 
   @protected
   @override
-  Future<List<Post>> getCurrentPageItems() async {
-    final posts = await repository.getAlbum(page: value.page);
+  Future<List<Post>> getCurrentPageItems(int page) async {
+    final posts = await repository.getAlbum(page: page);
     return posts;
+  }
+
+  void onAddCommentCallback(Post newComment) {
+    refreshItems();
   }
 }

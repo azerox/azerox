@@ -1,18 +1,32 @@
 import 'package:azerox/app/core/core.dart';
-import 'package:azerox/app/models/post.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 
-import '../home_repository.dart';
+import '../repositories/chapter_bottomsheet_repository.dart';
+
+typedef RemoveItemByIdCallback = void Function(int id);
 
 class ChapterBottomsheetController {
-  final PaginationController<Post> _paginationController;
-  final HomeRepository _repository;
+  final RemoveItemByIdCallback _removeItemByIdCallback;
+  final ChapterBottomsheetRepository _repository;
 
-  ChapterBottomsheetController(
-    this._paginationController,
+  final String removeMessageTitle;
+  final String removeMessageContent;
+  final String removeLoadingText;
+
+  ChapterBottomsheetController.chapter(
+    this._removeItemByIdCallback,
     this._repository,
-  );
+  )   : removeMessageTitle = 'Remover',
+        removeMessageContent = 'Deseja realmente remover este Capítulo?',
+        removeLoadingText = 'Removendo capítulo...';
+
+  ChapterBottomsheetController.comment(
+    this._removeItemByIdCallback,
+    this._repository,
+  )   : removeMessageTitle = 'Remover',
+        removeMessageContent = 'Deseja realmente remover este Comentário?',
+        removeLoadingText = 'Removendo comentário...';
 
   final loadingController = LoadingController();
 
@@ -23,9 +37,9 @@ class ChapterBottomsheetController {
     try {
       final userConfirmed = await _showConfirmationMessage(context);
       if (userConfirmed) {
-        loadingController.show('Removendo capítulo...');
+        loadingController.show(removeLoadingText);
         await _repository.removeChapterById(chapterId);
-        _removeChapterFromListById(chapterId);
+        _removeItemByIdCallback(chapterId);
         Get.back();
       }
     } finally {
@@ -33,20 +47,13 @@ class ChapterBottomsheetController {
     }
   }
 
-  void _removeChapterFromListById(int chapterId) {
-    final newList = _paginationController.value.itemsList?.toList();
-    newList?.removeWhere((chapter) => chapter.codPost == chapterId);
-    _paginationController.value =
-        _paginationController.value.copyWith(itemsList: newList);
-  }
-
   Future<bool> _showConfirmationMessage(BuildContext context) async {
     return await showCupertinoDialog(
       context: context,
       builder: (_) {
         return CupertinoAlertDialog(
-          title: const Text("Remover"),
-          content: const Text("Deseja realmente remover este Capítulo?"),
+          title: Text(removeMessageTitle),
+          content: Text(removeMessageContent),
           actions: [
             CupertinoDialogAction(
               isDefaultAction: false,

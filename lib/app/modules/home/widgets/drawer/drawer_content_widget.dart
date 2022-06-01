@@ -1,4 +1,5 @@
 import 'package:azerox/app/app_controller.dart';
+import 'package:azerox/app/config/app_colors.dart';
 import 'package:azerox/app/modules/home/home_controller.dart';
 import 'package:azerox/app/modules/home/widgets/quit_dialog.dart';
 import 'package:flutter/cupertino.dart';
@@ -67,11 +68,11 @@ class DrawerContentWidget extends GetView<HomeController> {
                                                 color:
                                                     (controller.selectedIndex ==
                                                             index)
-                                                        ? Colors.blue[300]
+                                                        ? AppColors.green
                                                         : Colors.white,
                                                 fontSize: 19),
                                           ),
-                                          leading: _item['icone'],
+                                          leading: Image.asset(_item['icone'] , color: (controller.selectedIndex == index ) ? AppColors.green:  Colors.white),
                                           onTap: () {
                                             controller.selectedIndex = index;
                                             Get.offNamed(_item['rota']);
@@ -109,11 +110,11 @@ class DrawerContentWidget extends GetView<HomeController> {
                                                 color:
                                                     (controller.selectedIndex ==
                                                             index)
-                                                        ? Colors.blue[300]
+                                                        ? AppColors.green
                                                         : Colors.white,
                                                 fontSize: 19),
                                           ),
-                                          leading: _item['icone'],
+                                          leading: Image.asset(_item['icone'] , color: (controller.selectedIndex == index ) ? AppColors.green :  Colors.white),
                                           onTap: () {
                                             controller.selectedIndex = index;
                                             Get.offNamed(_item['rota']);
@@ -151,7 +152,7 @@ class DrawerContentWidget extends GetView<HomeController> {
                                                 color:
                                                     (controller.selectedIndex ==
                                                             index)
-                                                        ? Colors.blue[300]
+                                                        ? AppColors.green
                                                         : Colors.white,
                                                 fontSize: 19),
                                           ),
@@ -177,7 +178,7 @@ class DrawerContentWidget extends GetView<HomeController> {
                                               ),
                                             ),
                                           ),
-                                          leading: _item['icone'],
+                                          leading: Image.asset(_item['icone'] , color: (controller.selectedIndex == index ) ? AppColors.green :  Colors.white),
                                           onTap: () {
                                             controller.selectedIndex = index;
                                             Get.offNamed(_item['rota']);
@@ -215,11 +216,11 @@ class DrawerContentWidget extends GetView<HomeController> {
                                                 color:
                                                     (controller.selectedIndex ==
                                                             index)
-                                                        ? Colors.blue[300]
+                                                        ? AppColors.green
                                                         : Colors.white,
                                                 fontSize: 19),
                                           ),
-                                          leading: _item['icone'],
+                                          leading:Image.asset(_item['icone'] , color: (controller.selectedIndex == index ) ? AppColors.green :  Colors.white),
                                           onTap: () {
                                             controller.selectedIndex = index;
                                             Get.offNamed(_item['rota']);
@@ -257,11 +258,11 @@ class DrawerContentWidget extends GetView<HomeController> {
                                                 color:
                                                     (controller.selectedIndex ==
                                                             index)
-                                                        ? Colors.blue[300]
+                                                        ? AppColors.green
                                                         : Colors.white,
                                                 fontSize: 19),
                                           ),
-                                          leading: _item['icone'],
+                                          leading: Image.asset(_item['icone'] , color: (controller.selectedIndex == index ) ? AppColors.green :  Colors.white),
                                           onTap: () {
                                             controller.selectedIndex = index;
                                             Get.offNamed(_item['rota']);
@@ -272,7 +273,7 @@ class DrawerContentWidget extends GetView<HomeController> {
                                   ),
                                 ),
                               );
-                            } else if (_item['titulo'] == 'Net') {
+                            } else if (_item['rota'] == Routes.net) {
                               return Obx(
                                 () => Container(
                                   decoration:
@@ -299,11 +300,11 @@ class DrawerContentWidget extends GetView<HomeController> {
                                                 color:
                                                     (controller.selectedIndex ==
                                                             index)
-                                                        ? Colors.blue[300]
+                                                        ? AppColors.green
                                                         : Colors.white,
                                                 fontSize: 19),
                                           ),
-                                          leading: _item['icone'],
+                                          leading: Image.asset(_item['icone'] , color: (controller.selectedIndex == index ) ? AppColors.green :  Colors.white),
                                           onTap: () {
                                             controller.selectedIndex = index;
                                             Get.offNamed(_item['rota']);
@@ -314,7 +315,7 @@ class DrawerContentWidget extends GetView<HomeController> {
                                   ),
                                 ),
                               );
-                            } else if (_item['titulo'] == 'Configurações') {
+                            } else if (_item['rota'] == Routes.configuration) {
                               return Obx(
                                 () => Container(
                                   decoration:
@@ -341,11 +342,11 @@ class DrawerContentWidget extends GetView<HomeController> {
                                                 color:
                                                     (controller.selectedIndex ==
                                                             index)
-                                                        ? Colors.blue[300]
+                                                        ? AppColors.green
                                                         : Colors.white,
                                                 fontSize: 19),
                                           ),
-                                          leading: _item['icone'],
+                                          leading: Image.asset(_item['icone'] , color: (controller.selectedIndex == index ) ? AppColors.green :  Colors.white),
                                           onTap: () {
                                             controller.selectedIndex = index;
                                             Get.offNamed(_item['rota']);
@@ -356,7 +357,7 @@ class DrawerContentWidget extends GetView<HomeController> {
                                   ),
                                 ),
                               );
-                            } else if (_item['titulo'] == 'MMN') {
+                            } else if (_item['rota'] == Routes.mmn) {
                               return Obx(
                                 () => Container(
                                   decoration:
@@ -383,11 +384,11 @@ class DrawerContentWidget extends GetView<HomeController> {
                                                 color:
                                                     (controller.selectedIndex ==
                                                             index)
-                                                        ? Colors.blue[300]
+                                                        ? AppColors.green
                                                         : Colors.white,
                                                 fontSize: 19),
                                           ),
-                                          leading: _item['icone'],
+                                          leading: Image.asset(_item['icone'] , color: (controller.selectedIndex == index ) ? AppColors.green :  Colors.white),
                                           onTap: () {
                                             controller.selectedIndex = index;
                                             Get.offNamed(_item['rota']);
@@ -425,11 +426,11 @@ class DrawerContentWidget extends GetView<HomeController> {
                                               color:
                                                   (controller.selectedIndex ==
                                                           index)
-                                                      ? Colors.blue[300]
+                                                      ? AppColors.green
                                                       : Colors.white,
                                               fontSize: 19),
                                         ),
-                                        leading: _item['icone'],
+                                        leading: Image.asset(_item['icone'] , color: (controller.selectedIndex == index ) ? AppColors.green :  Colors.white),
                                         onTap: () {
                                           controller.selectedIndex = index;
                                           showCupertinoDialog(

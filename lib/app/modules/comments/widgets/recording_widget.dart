@@ -2,13 +2,12 @@ import 'dart:async';
 
 import 'package:azerox/app/config/app_colors.dart';
 import 'package:azerox/app/config/app_images.dart';
+import 'package:azerox/app/core/core.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 
-import '../create_post_controller.dart';
-import '../../../core/ui/controllers/devices/audio/recorder_controller.dart';
-import '../../../core/ui/controllers/devices/audio/select_audio_file_controller.dart';
+import '../controllers/create_comment_controller.dart';
 
 class RecordingWidget extends StatefulWidget {
   const RecordingWidget({Key? key}) : super(key: key);
@@ -21,7 +20,7 @@ class _RecordingWidgetState extends State<RecordingWidget> {
   static const maxRecordDuration = Duration(seconds: 90);
   static const maxAudioFileBytes = 5000000; //5 MB
 
-  final CreatePostController controller = GetInstance().find();
+  final CreateCommentController controller = GetInstance().find();
   final recorderController = RecorderController();
   final selectedAudioFileController =
       SelectAudioFileController(maxAudioFileBytes);

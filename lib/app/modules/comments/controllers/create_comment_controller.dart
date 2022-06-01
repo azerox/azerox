@@ -1,19 +1,15 @@
-import 'dart:async';
 import 'dart:io';
 
-import 'package:azerox/app/config/app_routes.dart';
 import 'package:azerox/app/core/core.dart';
 import 'package:azerox/app/models/post.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:intl/intl.dart';
 
-import '../create_post_repository.dart';
-import 'compress_image_controller.dart';
+import '../repositories/comments_repository.dart';
 
-class CreatePostController extends ChangeNotifier {
-  final CreatePostRepository _repository;
-  CreatePostController(this._repository) {
+class CreateCommentController extends ChangeNotifier {
+  final CommentsRepository _repository;
+  CreateCommentController(this._repository) {
     compressImageController.addListener(_compressLoadingListener);
   }
 
@@ -32,27 +28,16 @@ class CreatePostController extends ChangeNotifier {
   String? imagePath;
   String? compressedImagePath;
   String? recordedMp3FilePath;
-  String? contentChapter;
-  String? titleChapter;
-
-  DateTime date = DateTime.now();
-  String get dateFormatted => DateFormat('dd/MM/yyyy').format(date);
+  String? contentComment;
+  Post? _chapter;
 
   bool isRecordVisible = false;
   bool isLoading = false;
 
-  void onTitleChapterChanged(String newValue) {
-    titleChapter = newValue;
-    notifyListeners();
-  }
+  void setChapter(Post chapter) => _chapter = chapter;
 
-  void onContentChapterChanged(String newValue) {
-    contentChapter = newValue;
-    notifyListeners();
-  }
-
-  void onDateTimeChanged(DateTime newValue) {
-    date = newValue;
+  void onCommentContentChanged(String newValue) {
+    contentComment = newValue;
     notifyListeners();
   }
 
@@ -87,13 +72,14 @@ class CreatePostController extends ChangeNotifier {
     notifyListeners();
   }
 
-  Future<void> onCreatePostPressed() async {
-    if (contentChapter != null) {
+  Future<void> onCreateCommentPressed() async {
+    if (contentComment != null) {
       try {
         await _compressImageIfNeed();
         loadingController.show('Enviando...');
-        await _createPost(recordedMp3FilePath, compressedImagePath);
-        Get.offAllNamed(Routes.home);
+        final newComment =
+            await _createComment(recordedMp3FilePath, compressedImagePath);
+        Get.back(result: newComment);
       } catch (ex, stack) {
         rethrow;
       } finally {
@@ -112,13 +98,12 @@ class CreatePostController extends ChangeNotifier {
     }
   }
 
-  Future<Post> _createPost(String? mp3FilePath, String? image) async {
-    final post = await _repository.createPost(
-      content: contentChapter!,
-      date: date,
-      title: titleChapter!,
+  Future<Post> _createComment(String? mp3FilePath, String? image) async {
+    final post = await _repository.createComment(
+      content: contentComment!,
       mp3: mp3FilePath,
       image: image,
+      masterChapterId: _chapter!.codPost!,
     );
     if (mp3FilePath != null) await File(mp3FilePath).delete();
     return post;

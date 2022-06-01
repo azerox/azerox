@@ -87,6 +87,7 @@ class _HomePageState extends State<HomePage> {
               builder: (context, post) => PostWidget(
                 key: ValueKey(post.codPost),
                 post: post,
+                onAddCommentCallback: controller.onAddCommentCallback,
               ),
             ),
           ),

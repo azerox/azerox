@@ -1,9 +1,9 @@
 import 'dart:io';
 
 import 'package:azerox/app/core/core.dart';
-import 'package:azerox/app/modules/create_post/controllers/capture_image_controller.dart';
-import 'package:azerox/app/modules/create_post/controllers/compress_image_controller.dart';
-import 'package:azerox/app/modules/create_post/controllers/select_image_file_controller.dart';
+import 'package:azerox/app/core/ui/controllers/devices/image/capture_image_controller.dart';
+import 'package:azerox/app/core/ui/controllers/devices/image/compress_image_controller.dart';
+import 'package:azerox/app/core/ui/controllers/devices/image/select_image_file_controller.dart';
 import 'package:azerox/app/modules/home/controllers/chapters_controller.dart';
 import 'package:azerox/app/modules/home/home_controller.dart';
 import 'package:flutter/material.dart';

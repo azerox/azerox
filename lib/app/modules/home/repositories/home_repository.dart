@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:azerox/app/app_controller.dart';
+import 'package:azerox/app/models/assinante_model.dart';
 import 'package:azerox/app/models/editor_model.dart';
 import 'package:azerox/app/models/user.dart';
 import 'package:azerox/app/models/user_profile.dart';
@@ -8,14 +9,35 @@ import 'package:dio/dio.dart';
 import 'package:get/instance_manager.dart';
 import 'package:path_provider/path_provider.dart';
 
-import '../../config/app_constants.dart';
-import '../../models/post.dart';
+import '../../../config/app_constants.dart';
+import '../../../models/post.dart';
 
 class HomeRepository {
   final Dio dio;
   HomeRepository(this.dio);
 
   UserModel get user => Get.find<AppController>().currentUser.value;
+
+  AssinanteModel get assinante =>
+      Get.find<AppController>().currentAssinante.value;
+
+  Future<AssinanteModel?> localizaAssinante({
+    required int codUser,
+  }) async {
+    dio.options.headers['Cookie'] = 'ASP.NET_SessionId=${user.sessionID}';
+
+    final response = await dio.get(
+      AppConstants.apiAssinante,
+      queryParameters: {
+        'sessionId': user.sessionID,
+        'CodUser': codUser,
+      },
+    );
+    return AssinanteModel(
+      codUser: assinante.codUser,
+      sessionID: assinante.sessionID,
+    );
+  }
 
   Future<List<Post>> getAlbum({
     bool isNewEdition = false,
@@ -118,13 +140,6 @@ class HomeRepository {
       codUser: user.codUser,
       sessionID: user.sessionID,
       filePicture: imageResponse,
-    );
-  }
-
-  Future<void> removeChapterById(int chapterId) async {
-    final response = await dio.get(
-      AppConstants.apiDeletePost,
-      queryParameters: {'CodPost': chapterId},
     );
   }
 

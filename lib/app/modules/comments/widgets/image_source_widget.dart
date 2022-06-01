@@ -1,14 +1,8 @@
-import 'dart:io';
-
-import 'package:azerox/app/config/app_colors.dart';
 import 'package:azerox/app/core/core.dart';
-import 'package:azerox/app/modules/create_post/controllers/capture_image_controller.dart';
-import 'package:azerox/app/modules/create_post/controllers/compress_image_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-import '../controllers/create_post_controller.dart';
-import '../controllers/select_image_file_controller.dart';
+import '../controllers/create_comment_controller.dart';
 
 class ImageSourceWidget extends StatefulWidget {
   const ImageSourceWidget({Key? key}) : super(key: key);
@@ -18,7 +12,7 @@ class ImageSourceWidget extends StatefulWidget {
 }
 
 class _ImageSourceWidgetState extends State<ImageSourceWidget> {
-  final CreatePostController controller = GetInstance().find();
+  final CreateCommentController controller = GetInstance().find();
 
   final galeryController = SelectImageFileController();
   final cameraController = CaptureCameraImageController();
@@ -53,31 +47,6 @@ class _ImageSourceWidgetState extends State<ImageSourceWidget> {
     galeryController.dispose();
     cameraController.dispose();
     // compressionController.dispose();
-  }
-
-  @override
-  Widget loadingBuilder(BuildContext context) {
-    return Container(
-      padding: const EdgeInsets.fromLTRB(15, 15, 15, 10),
-      decoration: BoxDecoration(
-        color: Colors.white,
-        borderRadius: BorderRadius.circular(5),
-      ),
-      child: Column(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          const CircularProgressIndicator(
-            valueColor: AlwaysStoppedAnimation(AppColors.primary),
-          ),
-          const SizedBox(height: 15),
-          Text("Comprimindo imagem",
-              style: Theme.of(context)
-                  .textTheme
-                  .bodyText1
-                  ?.copyWith(color: AppColors.primary)),
-        ],
-      ),
-    );
   }
 
   @override

@@ -1,20 +1,25 @@
 import 'package:flutter/foundation.dart';
 
-abstract class PaginationController<T>
-    extends ValueNotifier<PaginationState<T>> {
+abstract class PaginationController<T> extends ValueNotifier<PaginationState<T>> {
   PaginationController() : super(PaginationState.empty<T>());
 
   @protected
-  Future<List<T>> getCurrentPageItems();
+  Future<List<T>> getCurrentPageItems(int page);
 
   void _setLoading(bool isLoading) {
     value = value.copyWith(isLoading: isLoading);
   }
 
+  void removeItemById(int itemId) {
+    final newList = value.itemsList?.toList();
+    newList?.removeWhere((chapter) => (chapter as dynamic).codPost == itemId);
+    value = value.copyWith(itemsList: newList);
+  }
+
   Future<void> refreshItems() async {
     value = PaginationState.empty<T>();
     print('Loading page ${value.page}');
-    final itemsList = await getCurrentPageItems();
+    final itemsList = await getCurrentPageItems(value.page);
     value = value.copyWith(itemsList: itemsList);
   }
 
@@ -25,7 +30,7 @@ abstract class PaginationController<T>
       _setLoading(true);
       value = value.copyWith(page: value.page + 1);
       print('Loading page ${value.page}');
-      final currentPageItems = await getCurrentPageItems();
+      final currentPageItems = await getCurrentPageItems(value.page);
       final newItemsList = value.itemsList! + currentPageItems;
       value = value.copyWith(itemsList: newItemsList);
     } catch (ex, stack) {
@@ -68,16 +73,12 @@ class PaginationState<T> {
   bool operator ==(Object other) {
     if (identical(this, other)) return true;
 
-    return other is PaginationState<T> &&
-        listEquals(other.itemsList, itemsList) &&
-        other.isLoading == isLoading &&
-        other.page == page;
+    return other is PaginationState<T> && listEquals(other.itemsList, itemsList) && other.isLoading == isLoading && other.page == page;
   }
 
   @override
   int get hashCode => itemsList.hashCode ^ isLoading.hashCode ^ page.hashCode;
 
   @override
-  String toString() =>
-      'PaginationState(itemsList: $itemsList, isLoading: $isLoading, page: $page)';
+  String toString() => 'PaginationState(itemsList: $itemsList, isLoading: $isLoading, page: $page)';
 }
