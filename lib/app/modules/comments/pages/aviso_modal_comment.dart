@@ -26,10 +26,15 @@ class _AvisoModalCommentState extends State<AvisoModalComment> {
   Widget build(BuildContext context) {
     return Container(
       height: MediaQuery.of(context).size.height * 0.5,
-      child: const Padding(
+      child: Padding(
         padding: EdgeInsets.all(10),
-        child: Form(
-            child: Text(""),
+        child: Column(
+          children: [
+            TextButton(
+              onPressed: openURL,
+              child: Image.asset(AppImages.aviso),
+            )
+          ],
         ),
       ),
     );
