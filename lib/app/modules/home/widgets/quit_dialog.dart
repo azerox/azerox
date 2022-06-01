@@ -21,7 +21,11 @@ class QuitDialog extends StatelessWidget {
             "Não",
             style: TextStyle(fontWeight: FontWeight.bold),
           ),
-          onPressed: () => Get.back(),
+          onPressed: () {
+            Get.offAllNamed(Routes.home);
+            drawerContentWidget.controller.selectedIndex = 0;
+          }
+
         ),
         CupertinoDialogAction(
           isDefaultAction: false,

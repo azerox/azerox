@@ -1,6 +1,7 @@
+import 'package:azerox/app/config/app_colors.dart';
 import 'package:azerox/app/config/app_images.dart';
-import 'package:azerox/app/config/app_routes.dart';
 import 'package:azerox/app/core/color/configuration_color.dart';
+import 'package:azerox/app/modules/home/widgets/drawer/custom_drawer.dart';
 import 'package:azerox/app/modules/home/widgets/drawer/drawer_content_widget.dart';
 import 'package:azerox/app/modules/mmn/mmn_controller.dart';
 import 'package:flutter/cupertino.dart';
@@ -21,17 +22,14 @@ class MMNPage extends GetView<MMNController> {
         /// Não è possível abrir a URL
       }
     }
-    DrawerContentWidget drawerContentWidget = DrawerContentWidget();
+
     return Scaffold(
       appBar: AppBar(
-        leading: IconButton(
-            onPressed: () {
-              Get.offAllNamed(Routes.home);
-              drawerContentWidget.controller.selectedIndex = 0;
-            },
-            icon: const Icon(Icons.arrow_back_ios)),
-        title: const Text('MMN'),
+        toolbarHeight: 65,
+        title: Image.asset(AppImages.logo),
+        centerTitle: true,
       ),
+      drawer: const CustomDrawer(),
       body: SingleChildScrollView(
         child: Column(
           children: [
@@ -39,32 +37,31 @@ class MMNPage extends GetView<MMNController> {
               child: Column(
                 children: [
                   Padding(
-                    padding: EdgeInsets.all(30),
-                    child: Container(
-                      child: Form(
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: 35,
+                      vertical: 10
+                    ),
+                    child: Column(
+                      children: [
+                        Container(
+                          height: 30,
+                          color: AppColors.primary,
                           child: Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Card(
-                            elevation: 4,
-                            color: HexColor("03acf1"),
-                            child: Container(
-                              width: 100,
-                              height: 33,
-                              child: FlatButton(
-                                  onPressed: openURL,
-                                  textColor: Colors.white,
-                                  child: const Text(
-                                    "Faça Parte",
-                                    style: TextStyle(
-                                      fontSize: 13,
-                                      fontWeight: FontWeight.bold,
-                                    ),
-                                  )),
-                            ),
+                            children: [
+                              const SizedBox(width: 10),
+                              Image.asset(
+                                AppImages.mmn,
+                                color: Colors.white,
+                              ),
+                              const SizedBox(width: 10),
+                              const Text(
+                                'Marketing Multinivel',
+                                style: TextStyle(color: Colors.white),
+                              ),
+                            ],
                           ),
-                        ],
-                      )),
+                        ),
+                      ],
                     ),
                   ),
                  Container(
@@ -75,6 +72,29 @@ class MMNPage extends GetView<MMNController> {
                     ),
                   )
                 ],
+              ),
+            ),
+            Padding(
+              padding: EdgeInsets.all(20),
+              child: Container(
+                child: Form(
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Card(
+                          elevation: 4,
+                          color: HexColor("03acf1"),
+                          child: SizedBox(
+                            width: 243,
+                            height: 37,
+                            child: ElevatedButton(
+                              child: const Text('Faça seu Cadastro'),
+                              onPressed: openURL,
+                            ),
+                          ),
+                        ),
+                      ],
+                    )),
               ),
             ),
           ],

@@ -35,7 +35,10 @@ class NewEditionsPage extends StatelessWidget {
                   const SizedBox(width: 10),
                   Image.asset(AppImages.novasEdicoes),
                   const SizedBox(width: 10),
-                  const Text('Novas edições'),
+                  const Text(
+                    'Novas edições',
+                    style: TextStyle(color: Colors.white),
+                  ),
                 ],
               ),
             ),
