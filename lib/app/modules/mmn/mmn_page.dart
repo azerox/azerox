@@ -15,12 +15,8 @@ class MMNPage extends GetView<MMNController> {
   @override
   Widget build(BuildContext context) {
     void openURL() async {
-      const url = 'https://azerox.maxxmultinivel.com.br/cadastro';
-      if (await canLaunch(url)) {
+      const url = 'https://azerox.maxxmultinivel.com.br/login';
         await launch(url);
-      } else {
-        /// Não è possível abrir a URL
-      }
     }
 
     return Scaffold(

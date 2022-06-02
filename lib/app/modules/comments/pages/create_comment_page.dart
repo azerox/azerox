@@ -7,6 +7,7 @@ import 'package:azerox/app/core/color/configuration_color.dart';
 import 'package:azerox/app/core/core.dart';
 import 'package:azerox/app/models/post.dart';
 import 'package:azerox/app/modules/comments/pages/aviso_modal_comment.dart';
+import 'package:azerox/app/modules/home/widgets/card_options.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -36,7 +37,6 @@ class _CreateCommentPageState extends State<CreateCommentPage> {
     super.initState();
     controller.setChapter(widget.chapter);
   }
-
 
 
   @override
@@ -85,7 +85,8 @@ class _CreateCommentPageState extends State<CreateCommentPage> {
                           height: 70,
                           width: 68,
                           fit: BoxFit.cover,
-                          imageUrl: Get.find<AppController>()
+                          imageUrl: Get
+                              .find<AppController>()
                               .currentUser
                               .value
                               .filePicture,
@@ -93,7 +94,7 @@ class _CreateCommentPageState extends State<CreateCommentPage> {
                             return const CupertinoActivityIndicator();
                           },
                           errorWidget: (context, url, error) =>
-                              const Icon(Icons.error),
+                          const Icon(Icons.error),
                         ),
                       ),
                       const SizedBox(height: 10),
@@ -117,11 +118,17 @@ class _CreateCommentPageState extends State<CreateCommentPage> {
                             ),
                           ),
                           const SizedBox(width: 3),
-                          IconButton(
-                            icon: Image.asset(AppImages.interrogacao),
-                            iconSize: 50,
-                            onPressed: ()  {
-                              showBarModalBottomSheet(
+                          GestureDetector(
+                            child: Image.asset(AppImages.interrogacao),
+                            onTap: () {
+                              showModalBottomSheet(
+                                  isScrollControlled: true,
+                                  shape: const RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.only(
+                                      topLeft: Radius.circular(32),
+                                      topRight: Radius.circular(32),
+                                    ),
+                                  ),
                                   context: context,
                                   builder: (context) => AvisoModalComment());
                             },
@@ -149,10 +156,15 @@ class _CreateCommentPageState extends State<CreateCommentPage> {
                             ),
                             counter: AnimatedBuilder(
                               animation: controller,
-                              builder: (context, child) => Text(
-                                '${controller.contentComment?.length ?? 0}/500',
-                                style: Theme.of(context).textTheme.caption,
-                              ),
+                              builder: (context, child) =>
+                                  Text(
+                                    '${controller.contentComment?.length ??
+                                        0}/500',
+                                    style: Theme
+                                        .of(context)
+                                        .textTheme
+                                        .caption,
+                                  ),
                             ),
                           ),
                         ),

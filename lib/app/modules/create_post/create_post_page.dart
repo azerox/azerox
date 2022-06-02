@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:azerox/app/config/app_colors.dart';
 import 'package:azerox/app/config/app_images.dart';
 import 'package:azerox/app/core/core.dart';
+import 'package:azerox/app/modules/comments/pages/aviso_modal_comment.dart';
 import 'package:azerox/app/modules/create_post/widgets/image_source_widget_create_post.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/cupertino.dart';
@@ -109,7 +110,21 @@ class _CreatePostPageState extends State<CreatePostPage> {
                             ),
                           ),
                           const SizedBox(width: 3),
-                          Image.asset(AppImages.interrogacao),
+                          GestureDetector(
+                            child: Image.asset(AppImages.interrogacao),
+                            onTap: () {
+                              showModalBottomSheet(
+                                  isScrollControlled: true,
+                                  shape: const RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.only(
+                                      topLeft: Radius.circular(32),
+                                      topRight: Radius.circular(32),
+                                    ),
+                                  ),
+                                  context: context,
+                                  builder: (context) => AvisoModalComment());
+                            },
+                          ),
                         ],
                       ),
                     ],

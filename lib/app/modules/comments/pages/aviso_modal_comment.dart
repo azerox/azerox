@@ -1,8 +1,6 @@
-import 'package:azerox/app/config/app_colors.dart';
 import 'package:azerox/app/config/app_images.dart';
-import 'package:azerox/app/core/color/configuration_color.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class AvisoModalComment extends StatefulWidget {
@@ -15,11 +13,7 @@ class AvisoModalComment extends StatefulWidget {
 class _AvisoModalCommentState extends State<AvisoModalComment> {
   void openURL() async {
     const url = 'https://azerox.maxxmultinivel.com.br/cadastro';
-    if (await canLaunch(url)) {
-      await launch(url);
-    } else {
-      /// Não è possível abrir a URL
-    }
+     await launch(url);
   }
 
   @override
@@ -29,6 +23,7 @@ class _AvisoModalCommentState extends State<AvisoModalComment> {
       child: Padding(
         padding: EdgeInsets.all(10),
         child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
           children: [
             TextButton(
               onPressed: openURL,

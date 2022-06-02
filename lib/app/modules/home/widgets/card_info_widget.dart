@@ -93,7 +93,7 @@ class CardInfoWidget extends StatelessWidget {
                         mainAxisAlignment: MainAxisAlignment.start,
                         children: [
                           Text(
-                            '${editor.state} - ${AppConstants.uf[editor.state]}',
+                            '${editor.city} - ${AppConstants.uf[editor.state]}',
                             style: TextStyle(color: Colors.white),
                           ),
                           const SizedBox(width: 5),
