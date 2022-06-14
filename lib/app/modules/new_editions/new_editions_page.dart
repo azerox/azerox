@@ -1,4 +1,5 @@
 import 'package:azerox/app/core/core.dart';
+import 'package:azerox/app/modules/home/widgets/post_widget_generic.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -42,7 +43,7 @@ class NewEditionsPage extends StatelessWidget {
             Expanded(
               child: PaginationWidget<Post>(
                 controller: controller,
-                builder: (context, post) => PostWidget(
+                builder: (context, post) => PostWidgetGeneric(
                   key: ValueKey(post.codPost),
                   post: post,
                   onAddCommentCallback: controller.onAddCommentCallback,
