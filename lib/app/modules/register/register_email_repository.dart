@@ -22,6 +22,8 @@ class CadastroEmailRepository extends GetConnect {
     return result;
   }
 
+  DateTime date(int day, int month, int year) => DateTime(year, month, day);
+
   Future<UserModel> cadastroWithEmail({
     required String email,
     required String password,
@@ -35,6 +37,11 @@ class CadastroEmailRepository extends GetConnect {
     required String name,
     required String profile,
   }) async {
+
+    int valDay = int.parse(day);
+    int valMonth = int.parse(month);
+    int valYear = int.parse(year);
+
     final response = await dio.get(
       "/jsonusers.asmx/InsertUserFacebook",
       queryParameters: {
@@ -47,6 +54,7 @@ class CadastroEmailRepository extends GetConnect {
         'BirthDay': day,
         'BirthMonth': month,
         'BirthYear': year,
+        'BirthString': date(valDay, valMonth, valYear),
         'Email': email,
         'ZipCode': '0000000',
         'PublicProfile': profile,
