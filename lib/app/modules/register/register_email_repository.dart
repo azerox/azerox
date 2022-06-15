@@ -1,3 +1,4 @@
+import 'package:azerox/app/config/app_constants.dart';
 import 'package:azerox/app/models/user.dart';
 import 'package:dio/dio.dart';
 import 'package:get/get.dart';
@@ -12,7 +13,7 @@ class CadastroEmailRepository extends GetConnect {
   }) async {
     var result = <String>[];
     var res = await dio.get(
-      '/jsonusers.asmx/GetExists',
+      AppConstants.apiVerificaEmailExistente,
       queryParameters: {'Email': email, 'PublicProfile': profile},
     );
 
@@ -43,7 +44,7 @@ class CadastroEmailRepository extends GetConnect {
     int valYear = int.parse(year);
 
     final response = await dio.get(
-      "/jsonusers.asmx/InsertUserFacebook",
+      AppConstants.apiRegister,
       queryParameters: {
         'CodUserType': 1,
         'Country': country,
