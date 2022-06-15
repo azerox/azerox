@@ -15,6 +15,7 @@ class CardInfoWidget extends StatelessWidget {
   final Color color;
   final UserModel editor;
   final bool isShearch;
+
   const CardInfoWidget({
     Key? key,
     this.showNet = true,
@@ -64,8 +65,7 @@ class CardInfoWidget extends StatelessWidget {
                       width: 130,
                       child: Text(
                         editor.name,
-                        style: const TextStyle(
-                            fontWeight: FontWeight.bold, color: Colors.black),
+                        style: const TextStyle(color: Colors.white),
                         maxLines: 2,
                         overflow: TextOverflow.ellipsis,
                         softWrap: false,
@@ -94,7 +94,7 @@ class CardInfoWidget extends StatelessWidget {
                         children: [
                           Text(
                             '${editor.state} - ${AppConstants.uf[editor.state]}',
-                            style: TextStyle(color: Colors.white),
+                            style: const TextStyle(color: Colors.white),
                           ),
                           const SizedBox(width: 5),
                         ],
@@ -108,7 +108,7 @@ class CardInfoWidget extends StatelessWidget {
                           const SizedBox(width: 5),
                           Text(
                             dateFormated,
-                            style: TextStyle(color: Colors.white),
+                            style: const TextStyle(color: Colors.white),
                           ),
                           const SizedBox(width: 5),
                           Visibility(
