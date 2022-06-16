@@ -39,7 +39,8 @@ class PostWidgetGeneric extends StatelessWidget {
     final homeController = Get.find<HomeController>();
     final appController = Get.find<AppController>();
 
-    bool isPostOwner = appController.currentUser.value.codUser == post.user?.codUser;
+    bool isPostOwner =
+        appController.currentUser.value.codUser == post.user?.codUser;
 
     return Container(
       width: double.infinity,
@@ -75,32 +76,6 @@ class PostWidgetGeneric extends StatelessWidget {
               ),
             ),
             subtitle: Text(post.date ?? ''),
-            trailing: Visibility(
-              visible: isPostOwner,
-              child: IconButton(
-                iconSize: 29,
-                icon: Image.asset(AppImages.optionsMore),
-                onPressed: () {
-                  showModalBottomSheet(
-                    isScrollControlled: true,
-                    shape: const RoundedRectangleBorder(
-                      borderRadius: BorderRadius.only(
-                        topLeft: Radius.circular(32),
-                        topRight: Radius.circular(32),
-                      ),
-                    ),
-                    context: context,
-                    builder: (context) {
-                      return CardOptions(
-                        isComment: isComment,
-                        post: post,
-                        bottomsheetController: bottomsheetController,
-                      );
-                    },
-                  );
-                },
-              ),
-            ),
           ),
           Visibility(
             visible: post.nameEvent != null,
@@ -173,7 +148,8 @@ class PostWidgetGeneric extends StatelessWidget {
                     image: AppImages.fb,
                     onPressed: () async {
                       if (post.postItens?[currentIndex!].codPostType == 3) {
-                        await homeController.sendToFacebook(post.postItens?[currentIndex!].postItemMax ?? '');
+                        await homeController.sendToFacebook(
+                            post.postItens?[currentIndex!].postItemMax ?? '');
                       }
                     },
                   ),
@@ -199,7 +175,8 @@ class PostWidgetGeneric extends StatelessWidget {
                     image: AppImages.insta,
                     onPressed: () async {
                       if (post.postItens?[currentIndex!].codPostType == 3) {
-                        await homeController.sendToInstagram(post.postItens?[currentIndex!].postItemMax ?? '');
+                        await homeController.sendToInstagram(
+                            post.postItens?[currentIndex!].postItemMax ?? '');
                       }
                     },
                   ),
