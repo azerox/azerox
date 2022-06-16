@@ -6,12 +6,12 @@ import 'package:get/get.dart';
 
 import '../controllers/chapter_bottomsheet_controller.dart';
 
-class CardOptions extends StatelessWidget {
+class CardOptionsGeneric extends StatelessWidget {
   final Post? post;
   final bool isComment;
   final ChapterBottomsheetController? bottomsheetController;
 
-  const CardOptions({
+  const CardOptionsGeneric({
     Key? key,
     this.isComment = false,
     required this.post,

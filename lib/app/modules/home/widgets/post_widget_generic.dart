@@ -1,4 +1,5 @@
 import 'package:azerox/app/app_controller.dart';
+import 'package:azerox/app/modules/home/widgets/card_options.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -74,6 +75,32 @@ class PostWidgetGeneric extends StatelessWidget {
               ),
             ),
             subtitle: Text(post.date ?? ''),
+            trailing: Visibility(
+              visible: isPostOwner,
+              child: IconButton(
+                iconSize: 29,
+                icon: Image.asset(AppImages.optionsMore),
+                onPressed: () {
+                  showModalBottomSheet(
+                    isScrollControlled: true,
+                    shape: const RoundedRectangleBorder(
+                      borderRadius: BorderRadius.only(
+                        topLeft: Radius.circular(32),
+                        topRight: Radius.circular(32),
+                      ),
+                    ),
+                    context: context,
+                    builder: (context) {
+                      return CardOptions(
+                        isComment: isComment,
+                        post: post,
+                        bottomsheetController: bottomsheetController,
+                      );
+                    },
+                  );
+                },
+              ),
+            ),
           ),
           Visibility(
             visible: post.nameEvent != null,

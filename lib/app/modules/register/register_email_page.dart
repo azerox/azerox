@@ -28,8 +28,10 @@ class CadastroEmailPage extends GetView<CadastroEmailController> {
       centerTitle: true,
       title: const Text("Novo Cadastro"),
       leading: IconButton(
-        icon: const Icon(Icons.arrow_back_ios_new),
-        onPressed: Get.back,
+          icon: const Icon(Icons.arrow_back_ios_new),
+          onPressed: (){
+            Get.offAllNamed(Routes.login);
+          }
       ),
     );
   }
