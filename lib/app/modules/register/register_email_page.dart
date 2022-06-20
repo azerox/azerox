@@ -52,7 +52,7 @@ class CadastroEmailPage extends GetView<CadastroEmailController> {
               ),
               AppField(
                 label: "Apelido",
-                controller: controller.apelidoEC,
+                controller: controller.nickNameEC,
                 validation: Mask.validations.generic,
               ),
               Padding(
@@ -123,7 +123,7 @@ class CadastroEmailPage extends GetView<CadastroEmailController> {
                         value,
                         min: 4,
                       ),
-                      controller: controller.nickNameEC,
+                      controller: controller.publicProfileEC,
                     ),
                   ),
                 ],

@@ -19,8 +19,8 @@ class CadastroEmailController extends GetxController {
         _ibgeRepository = ibgeRepository;
 
   final nomeEC = TextEditingController();
-  final apelidoEC = TextEditingController();
   final nickNameEC = TextEditingController();
+  final publicProfileEC = TextEditingController();
   final emailEC = TextEditingController();
   final passwordEC = TextEditingController();
   final stateEC = TextEditingController();
@@ -74,8 +74,8 @@ class CadastroEmailController extends GetxController {
   void onClose() {
     emailEC.dispose();
     nomeEC.dispose();
-    apelidoEC.dispose();
     passwordEC.dispose();
+    publicProfileEC.dispose();
     nickNameEC.dispose();
     cityEC.dispose();
     stateEC.dispose();
@@ -113,7 +113,7 @@ class CadastroEmailController extends GetxController {
         isLoading(true);
         var res = await _loginRepository.validCreateAccount(
           email: emailEC.text,
-          profile: nickNameEC.text,
+          profile: publicProfileEC.text,
         );
         if (res.isNotEmpty) {
           Get.snackbar(
@@ -139,9 +139,9 @@ class CadastroEmailController extends GetxController {
             email: emailEC.text,
             name: nomeEC.text,
             nickName: nickNameEC.text,
+            profile: publicProfileEC.text,
             password: passwordEC.text,
-            profile: apelidoEC.text,
-          );
+           );
           Get.find<AppController>().currentUser.value = user;
           isLoading.value = false;
           Get.snackbar(

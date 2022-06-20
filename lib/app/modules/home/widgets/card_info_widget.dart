@@ -88,12 +88,12 @@ class CardInfoWidget extends StatelessWidget {
                       ),
                     ),
                     Visibility(
-                      visible: editor.state != null,
+                      visible: editor.city != null,
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.start,
                         children: [
                           Text(
-                            '${editor.state} - ${AppConstants.uf[editor.state]}',
+                            '${editor.city} - ${AppConstants.uf[editor.state]}',
                             style: const TextStyle(color: Colors.white),
                           ),
                           const SizedBox(width: 5),
