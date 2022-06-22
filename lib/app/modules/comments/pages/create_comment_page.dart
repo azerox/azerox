@@ -1,5 +1,5 @@
 import 'dart:io';
-
+import 'package:azerox/app/modules/comments/widgets/aviso_modal_comment.dart';
 import 'package:azerox/app/app_controller.dart';
 import 'package:azerox/app/config/app_colors.dart';
 import 'package:azerox/app/config/app_images.dart';
@@ -111,7 +111,21 @@ class _CreateCommentPageState extends State<CreateCommentPage> {
                             ),
                           ),
                           const SizedBox(width: 3),
-                          Image.asset(AppImages.interrogacao),
+                          GestureDetector(
+                            child: Image.asset(AppImages.interrogacao),
+                            onTap: () {
+                              showModalBottomSheet(
+                                  isScrollControlled: true,
+                                  shape: const RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.only(
+                                      topLeft: Radius.circular(32),
+                                      topRight: Radius.circular(32),
+                                    ),
+                                  ),
+                                  context: context,
+                                  builder: (context) => const AvisoModalComment());
+                            },
+                          ),
                         ],
                       ),
                     ],
