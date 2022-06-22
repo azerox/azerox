@@ -15,15 +15,16 @@ import '../../models/assinante_model.dart';
 class HomeController extends GetxController {
   final HomeRepository repository;
   final AppController _appController;
+
   HomeController(this.repository, this._appController);
 
   final searchDrawerEC = TextEditingController();
 
-  ChangeNotifier changeNotifier = ChangeNotifier();
-
   //Variáveis para compor o menu
   final _selectedIndex = 0.obs;
+
   int get selectedIndex => _selectedIndex.value;
+
   set selectedIndex(int newValue) => _selectedIndex(newValue);
   final items = [].obs;
 
