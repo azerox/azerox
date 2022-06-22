@@ -28,8 +28,10 @@ class CadastroEmailPage extends GetView<CadastroEmailController> {
       centerTitle: true,
       title: const Text("Novo Cadastro"),
       leading: IconButton(
-        icon: const Icon(Icons.arrow_back_ios_new),
-        onPressed: Get.back,
+          icon: const Icon(Icons.arrow_back_ios_new),
+          onPressed: (){
+            Get.offAllNamed(Routes.login);
+          }
       ),
     );
   }
@@ -50,7 +52,7 @@ class CadastroEmailPage extends GetView<CadastroEmailController> {
               ),
               AppField(
                 label: "Apelido",
-                controller: controller.apelidoEC,
+                controller: controller.nickNameEC,
                 validation: Mask.validations.generic,
               ),
               Padding(
@@ -121,7 +123,7 @@ class CadastroEmailPage extends GetView<CadastroEmailController> {
                         value,
                         min: 4,
                       ),
-                      controller: controller.nickNameEC,
+                      controller: controller.publicProfileEC,
                     ),
                   ),
                 ],
@@ -268,7 +270,7 @@ class CadastroEmailPage extends GetView<CadastroEmailController> {
                       },
                     ),
                     const Text(
-                        "Ao aceitar você concorda com ",
+                      "Ao aceitar você concorda com ",
                       style: TextStyle(
                         color: Colors.black,
                       ),
@@ -294,8 +296,8 @@ class CadastroEmailPage extends GetView<CadastroEmailController> {
                     const Text(
                       "e ",
                       style: TextStyle(
-                      color: Colors.black,
-                    ),
+                        color: Colors.black,
+                      ),
                     ),
                     GestureDetector(
                         child: const Text(
@@ -306,7 +308,7 @@ class CadastroEmailPage extends GetView<CadastroEmailController> {
                           Get.toNamed(Routes.consentientTerms);
                         }),
                     const Text(
-                        "do Azerox SA.",
+                      "do Azerox SA.",
                       style: TextStyle(
                         color: Colors.black,
                       ),
@@ -392,7 +394,7 @@ class CadastroEmailPage extends GetView<CadastroEmailController> {
   List<DropdownMenuItem<String>> _itemsYears() {
     final response = <DropdownMenuItem<String>>[];
     var actualYear = DateTime.now().year;
-    var years = List.generate(60, (index) => "${actualYear - index}");
+    var years = List.generate(200, (index) => "${actualYear - index}");
 
     years.forEach((element) {
       response.add(DropdownMenuItem(
