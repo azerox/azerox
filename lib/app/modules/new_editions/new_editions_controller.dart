@@ -6,6 +6,7 @@ import 'new_editions_repository.dart';
 
 class NewEditionsController extends PaginationController<Post> {
   final NewEditionsRepository repository;
+
   NewEditionsController(this.repository);
 
   @protected

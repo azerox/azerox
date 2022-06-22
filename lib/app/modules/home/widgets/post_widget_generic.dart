@@ -1,5 +1,7 @@
 import 'package:azerox/app/app_controller.dart';
 import 'package:azerox/app/modules/home/widgets/card_options.dart';
+import 'package:azerox/app/modules/new_editions/new_editions_controller.dart';
+import 'package:azerox/app/modules/new_editions/new_editions_repository.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -145,17 +147,6 @@ class PostWidgetGeneric extends StatelessWidget {
                 ),
                 Expanded(
                   child: PostButtonWidget(
-                    image: AppImages.fb,
-                    onPressed: () async {
-                      if (post.postItens?[currentIndex!].codPostType == 3) {
-                        await homeController.sendToFacebook(
-                            post.postItens?[currentIndex!].postItemMax ?? '');
-                      }
-                    },
-                  ),
-                ),
-                Expanded(
-                  child: PostButtonWidget(
                     isLikeBtn: true,
                     post: post,
                     icon: const Icon(
@@ -168,23 +159,6 @@ class PostWidgetGeneric extends StatelessWidget {
                         post.isFavorite ? false : true,
                       );
                     },
-                  ),
-                ),
-                Expanded(
-                  child: PostButtonWidget(
-                    image: AppImages.insta,
-                    onPressed: () async {
-                      if (post.postItens?[currentIndex!].codPostType == 3) {
-                        await homeController.sendToInstagram(
-                            post.postItens?[currentIndex!].postItemMax ?? '');
-                      }
-                    },
-                  ),
-                ),
-                Expanded(
-                  child: PostButtonWidget(
-                    image: AppImages.tiktok,
-                    onPressed: () async {},
                   ),
                 ),
               ],

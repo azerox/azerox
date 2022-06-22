@@ -6,6 +6,7 @@ import 'favoriteds_repository.dart';
 
 class FavoritedsController extends PaginationController<Post> {
   final FavoritedsRepository repository;
+
   FavoritedsController(this.repository);
 
   @protected

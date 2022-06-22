@@ -19,8 +19,6 @@ class HomeController extends GetxController {
 
   final searchDrawerEC = TextEditingController();
 
-  ChangeNotifier changeNotifier = ChangeNotifier();
-
   //Variáveis para compor o menu
   final _selectedIndex = 0.obs;
   int get selectedIndex => _selectedIndex.value;
