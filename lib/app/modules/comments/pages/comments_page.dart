@@ -58,7 +58,7 @@ class _CommentsPageState extends State<CommentsPage> {
   void _loadChapterByModel(Post chapter) {
     controller.setChapter(chapter);
     if (chapter.listRepost != null) controller.setCommentsList(chapter.listRepost!);
-    WidgetsBinding.instance?.addPostFrameCallback((timeStamp) {
+    WidgetsBinding.instance!.addPostFrameCallback((timeStamp) {
       controller.refresh();
     });
   }
