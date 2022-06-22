@@ -15,6 +15,7 @@ class CardInfoWidget extends StatelessWidget {
   final Color color;
   final UserModel editor;
   final bool isShearch;
+
   const CardInfoWidget({
     Key? key,
     this.showNet = true,
@@ -52,7 +53,7 @@ class CardInfoWidget extends StatelessWidget {
                       return const CupertinoActivityIndicator();
                     },
                     errorWidget: (context, url, error) =>
-                        const Icon(Icons.error),
+                    const Icon(Icons.error),
                   ),
                 ),
                 const SizedBox(width: 10),
@@ -64,8 +65,7 @@ class CardInfoWidget extends StatelessWidget {
                       width: 130,
                       child: Text(
                         editor.name,
-                        style: const TextStyle(
-                            fontWeight: FontWeight.bold, color: Colors.black),
+                        style: const TextStyle(color: Colors.white),
                         maxLines: 2,
                         overflow: TextOverflow.ellipsis,
                         softWrap: false,
@@ -88,13 +88,13 @@ class CardInfoWidget extends StatelessWidget {
                       ),
                     ),
                     Visibility(
-                      visible: editor.state != null,
+                      visible: editor.city != null,
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.start,
                         children: [
                           Text(
-                            '${editor.state} - ${AppConstants.uf[editor.state]}',
-                            style: TextStyle(color: Colors.white),
+                            '${editor.city} - ${AppConstants.uf[editor.state]}',
+                            style: const TextStyle(color: Colors.white),
                           ),
                           const SizedBox(width: 5),
                         ],
@@ -108,7 +108,7 @@ class CardInfoWidget extends StatelessWidget {
                           const SizedBox(width: 5),
                           Text(
                             dateFormated,
-                            style: TextStyle(color: Colors.white),
+                            style: const TextStyle(color: Colors.white),
                           ),
                           const SizedBox(width: 5),
                           Visibility(
