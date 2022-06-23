@@ -55,7 +55,7 @@ class _InitialPageState extends State<InitialPage>
                           Center(
                             child: Image.asset(
                               AppImages.azerox4,
-                              width: MediaQuery.of(context).size.width * 0.85,
+                              width: MediaQuery.of(context).size.width * 0.78,
                               fit: BoxFit.fill,
                             ),
                           )
