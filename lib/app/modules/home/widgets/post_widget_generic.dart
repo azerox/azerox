@@ -119,7 +119,7 @@ class PostWidgetGeneric extends StatelessWidget {
                 ),
               ),
               onPressed: () {
-                Get.toNamed(Routes.comments, arguments: post);
+                Get.toNamed(Routes.specificComments, arguments: post);
               },
             ),
           ),

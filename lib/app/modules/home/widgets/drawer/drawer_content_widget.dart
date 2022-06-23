@@ -189,48 +189,6 @@ class DrawerContentWidget extends GetView<HomeController> {
                                   ),
                                 ),
                               );
-                            } else if (_item['rota'] == Routes.following) {
-                              return Obx(
-                                () => Container(
-                                  decoration:
-                                      (controller.selectedIndex == index)
-                                          ? const BoxDecoration(
-                                              border: Border(
-                                                top: BorderSide(
-                                                    width: 3.0,
-                                                    color: Colors.white),
-                                                bottom: BorderSide(
-                                                    width: 3.0,
-                                                    color: Colors.white),
-                                              ),
-                                            )
-                                          : null,
-                                  child: Obx(
-                                    () => Card(
-                                      color: const Color(0XFF007E94),
-                                      elevation: 3,
-                                      child: ListTile(
-                                          title: Text(
-                                            _item['titulo'],
-                                            style: TextStyle(
-                                                color:
-                                                    (controller.selectedIndex ==
-                                                            index)
-                                                        ? AppColors.green
-                                                        : Colors.white,
-                                                fontSize: 19),
-                                          ),
-                                          leading:Image.asset(_item['icone'] , color: (controller.selectedIndex == index ) ? AppColors.green :  Colors.white),
-                                          onTap: () {
-                                            controller.selectedIndex = index;
-                                            Get.offNamed(_item['rota']);
-                                          },
-                                          selected: controller.selectedIndex ==
-                                              index),
-                                    ),
-                                  ),
-                                ),
-                              );
                             } else if (_item['rota'] == Routes.favoriteds) {
                               return Obx(
                                 () => Container(

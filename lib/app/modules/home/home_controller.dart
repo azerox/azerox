@@ -52,15 +52,6 @@ class HomeController extends GetxController {
         'rota': Routes.publishers,
       },
     );
-
-    items.add(
-      {
-        'titulo': 'Seguindo',
-        'icone': AppImages.seguinte,
-        'rota': Routes.following,
-      },
-    );
-
     items.add(
       {
         'titulo': 'Favoritos',

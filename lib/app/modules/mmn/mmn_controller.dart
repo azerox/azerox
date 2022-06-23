@@ -1,4 +1,3 @@
-import 'package:azerox/app/modules/following/seguindo_repository.dart';
 import 'package:azerox/app/modules/mmn/mmn_repository.dart';
 import 'package:get/get.dart';
 

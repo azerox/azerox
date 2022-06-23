@@ -69,44 +69,15 @@ class _InitialPageState extends State<InitialPage>
               TabPageSelector(
                 controller: tabController,
                 indicatorSize: 13,
-                color: Colors.grey,
-                selectedColor: Colors.black,
+                color: Colors.white,
               ),
-              const SizedBox(height: 50),
+              const SizedBox(height: 25),
               Column(
                 children: [
                   GestureDetector(
                     child: Image.asset(AppImages.instaBtn),
                     onTap: () {},
                   ),
-                  SizedBox(
-                    width: 309,
-                    height: 47,
-                    child: ElevatedButton.icon(
-                      icon: Padding(
-                        padding: const EdgeInsets.only(left: 25),
-                        child: Image.asset(
-                          AppImages.tiktok,
-                          height: 21,
-                          color: Colors.white,
-                        ),
-                      ),
-                      label: const Center(
-                        child: Text(
-                          'Login com Tik Tok',
-                          style: TextStyle(
-                            fontSize: 18,
-                            fontWeight: FontWeight.w700,
-                          ),
-                        ),
-                      ),
-                      style: ElevatedButton.styleFrom(
-                        primary: Colors.black,
-                      ),
-                      onPressed: () {},
-                    ),
-                  ),
-                  const SizedBox(height: 10),
                   SizedBox(
                     width: 309,
                     height: 47,
