@@ -38,7 +38,8 @@ class PostWidget extends StatelessWidget {
     final homeController = Get.find<HomeController>();
     final appController = Get.find<AppController>();
 
-    bool isPostOwner = appController.currentUser.value.codUser == post.user?.codUser;
+    bool isPostOwner =
+        appController.currentUser.value.codUser == post.user?.codUser;
 
     return Container(
       width: double.infinity,
@@ -172,7 +173,8 @@ class PostWidget extends StatelessWidget {
                     image: AppImages.fb,
                     onPressed: () async {
                       if (post.postItens?[currentIndex!].codPostType == 3) {
-                        await homeController.sendToFacebook(post.postItens?[currentIndex!].postItemMax ?? '');
+                        await homeController.sendToFacebook(
+                            post.postItens?[currentIndex!].postItemMax ?? '');
                       }
                     },
                   ),
@@ -198,15 +200,10 @@ class PostWidget extends StatelessWidget {
                     image: AppImages.insta,
                     onPressed: () async {
                       if (post.postItens?[currentIndex!].codPostType == 3) {
-                        await homeController.sendToInstagram(post.postItens?[currentIndex!].postItemMax ?? '');
+                        await homeController.sendToInstagram(
+                            post.postItens?[currentIndex!].postItemMax ?? '');
                       }
                     },
-                  ),
-                ),
-                Expanded(
-                  child: PostButtonWidget(
-                    image: AppImages.tiktok,
-                    onPressed: () async {},
                   ),
                 ),
               ],
