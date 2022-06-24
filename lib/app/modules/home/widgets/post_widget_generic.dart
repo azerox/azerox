@@ -10,20 +10,20 @@ import '../../../config/app_routes.dart';
 import '../../../models/post.dart';
 import '../controllers/chapter_bottomsheet_controller.dart';
 import '../home_controller.dart';
-import 'card_options.dart';
+
 import 'post_button.dart';
 import 'post_item_widget.dart';
 
 typedef AddCommentCallback = void Function(Post comment);
 
-class PostWidget extends StatelessWidget {
+class PostWidgetGeneric extends StatelessWidget {
   final Post post;
   final bool isComment;
   final bool isFavoritedsPage;
   final AddCommentCallback? onAddCommentCallback;
   final ChapterBottomsheetController? bottomsheetController;
 
-  const PostWidget({
+  const PostWidgetGeneric({
     Key? key,
     required this.post,
     this.isComment = false,
@@ -75,32 +75,6 @@ class PostWidget extends StatelessWidget {
               ),
             ),
             subtitle: Text(post.date ?? ''),
-            trailing: Visibility(
-              visible: isPostOwner,
-              child: IconButton(
-                iconSize: 29,
-                icon: Image.asset(AppImages.optionsMore),
-                onPressed: () {
-                  showModalBottomSheet(
-                    isScrollControlled: true,
-                    shape: const RoundedRectangleBorder(
-                      borderRadius: BorderRadius.only(
-                        topLeft: Radius.circular(32),
-                        topRight: Radius.circular(32),
-                      ),
-                    ),
-                    context: context,
-                    builder: (context) {
-                      return CardOptions(
-                        isComment: isComment,
-                        post: post,
-                        bottomsheetController: bottomsheetController,
-                      );
-                    },
-                  );
-                },
-              ),
-            ),
           ),
           Visibility(
             visible: post.nameEvent != null,
@@ -145,7 +119,7 @@ class PostWidget extends StatelessWidget {
                 ),
               ),
               onPressed: () {
-                Get.toNamed(Routes.comments, arguments: post);
+                Get.toNamed(Routes.specificComments, arguments: post);
               },
             ),
           ),
@@ -170,17 +144,6 @@ class PostWidget extends StatelessWidget {
                 ),
                 Expanded(
                   child: PostButtonWidget(
-                    image: AppImages.fb,
-                    onPressed: () async {
-                      if (post.postItens?[currentIndex!].codPostType == 3) {
-                        await homeController.sendToFacebook(
-                            post.postItens?[currentIndex!].postItemMax ?? '');
-                      }
-                    },
-                  ),
-                ),
-                Expanded(
-                  child: PostButtonWidget(
                     isLikeBtn: true,
                     post: post,
                     icon: const Icon(
@@ -192,17 +155,6 @@ class PostWidget extends StatelessWidget {
                         post,
                         post.isFavorite ? false : true,
                       );
-                    },
-                  ),
-                ),
-                Expanded(
-                  child: PostButtonWidget(
-                    image: AppImages.insta,
-                    onPressed: () async {
-                      if (post.postItens?[currentIndex!].codPostType == 3) {
-                        await homeController.sendToInstagram(
-                            post.postItens?[currentIndex!].postItemMax ?? '');
-                      }
                     },
                   ),
                 ),

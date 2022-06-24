@@ -19,7 +19,7 @@ class LoginPage extends GetView<LoginController> {
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             TextButton(
-              onPressed: () => Get.back(),
+              onPressed: () => Get.toNamed(Routes.initial),
               child: const Text(
                 'Fechar',
                 style: TextStyle(

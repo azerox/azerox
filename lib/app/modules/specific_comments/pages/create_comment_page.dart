@@ -10,22 +10,22 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-import '../controllers/create_comment_controller.dart';
+import '../controllers/specific_create_comment_controller.dart';
 import '../widgets/image_source_widget.dart';
 import '../widgets/recording_widget.dart';
 
-class CreateCommentPage extends StatefulWidget {
+class SpecificCreateCommentPage extends StatefulWidget {
   final Post chapter;
-  const CreateCommentPage.fromRouteArguments(dynamic arguments, {Key? key})
+  const SpecificCreateCommentPage.fromRouteArguments(dynamic arguments, {Key? key})
       : chapter = arguments,
         super(key: key);
 
   @override
-  State<CreateCommentPage> createState() => _CreateCommentPageState();
+  State<SpecificCreateCommentPage> createState() => _SpecificCreateCommentPageState();
 }
 
-class _CreateCommentPageState extends State<CreateCommentPage> {
-  final CreateCommentController controller = GetInstance().find();
+class _SpecificCreateCommentPageState extends State<SpecificCreateCommentPage> {
+  final SpecificCreateCommentController controller = GetInstance().find();
 
   @override
   void initState() {
@@ -243,7 +243,7 @@ class _CreateCommentPageState extends State<CreateCommentPage> {
                           ),
                           context: context,
                           builder: (context) =>
-                              const ImageSourceWidget(),
+                              const SpecificImageSourceWidget(),
                         );
                       },
                       style: ElevatedButton.styleFrom(
@@ -270,7 +270,7 @@ class _CreateCommentPageState extends State<CreateCommentPage> {
               ],
             );
           }
-          return const RecordingWidget();
+          return const SpecificRecordingWidget();
         },
       ),
     );

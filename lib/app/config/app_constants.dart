@@ -2,10 +2,14 @@ class AppConstants {
   static const apiBase = 'https://azerox.com.br/services';
 
   static const apiPostOnly = '$apiBase/jsonposts.asmx/GetPostOnly';
+  static const apiGetCountries = '$apiBase/jsoncountries.asmx/GetCountries';
+  static const apiGetStates = '$apiBase/jsonStates.asmx/GetStates';
+  static const apiGetCities = '$apiBase/jsonCities.asmx/GetCities';
   static const apiLogin = '$apiBase/jsonusers.asmx/GetUserLogin';
   static const apiAssinante = '$apiBase/jsonusers.asmx/GetUserProfileByCodUser';
   static const apiInsertCommentPost = '$apiBase/jsonposts.asmx/InsertCommentPost';
   static const apiRegister = '$apiBase/jsonusers.asmx/InsertUserFacebook';
+  static const apiVerificaEmailExistente = '$apiBase/jsonusers.asmx/GetExists';
   static const apiGetUserByEmail = '$apiBase/jsonusers.asmx/GetUserByEmail';
   static const apiFavoritePost = '$apiBase/jsonposts.asmx/InsertFavorite';
   static const apiDislikePost = '$apiBase/jsonposts.asmx/DeleteFavorite';

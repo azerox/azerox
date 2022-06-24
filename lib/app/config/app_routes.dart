@@ -3,8 +3,6 @@ import 'package:azerox/app/modules/comments/comments_bindings.dart';
 import 'package:azerox/app/modules/comments/pages/create_comment_page.dart';
 import 'package:azerox/app/modules/configuration/configuration_binding.dart';
 import 'package:azerox/app/modules/configuration/configuration_page.dart';
-import 'package:azerox/app/modules/following/seguindo_bindings.dart';
-import 'package:azerox/app/modules/following/seguindo_page.dart';
 import 'package:azerox/app/modules/mmn/mmn_bindings.dart';
 import 'package:azerox/app/modules/mmn/mmn_page.dart';
 import 'package:azerox/app/modules/net/net_bindings.dart';
@@ -17,6 +15,9 @@ import 'package:azerox/app/modules/register/politics/politics.dart';
 import 'package:azerox/app/modules/register/politics/use_terms.dart';
 import 'package:azerox/app/modules/register/register_bindings.dart';
 import 'package:azerox/app/modules/register/register_email_page.dart';
+import 'package:azerox/app/modules/specific_comments/pages/create_comment_page.dart';
+import 'package:azerox/app/modules/specific_comments/pages/specific_comments_page.dart';
+import 'package:azerox/app/modules/specific_comments/specific_comments_bindings.dart';
 import 'package:get/get.dart';
 
 import '../modules/comments/pages/comments_page.dart';
@@ -54,6 +55,21 @@ class AppRoutes {
       name: Routes.comments,
       page: () => CommentsPage.fromRouteArguments(Get.arguments),
       binding: CommentsBindings(),
+    ),
+    GetPage(
+      name: Routes.createComment,
+      page: () => CreateCommentPage.fromRouteArguments(Get.arguments),
+      binding: CommentsBindings(),
+    ),
+    GetPage(
+      name: Routes.specificComments,
+      page: () => SpecificCommentsPage.fromRouteArguments(Get.arguments),
+      binding: SpecificCommentsBindings(),
+    ),
+    GetPage(
+      name: Routes.specificCreateComment,
+      page: () => SpecificCreateCommentPage.fromRouteArguments(Get.arguments),
+      binding: SpecificCommentsBindings(),
     ),
     GetPage(
       name: Routes.favoriteds,
@@ -98,11 +114,6 @@ class AppRoutes {
       binding: EditoresBindings(),
     ),
     GetPage(
-      name: Routes.following,
-      page: () => SeguindoPage(),
-      binding: SeguindoBindings(),
-    ),
-    GetPage(
       name: Routes.net,
       page: () => NetPage(),
       binding: NetBindings(),
@@ -112,11 +123,6 @@ class AppRoutes {
       page: () => MMNPage(),
       binding: MMNBindings(),
     ),
-    GetPage(
-      name: Routes.createComment,
-      page: () => CreateCommentPage.fromRouteArguments(Get.arguments),
-      binding: CommentsBindings(),
-    ),
   ];
 }
 
@@ -125,11 +131,11 @@ class Routes {
   static const login = '/login';
   static const home = '/home';
   static const comments = '/comments';
+  static const specificComments = '/specific_comments';
   static const favoriteds = '/favoriteds';
   static const net = '/net';
   static const newEditions = '/newEditions';
   static const publishers = '/publishers';
-  static const following = '/following';
   static const createPost = '/createPost';
   static const cadastroEmail = '/cadastro_email';
   static const politics = '/politics';
@@ -138,4 +144,5 @@ class Routes {
   static const configuration = '/configuration';
   static const mmn = '/mmn';
   static const createComment = '/infiniteComments';
+  static const specificCreateComment = '/specific_createComment';
 }

@@ -36,4 +36,6 @@ class AppImages {
   static const home = 'assets/images/home.png';
   static const configuration = 'assets/images/configuration.png';
   static const mmn = 'assets/images/mmn.png';
+  static const mmn1 = 'assets/images/mmn1.png';
+  static const aviso = 'assets/images/aviso.jpg';
 }

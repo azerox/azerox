@@ -3,44 +3,45 @@ import 'package:azerox/app/models/post.dart';
 import 'package:azerox/app/modules/home/controllers/chapter_bottomsheet_controller.dart';
 import 'package:azerox/app/modules/home/repositories/chapter_bottomsheet_repository.dart';
 import 'package:azerox/app/modules/home/widgets/post_widget.dart';
+import 'package:azerox/app/modules/home/widgets/post_widget_generic.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-import '../controllers/comments_controller.dart';
+import '../controllers/specific_comments_controller.dart';
 
-class CommentsPage extends StatefulWidget {
+class SpecificCommentsPage extends StatefulWidget {
   final Post? chapter;
   final int? chapterId;
 
-  factory CommentsPage.fromRouteArguments(dynamic arguments, {Key? key}) {
-    if (arguments is int) return CommentsPage.byChapterId(arguments, key: key);
-    if (arguments is Post) return CommentsPage.byChapter(arguments, key: key);
+  factory SpecificCommentsPage.fromRouteArguments(dynamic arguments, {Key? key}) {
+    if (arguments is int) return SpecificCommentsPage.byChapterId(arguments, key: key);
+    if (arguments is Post) return SpecificCommentsPage.byChapter(arguments, key: key);
     throw Exception('Invalid route arguments');
   }
 
-  const CommentsPage.byChapter(Post chapter, {Key? key})
+  const SpecificCommentsPage.byChapter(Post chapter, {Key? key})
       : chapter = chapter,
         chapterId = null,
         super(key: key);
 
-  const CommentsPage.byChapterId(int chapterId, {Key? key})
+  const SpecificCommentsPage.byChapterId(int chapterId, {Key? key})
       : chapter = null,
         chapterId = chapterId,
         super(key: key);
 
   @override
-  State<CommentsPage> createState() => _CommentsPageState();
+  State<SpecificCommentsPage> createState() => _SpecificCommentsPageState();
 }
 
-class _CommentsPageState extends State<CommentsPage> {
-  late final CommentsController controller;
+class _SpecificCommentsPageState extends State<SpecificCommentsPage> {
+  late final SpecificCommentsController controller;
   late final ChapterBottomsheetController bottomSheetController;
 
   @override
   void initState() {
     super.initState();
-    controller = Get.find<CommentsController>();
+    controller = Get.find<SpecificCommentsController>();
 
     bottomSheetController = ChapterBottomsheetController.comment(
       controller.removeCommentById,
@@ -93,7 +94,7 @@ class _CommentsPageState extends State<CommentsPage> {
             mainAxisSize: MainAxisSize.min,
             children: [
               if (controller.value.chapter != null) ...{
-                PostWidget(
+                PostWidgetGeneric(
                   post: controller.value.chapter!,
                   onAddCommentCallback: controller.addNewComment,
                 ),

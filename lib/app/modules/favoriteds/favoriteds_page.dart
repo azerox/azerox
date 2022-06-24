@@ -2,7 +2,7 @@ import 'package:azerox/app/config/app_colors.dart';
 import 'package:azerox/app/core/core.dart';
 import 'package:azerox/app/models/post.dart';
 import 'package:azerox/app/modules/home/widgets/drawer/custom_drawer.dart';
-import 'package:azerox/app/modules/home/widgets/post_widget.dart';
+import 'package:azerox/app/modules/home/widgets/post_widget_generic.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -34,14 +34,17 @@ class FavoritedsPage extends StatelessWidget {
                   SizedBox(width: 10),
                   Icon(Icons.favorite, color: Colors.white),
                   SizedBox(width: 10),
-                  Text('Favoritos'),
+                  Text(
+                    'Favoritos',
+                    style: TextStyle(color: Colors.white),
+                  ),
                 ],
               ),
             ),
             Expanded(
               child: PaginationWidget<Post>(
                 controller: controller,
-                builder: (context, post) => PostWidget(
+                builder: (context, post) => PostWidgetGeneric(
                   key: ValueKey(post.codPost),
                   post: post,
                   onAddCommentCallback: controller.onAddCommentCallback,

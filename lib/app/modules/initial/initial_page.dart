@@ -31,26 +31,37 @@ class _InitialPageState extends State<InitialPage>
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: SafeArea(
-        child: SizedBox(
-          width: Get.width,
-          height: Get.height,
+      body: SingleChildScrollView(
+        child: SafeArea(
           child: Column(
             children: [
               const SizedBox(height: 50),
-              Expanded(
-                child: PageView(
-                  physics: const BouncingScrollPhysics(),
-                  onPageChanged: (page) {
-                    tabController!.index = page;
-                  },
-                  allowImplicitScrolling: true,
-                  controller: pageController,
+              Container(
+                height: MediaQuery.of(context).size.height * 0.47,
+                child: Column(
                   children: [
-                    Image.asset(AppImages.azerox1),
-                    Image.asset(AppImages.azerox2),
-                    Image.asset(AppImages.azerox3),
-                    Image.asset(AppImages.azerox4),
+                    Expanded(
+                      child: PageView(
+                        physics: const BouncingScrollPhysics(),
+                        onPageChanged: (page) {
+                          tabController!.index = page;
+                        },
+                        allowImplicitScrolling: true,
+                        controller: pageController,
+                        children: [
+                          Image.asset(AppImages.azerox1),
+                          Image.asset(AppImages.azerox2),
+                          Image.asset(AppImages.azerox3),
+                          Center(
+                            child: Image.asset(
+                              AppImages.azerox4,
+                              width: MediaQuery.of(context).size.width * 0.73,
+                              fit: BoxFit.fill,
+                            ),
+                          )
+                        ],
+                      ),
+                    ),
                   ],
                 ),
               ),
@@ -58,101 +69,70 @@ class _InitialPageState extends State<InitialPage>
               TabPageSelector(
                 controller: tabController,
                 indicatorSize: 13,
-                color: Colors.grey,
-                selectedColor: Colors.black,
+                color: Colors.white,
               ),
-              const SizedBox(height: 50),
-              Expanded(
-                child: Column(
-                  children: [
-                    GestureDetector(
-                      child: Image.asset(AppImages.instaBtn),
-                      onTap: () {},
-                    ),
-                    SizedBox(
-                      width: 309,
-                      height: 47,
-                      child: ElevatedButton.icon(
-                        icon: Padding(
-                          padding: const EdgeInsets.only(left: 25),
-                          child: Image.asset(
-                            AppImages.tiktok,
-                            height: 21,
-                            color: Colors.white,
-                          ),
+              const SizedBox(height: 25),
+              Column(
+                children: [
+                  GestureDetector(
+                    child: Image.asset(AppImages.instaBtn),
+                    onTap: () {},
+                  ),
+                  SizedBox(
+                    width: 309,
+                    height: 47,
+                    child: ElevatedButton.icon(
+                      icon: Padding(
+                        padding: const EdgeInsets.only(left: 25),
+                        child: Image.asset(
+                          AppImages.fb,
+                          height: 21,
+                          color: Colors.white,
                         ),
-                        label: const Center(
-                          child: Text(
-                            'Login com Tik Tok',
-                            style: TextStyle(
-                              fontSize: 18,
-                              fontWeight: FontWeight.w700,
-                            ),
-                          ),
-                        ),
-                        style: ElevatedButton.styleFrom(
-                          primary: Colors.black,
-                        ),
-                        onPressed: () {},
                       ),
-                    ),
-                    const SizedBox(height: 10),
-                    SizedBox(
-                      width: 309,
-                      height: 47,
-                      child: ElevatedButton.icon(
-                        icon: Padding(
-                          padding: const EdgeInsets.only(left: 25),
-                          child: Image.asset(
-                            AppImages.fb,
-                            height: 21,
-                            color: Colors.white,
+                      label: const Center(
+                        child: Text(
+                          'Login com Facebook',
+                          style: TextStyle(
+                            fontSize: 18,
+                            fontWeight: FontWeight.w700,
                           ),
                         ),
-                        label: const Center(
-                          child: Text(
-                            'Login com Facebook',
-                            style: TextStyle(
-                              fontSize: 18,
-                              fontWeight: FontWeight.w700,
-                            ),
-                          ),
-                        ),
-                        style: ElevatedButton.styleFrom(
-                          primary: const Color(0XFF435698),
-                        ),
-                        onPressed: () async {
-                          final controller = Get.find<InitialController>();
-                          await controller.loginWithFacebook();
-                        },
                       ),
+                      style: ElevatedButton.styleFrom(
+                        primary: const Color(0XFF435698),
+                      ),
+                      onPressed: () async {
+                        final controller = Get.find<InitialController>();
+                        await controller.loginWithFacebook();
+                      },
                     ),
-                    const SizedBox(height: 10),
-                    SizedBox(
-                      width: 309,
-                      height: 47,
-                      child: ElevatedButton.icon(
-                        icon: const Padding(
-                          padding: EdgeInsets.only(left: 25),
-                          child: Icon(Icons.email),
-                        ),
-                        label: const Center(
-                          child: Text(
-                            'Login com E-mail',
-                            style: TextStyle(
-                              fontSize: 18,
-                              fontWeight: FontWeight.w700,
-                            ),
+                  ),
+                  const SizedBox(height: 10),
+                  SizedBox(
+                    width: 309,
+                    height: 47,
+                    child: ElevatedButton.icon(
+                      icon: const Padding(
+                        padding: EdgeInsets.only(left: 25),
+                        child: Icon(Icons.email),
+                      ),
+                      label: const Center(
+                        child: Text(
+                          'Login com E-mail',
+                          style: TextStyle(
+                            fontSize: 18,
+                            fontWeight: FontWeight.w700,
                           ),
                         ),
-                        style: ElevatedButton.styleFrom(
-                          primary: const Color(0XFF7D7D7D),
-                        ),
-                        onPressed: () => Get.offNamed(Routes.login),
                       ),
+                      style: ElevatedButton.styleFrom(
+                        primary: const Color(0XFF7D7D7D),
+                      ),
+                      onPressed: () => Get.offNamed(Routes.login),
                     ),
-                  ],
-                ),
+                  ),
+                ],
               ),
             ],
           ),
