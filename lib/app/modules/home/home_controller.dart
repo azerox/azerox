@@ -97,6 +97,7 @@ class HomeController extends GetxController {
 
   @override
   void onClose() {
+    items.close();
     searchDrawerEC.dispose();
     super.onClose();
   }
