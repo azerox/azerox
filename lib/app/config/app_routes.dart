@@ -1,8 +1,10 @@
 import 'package:azerox/app/models/post.dart';
 import 'package:azerox/app/modules/comments/comments_bindings.dart';
 import 'package:azerox/app/modules/comments/pages/create_comment_page.dart';
-import 'package:azerox/app/modules/configuration/configuration_binding.dart';
-import 'package:azerox/app/modules/configuration/configuration_page.dart';
+import 'package:azerox/app/modules/configuration/visited_house_bindings.dart';
+import 'package:azerox/app/modules/configuration/visited_house_page.dart';
+
+
 import 'package:azerox/app/modules/mmn/mmn_bindings.dart';
 import 'package:azerox/app/modules/mmn/mmn_page.dart';
 import 'package:azerox/app/modules/net/net_bindings.dart';
@@ -104,9 +106,9 @@ class AppRoutes {
       page: () => const UseTerms(),
     ),
     GetPage(
-      name: Routes.configuration,
-      page: () => ConfigurationPage(),
-      binding: ConfigurationBindings(),
+      name: Routes.visitedHouse,
+      page: () => VisitedHousePage(),
+      binding: VisitedHouseBindings(),
     ),
     GetPage(
       name: Routes.publishers,
@@ -141,7 +143,7 @@ class Routes {
   static const politics = '/politics';
   static const useTerms = '/useTerms';
   static const consentientTerms = '/consentientTerms';
-  static const configuration = '/configuration';
+  static const visitedHouse = '/visited_house';
   static const mmn = '/mmn';
   static const createComment = '/infiniteComments';
   static const specificCreateComment = '/specific_createComment';

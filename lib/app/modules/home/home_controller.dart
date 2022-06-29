@@ -70,9 +70,9 @@ class HomeController extends GetxController {
 
     items.add(
       {
-        'titulo': 'Configurações',
+        'titulo': 'Home Visitantes',
         'icone': AppImages.configuration,
-        'rota': Routes.configuration,
+        'rota': Routes.visitedHouse,
       },
     );
 
