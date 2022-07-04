@@ -40,9 +40,7 @@ class _PaginationWidgetState<T> extends State<PaginationWidget<T>> {
             padding: const EdgeInsets.all(10),
             children: [
               if (widget.header != null) widget.header!,
-              const Expanded(
-                child: Center(child: CupertinoActivityIndicator()),
-              ),
+              const Center(child: CupertinoActivityIndicator()),
             ],
           );
         }
