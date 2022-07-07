@@ -4,6 +4,7 @@ import 'package:azerox/app/modules/home/controllers/chapter_bottomsheet_controll
 import 'package:azerox/app/modules/home/repositories/chapter_bottomsheet_repository.dart';
 import 'package:azerox/app/modules/home/widgets/post_widget.dart';
 import 'package:azerox/app/modules/home/widgets/post_widget_generic.dart';
+import 'package:azerox/app/modules/specific_comments/widgets/post_widget_generic_specific_comments.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -94,7 +95,7 @@ class _SpecificCommentsPageState extends State<SpecificCommentsPage> {
             mainAxisSize: MainAxisSize.min,
             children: [
               if (controller.value.chapter != null) ...{
-                PostWidgetGeneric(
+                PostWidgetGenericSpecificComments(
                   post: controller.value.chapter!,
                   onAddCommentCallback: controller.addNewComment,
                 ),

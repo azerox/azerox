@@ -100,6 +100,29 @@ class PostWidget extends StatelessWidget {
                   );
                 },
               ),
+              replacement: IconButton(
+                iconSize: 29,
+                icon: Image.asset(AppImages.optionsMore),
+                onPressed: () {
+                  showModalBottomSheet(
+                    isScrollControlled: true,
+                    shape: const RoundedRectangleBorder(
+                      borderRadius: BorderRadius.only(
+                        topLeft: Radius.circular(32),
+                        topRight: Radius.circular(32),
+                      ),
+                    ),
+                    context: context,
+                    builder: (context) {
+                      return CardOptions(
+                        isComment: isComment,
+                        post: post,
+                        bottomsheetController: bottomsheetController,
+                      );
+                    },
+                  );
+                },
+              ),
             ),
           ),
           Visibility(

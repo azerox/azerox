@@ -1,5 +1,8 @@
 import 'package:azerox/app/app_controller.dart';
-import 'package:azerox/app/modules/home/widgets/card_options.dart';
+import 'package:azerox/app/modules/home/controllers/chapter_bottomsheet_controller.dart';
+import 'package:azerox/app/modules/home/home_controller.dart';
+import 'package:azerox/app/modules/home/widgets/post_button.dart';
+import 'package:azerox/app/modules/home/widgets/post_item_widget.dart';
 import 'package:azerox/app/modules/specific_comments/widgets/card_options_specific_comments.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/cupertino.dart';
@@ -10,22 +13,17 @@ import '../../../config/app_colors.dart';
 import '../../../config/app_images.dart';
 import '../../../config/app_routes.dart';
 import '../../../models/post.dart';
-import '../controllers/chapter_bottomsheet_controller.dart';
-import '../home_controller.dart';
-
-import 'post_button.dart';
-import 'post_item_widget.dart';
 
 typedef AddCommentCallback = void Function(Post comment);
 
-class PostWidgetGeneric extends StatelessWidget {
+class PostWidgetGenericSpecificComments extends StatelessWidget {
   final Post post;
   final bool isComment;
   final bool isFavoritedsPage;
   final AddCommentCallback? onAddCommentCallback;
   final ChapterBottomsheetController? bottomsheetController;
 
-  const PostWidgetGeneric({
+  const PostWidgetGenericSpecificComments({
     Key? key,
     required this.post,
     this.isComment = false,
@@ -170,22 +168,22 @@ class PostWidgetGeneric extends StatelessWidget {
                     },
                   ),
                 ),
-                Expanded(
-                  child: PostButtonWidget(
-                    isLikeBtn: true,
-                    post: post,
-                    icon: const Icon(
-                      Icons.favorite,
-                      color: Colors.red,
-                    ),
-                    onPressed: () async {
-                      await homeController.favoritePost(
-                        post,
-                        post.isFavorite ? false : true,
-                      );
-                    },
-                  ),
-                ),
+                // Expanded(
+                //   child: PostButtonWidget(
+                //     isLikeBtn: true,
+                //     post: post,
+                //     icon: const Icon(
+                //       Icons.favorite,
+                //       color: Colors.red,
+                //     ),
+                //     onPressed: () async {
+                //       await homeController.favoritePost(
+                //         post,
+                //         post.isFavorite ? false : true,
+                //       );
+                //     },
+                //   ),
+                // ),
               ],
             ),
           )
