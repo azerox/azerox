@@ -273,7 +273,7 @@ class DrawerContentWidget extends GetView<HomeController> {
                                   ),
                                 ),
                               );
-                            } else if (_item['rota'] == Routes.configuration) {
+                            } else if (_item['rota'] == Routes.visitedHouse) {
                               return Obx(
                                 () => Container(
                                   decoration:

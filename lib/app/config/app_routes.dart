@@ -1,8 +1,8 @@
 import 'package:azerox/app/models/post.dart';
 import 'package:azerox/app/modules/comments/comments_bindings.dart';
 import 'package:azerox/app/modules/comments/pages/create_comment_page.dart';
-import 'package:azerox/app/modules/configuration/configuration_binding.dart';
-import 'package:azerox/app/modules/configuration/configuration_page.dart';
+import 'package:azerox/app/modules/configuration/visited_house_bindings.dart';
+import 'package:azerox/app/modules/configuration/visited_house_page.dart';
 import 'package:azerox/app/modules/mmn/mmn_bindings.dart';
 import 'package:azerox/app/modules/mmn/mmn_page.dart';
 import 'package:azerox/app/modules/net/net_bindings.dart';
@@ -19,7 +19,6 @@ import 'package:azerox/app/modules/specific_comments/pages/create_comment_page.d
 import 'package:azerox/app/modules/specific_comments/pages/specific_comments_page.dart';
 import 'package:azerox/app/modules/specific_comments/specific_comments_bindings.dart';
 import 'package:get/get.dart';
-
 import '../modules/comments/pages/comments_page.dart';
 import '../modules/create_post/create_post_bindings.dart';
 import '../modules/create_post/create_post_page.dart';
@@ -104,11 +103,6 @@ class AppRoutes {
       page: () => const UseTerms(),
     ),
     GetPage(
-      name: Routes.configuration,
-      page: () => ConfigurationPage(),
-      binding: ConfigurationBindings(),
-    ),
-    GetPage(
       name: Routes.publishers,
       page: () => EditoresPage(),
       binding: EditoresBindings(),
@@ -122,6 +116,11 @@ class AppRoutes {
       name: Routes.mmn,
       page: () => MMNPage(),
       binding: MMNBindings(),
+    ),
+    GetPage(
+      name: Routes.visitedHouse,
+      page: () => VisitedHousePage(),
+      binding: VisitedHouseBindings(),
     ),
   ];
 }
@@ -145,4 +144,5 @@ class Routes {
   static const mmn = '/mmn';
   static const createComment = '/infiniteComments';
   static const specificCreateComment = '/specific_createComment';
+  static const visitedHouse = '/visited_house';
 }
