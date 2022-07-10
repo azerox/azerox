@@ -11,19 +11,19 @@ class VisitedHouseModalSocialNetworks extends StatefulWidget {
   const VisitedHouseModalSocialNetworks({Key? key}) : super(key: key);
 
   @override
-  State<VisitedHouseModalSocialNetworks> createState() => _VisitedHouseModalSocialNetworksState();
+  State<VisitedHouseModalSocialNetworks> createState() =>
+      _VisitedHouseModalSocialNetworksState();
 }
 
-class _VisitedHouseModalSocialNetworksState extends State<VisitedHouseModalSocialNetworks> {
-
-
+class _VisitedHouseModalSocialNetworksState
+    extends State<VisitedHouseModalSocialNetworks> {
   @override
   Widget build(BuildContext context) {
     final controller = Get.find<VisitedHouseController>();
-    return  Container(
+    return Container(
       height: MediaQuery.of(context).size.height * 0.5,
       child: Padding(
-        padding:const EdgeInsets.all(10),
+        padding: const EdgeInsets.all(10),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
@@ -36,12 +36,12 @@ class _VisitedHouseModalSocialNetworksState extends State<VisitedHouseModalSocia
                   if (snapshot.connectionState == ConnectionState.waiting) {
                     return const Center(child: CupertinoActivityIndicator());
                   }
-
                   return ListView.builder(
                     physics: const BouncingScrollPhysics(),
                     itemCount: redeSociais.length,
                     itemBuilder: (context, index) {
-                      return SocialNetworksWidget(redeSocial: redeSociais[index]);
+                      return SocialNetworksWidget(
+                          redeSocial: redeSociais[index]);
                     },
                   );
                 },

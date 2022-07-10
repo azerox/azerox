@@ -82,8 +82,8 @@ class VisitedHouseRepository {
         'CodUser': '${user.codUser!}',
       },
     );
-    return (response.data['ListFriends'] as List)
-        .map((user) => SocialNetworks.fromJson(user))
-        .toList();
+
+    final body = response.data as List;
+    return body.map((post) => SocialNetworks.fromJson(post)).toList();
   }
 }
