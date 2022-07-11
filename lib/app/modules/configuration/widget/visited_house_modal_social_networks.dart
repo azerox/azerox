@@ -25,8 +25,18 @@ class _VisitedHouseModalSocialNetworksState
       child: Padding(
         padding: const EdgeInsets.all(10),
         child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
+          mainAxisAlignment: MainAxisAlignment.start,
+          crossAxisAlignment: CrossAxisAlignment.center,
           children: [
+            SizedBox(height: 16),
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Text(
+                "Net",
+                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 21),
+              ),
+            ),
+            SizedBox(height: 16),
             Expanded(
               child: FutureBuilder<List<SocialNetworks>>(
                 future: controller.findSocialNetworks(),
@@ -36,14 +46,16 @@ class _VisitedHouseModalSocialNetworksState
                   if (snapshot.connectionState == ConnectionState.waiting) {
                     return const Center(child: CupertinoActivityIndicator());
                   }
-                  return ListView.builder(
-                    physics: const BouncingScrollPhysics(),
-                    itemCount: redeSociais.length,
-                    itemBuilder: (context, index) {
-                      return SocialNetworksWidget(
-                          redeSocial: redeSociais[index]);
-                    },
-                  );
+                  //redeSociais[index]
+                  return GridView.builder(
+                      gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                        crossAxisCount: 2,
+                      ),
+                      itemCount: redeSociais.length,
+                      itemBuilder: (context, index) {
+                        return SocialNetworksWidget(
+                            redeSocial: redeSociais[index]);
+                      });
                 },
               ),
             ),

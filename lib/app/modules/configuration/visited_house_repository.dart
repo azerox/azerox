@@ -57,7 +57,7 @@ class VisitedHouseRepository {
 
   Future<List<EditorModel>> searchByUser(String userStr) async {
     final response = await dio.get(
-      AppConstants.apiGetPUserBySearch,
+      AppConstants.apiPosts,
       queryParameters: {
         'sessionId': user.sessionID,
         'CodUserProfile': '${user.codUser!}',

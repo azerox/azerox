@@ -1,5 +1,6 @@
 import 'package:azerox/app/core/core.dart';
 import 'package:azerox/app/modules/configuration/widget/visited_house_drawer_content_widget.dart';
+import 'package:azerox/app/modules/home/widgets/post_widget.dart';
 import 'package:azerox/app/modules/home/widgets/post_widget_generic.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';

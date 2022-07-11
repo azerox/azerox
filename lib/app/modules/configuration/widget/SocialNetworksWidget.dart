@@ -19,11 +19,55 @@ class _SocialNetworksWidgetState extends State<SocialNetworksWidget> {
     return Container(
       height: MediaQuery.of(context).size.height * 0.5,
       child: Padding(
-        padding:const EdgeInsets.all(10),
+        padding: const EdgeInsets.all(10),
         child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
+          mainAxisAlignment: MainAxisAlignment.start,
+          crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            Text("escrevendo texto")
+            Container(
+              width: MediaQuery.of(context).size.width * 6.5,
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  if (widget.redeSocial.network.toString() == 'Facebook')
+                    Image.asset(
+                      AppImages.facebook,
+                    ),
+                  if (widget.redeSocial.network.toString() == 'Site')
+                    Image.asset(
+                      AppImages.net2,
+                    ),
+                  if (widget.redeSocial.network.toString() == 'Twitter')
+                    Image.asset(
+                      AppImages.twitter,
+                    ),
+                  if (widget.redeSocial.network.toString() == 'Youtube')
+                    Image.asset(
+                      AppImages.youtube,
+                    ),
+                  if (widget.redeSocial.network.toString() == 'Flickr')
+                    Image.asset(
+                      AppImages.flickr,
+                    ),
+                  if (widget.redeSocial.network.toString() == 'Linkedin')
+                    Image.asset(
+                      AppImages.linkedin,
+                    ),
+                  if (widget.redeSocial.network.toString() == 'Instagram')
+                    Image.asset(
+                      AppImages.instagram,
+                    ),
+                  if (widget.redeSocial.network.toString() == 'Pintrest')
+                    Image.asset(
+                      AppImages.pinterest,
+                    ),
+                  if (widget.redeSocial.network.toString() == 'Pnera')
+                    Image.asset(
+                      AppImages.snapchat,
+                    ),
+                ],
+              ),
+            ),
           ],
         ),
       ),
