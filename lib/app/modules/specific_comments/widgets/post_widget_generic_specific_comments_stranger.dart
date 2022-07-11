@@ -16,17 +16,19 @@ import '../../../models/post.dart';
 
 typedef AddCommentCallback = void Function(Post comment);
 
-class PostWidgetGenericSpecificComments extends StatelessWidget {
+class PostWidgetGenericSpecificCommentsStranger extends StatelessWidget {
   final Post post;
   final bool isComment;
+  final bool? ownerOfComment;
   final bool isFavoritedsPage;
   final AddCommentCallback? onAddCommentCallback;
   final ChapterBottomsheetController? bottomsheetController;
 
-  const PostWidgetGenericSpecificComments({
+  const PostWidgetGenericSpecificCommentsStranger({
     Key? key,
     required this.post,
     this.isComment = false,
+    this.ownerOfComment = true,
     this.isFavoritedsPage = false,
     this.onAddCommentCallback,
     this.bottomsheetController,
@@ -35,11 +37,17 @@ class PostWidgetGenericSpecificComments extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     int? currentIndex;
+
     final appController = Get.find<AppController>();
 
     bool isPostOwner =
         appController.currentUser.value.codUser == post.user?.codUser;
 
+    if(ownerOfComment! == false){
+      isPostOwner = ownerOfComment!;
+    } else {
+      isPostOwner = true;
+    }
     return Container(
       width: double.infinity,
       margin: EdgeInsets.only(top: isComment ? 0 : 16),

@@ -1,3 +1,4 @@
+import 'package:azerox/app/app_controller.dart';
 import 'package:azerox/app/config/app_colors.dart';
 import 'package:azerox/app/models/post.dart';
 import 'package:azerox/app/modules/home/controllers/chapter_bottomsheet_controller.dart';
@@ -5,6 +6,7 @@ import 'package:azerox/app/modules/home/repositories/chapter_bottomsheet_reposit
 import 'package:azerox/app/modules/home/widgets/post_widget.dart';
 import 'package:azerox/app/modules/home/widgets/post_widget_generic.dart';
 import 'package:azerox/app/modules/specific_comments/widgets/post_widget_generic_specific_comments.dart';
+import 'package:azerox/app/modules/specific_comments/widgets/post_widget_generic_specific_comments_stranger.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -67,6 +69,7 @@ class _SpecificCommentsPageState extends State<SpecificCommentsPage> {
 
   @override
   Widget build(BuildContext context) {
+    final appController = Get.find<AppController>();
     return Scaffold(
       appBar: AppBar(
         leadingWidth: 150,
@@ -128,13 +131,17 @@ class _SpecificCommentsPageState extends State<SpecificCommentsPage> {
                 final isLastest = currentIndex == itemsList.length - 1;
                 final isLoading = controller.value.isLoading;
 
+                bool isPostOwner =
+                    appController.currentUser.value.codUser == controller.value.chapter!.user?.codUser;
                 final item = Padding(
                   padding: const EdgeInsets.only(bottom: 16),
-                  child: PostWidget(
+                  child: PostWidgetGenericSpecificCommentsStranger(
                     key: Key(itemsList[currentIndex].codPost.toString()),
                     bottomsheetController: bottomSheetController,
                     post: itemsList[currentIndex],
                     isComment: true,
+                    ownerOfComment: isPostOwner,
+
                   ),
                 );
                 if (isLastest && isLoading) {
