@@ -1,5 +1,8 @@
 import 'package:azerox/app/app_controller.dart';
-import 'package:azerox/app/modules/home/widgets/card_options.dart';
+import 'package:azerox/app/modules/home/controllers/chapter_bottomsheet_controller.dart';
+import 'package:azerox/app/modules/home/home_controller.dart';
+import 'package:azerox/app/modules/home/widgets/post_button.dart';
+import 'package:azerox/app/modules/home/widgets/post_item_widget.dart';
 import 'package:azerox/app/modules/specific_comments/widgets/card_options_specific_comments.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/cupertino.dart';
@@ -10,25 +13,22 @@ import '../../../config/app_colors.dart';
 import '../../../config/app_images.dart';
 import '../../../config/app_routes.dart';
 import '../../../models/post.dart';
-import '../controllers/chapter_bottomsheet_controller.dart';
-import '../home_controller.dart';
-
-import 'post_button.dart';
-import 'post_item_widget.dart';
 
 typedef AddCommentCallback = void Function(Post comment);
 
-class PostWidgetGeneric extends StatelessWidget {
+class PostWidgetGenericSpecificCommentsStranger extends StatelessWidget {
   final Post post;
   final bool isComment;
+  final bool? ownerOfComment;
   final bool isFavoritedsPage;
   final AddCommentCallback? onAddCommentCallback;
   final ChapterBottomsheetController? bottomsheetController;
 
-  const PostWidgetGeneric({
+  const PostWidgetGenericSpecificCommentsStranger({
     Key? key,
     required this.post,
     this.isComment = false,
+    this.ownerOfComment = true,
     this.isFavoritedsPage = false,
     this.onAddCommentCallback,
     this.bottomsheetController,
@@ -37,12 +37,17 @@ class PostWidgetGeneric extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     int? currentIndex;
-    final homeController = Get.find<HomeController>();
+
     final appController = Get.find<AppController>();
 
     bool isPostOwner =
         appController.currentUser.value.codUser == post.user?.codUser;
 
+    if(ownerOfComment! == false){
+      isPostOwner = ownerOfComment!;
+    } else {
+      isPostOwner = true;
+    }
     return Container(
       width: double.infinity,
       margin: EdgeInsets.only(top: isComment ? 0 : 16),
@@ -170,22 +175,22 @@ class PostWidgetGeneric extends StatelessWidget {
                     },
                   ),
                 ),
-                Expanded(
-                  child: PostButtonWidget(
-                    isLikeBtn: true,
-                    post: post,
-                    icon: const Icon(
-                      Icons.favorite,
-                      color: Colors.red,
-                    ),
-                    onPressed: () async {
-                      await homeController.favoritePost(
-                        post,
-                        post.isFavorite ? false : true,
-                      );
-                    },
-                  ),
-                ),
+                // Expanded(
+                //   child: PostButtonWidget(
+                //     isLikeBtn: true,
+                //     post: post,
+                //     icon: const Icon(
+                //       Icons.favorite,
+                //       color: Colors.red,
+                //     ),
+                //     onPressed: () async {
+                //       await homeController.favoritePost(
+                //         post,
+                //         post.isFavorite ? false : true,
+                //       );
+                //     },
+                //   ),
+                // ),
               ],
             ),
           )
