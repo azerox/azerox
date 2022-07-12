@@ -20,46 +20,51 @@ class _VisitedHouseModalSocialNetworksState
   @override
   Widget build(BuildContext context) {
     final controller = Get.find<VisitedHouseController>();
-    return Container(
-      height: MediaQuery.of(context).size.height * 0.5,
-      child: Padding(
-        padding: const EdgeInsets.all(10),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.start,
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            SizedBox(height: 16),
-            Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Text(
-                "Net",
-                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 21),
+    return SingleChildScrollView(
+      child: Container(
+        height: MediaQuery.of(context).size.height * 0.80,
+        child: Padding(
+          padding: const EdgeInsets.all(10),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              const SizedBox(height: 16),
+              const Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Text(
+                  "Net",
+                  style: TextStyle(fontWeight: FontWeight.bold, fontSize: 21),
+                ),
               ),
-            ),
-            SizedBox(height: 16),
-            Expanded(
-              child: FutureBuilder<List<SocialNetworks>>(
-                future: controller.findSocialNetworks(),
-                builder: (context, snapshot) {
-                  final List<SocialNetworks> redeSociais = snapshot.data ?? [];
+              const SizedBox(height: 16),
+              Expanded(
+                child: FutureBuilder<List<SocialNetworks>>(
+                  future: controller.findSocialNetworks(),
+                  builder: (context, snapshot) {
+                    final List<SocialNetworks> redeSociais =
+                        snapshot.data ?? [];
 
-                  if (snapshot.connectionState == ConnectionState.waiting) {
-                    return const Center(child: CupertinoActivityIndicator());
-                  }
-                  //redeSociais[index]
-                  return GridView.builder(
-                      gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                        crossAxisCount: 2,
-                      ),
-                      itemCount: redeSociais.length,
-                      itemBuilder: (context, index) {
-                        return SocialNetworksWidget(
-                            redeSocial: redeSociais[index]);
-                      });
-                },
+                    if (snapshot.connectionState == ConnectionState.waiting) {
+                      return const Center(child: CupertinoActivityIndicator());
+                    }
+
+                    return GridView.builder(
+                        gridDelegate:
+                            const SliverGridDelegateWithFixedCrossAxisCount(
+                                crossAxisCount: 2, childAspectRatio: 3 / 2),
+                        itemCount: 0,
+                        itemBuilder: (context, index) {
+                          return SocialNetworksWidget(
+                            redeSocial: redeSociais[index],
+                            lista: redeSociais,
+                          );
+                        });
+                  },
+                ),
               ),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
     );

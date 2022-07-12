@@ -1,4 +1,5 @@
 import 'package:azerox/app/core/core.dart';
+import 'package:azerox/app/modules/configuration/controller/Visited_House_chapters_controller.dart';
 import 'package:azerox/app/modules/configuration/widget/visited_house_drawer_content_widget.dart';
 import 'package:azerox/app/modules/home/widgets/post_widget.dart';
 import 'package:azerox/app/modules/home/widgets/post_widget_generic.dart';
@@ -24,6 +25,7 @@ class VisitedHousePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final controller = Get.find<VisitedHouseController>();
+    final VisitedHouseChaptersController visitedHouseChapterController = GetInstance().find();
 
     return Scaffold(
       appBar: AppBar(
@@ -60,8 +62,8 @@ class VisitedHousePage extends StatelessWidget {
             ),
             Expanded(
               child: PaginationWidget<Post>(
-                controller: controller,
-                builder: (context, post) => PostWidgetGeneric(
+                controller: visitedHouseChapterController,
+                builder: (context, post) => PostWidget(
                   key: ValueKey(post.codPost),
                   post: post,
                   onAddCommentCallback: controller.onAddCommentCallback,

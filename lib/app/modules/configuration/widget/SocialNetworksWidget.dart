@@ -5,8 +5,9 @@ import 'package:flutter/material.dart';
 
 class SocialNetworksWidget extends StatefulWidget {
   final SocialNetworks redeSocial;
+  final List<SocialNetworks>? lista;
 
-  const SocialNetworksWidget({required this.redeSocial, Key? key})
+  const SocialNetworksWidget({required this.redeSocial, this.lista, Key? key})
       : super(key: key);
 
   @override
@@ -21,52 +22,14 @@ class _SocialNetworksWidgetState extends State<SocialNetworksWidget> {
       child: Padding(
         padding: const EdgeInsets.all(10),
         child: Column(
-          mainAxisAlignment: MainAxisAlignment.start,
-          crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            Container(
-              width: MediaQuery.of(context).size.width * 6.5,
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  if (widget.redeSocial.network.toString() == 'Facebook')
-                    Image.asset(
-                      AppImages.facebook,
-                    ),
-                  if (widget.redeSocial.network.toString() == 'Site')
-                    Image.asset(
-                      AppImages.net2,
-                    ),
-                  if (widget.redeSocial.network.toString() == 'Twitter')
-                    Image.asset(
-                      AppImages.twitter,
-                    ),
-                  if (widget.redeSocial.network.toString() == 'Youtube')
-                    Image.asset(
-                      AppImages.youtube,
-                    ),
-                  if (widget.redeSocial.network.toString() == 'Flickr')
-                    Image.asset(
-                      AppImages.flickr,
-                    ),
-                  if (widget.redeSocial.network.toString() == 'Linkedin')
-                    Image.asset(
-                      AppImages.linkedin,
-                    ),
-                  if (widget.redeSocial.network.toString() == 'Instagram')
-                    Image.asset(
-                      AppImages.instagram,
-                    ),
-                  if (widget.redeSocial.network.toString() == 'Pintrest')
-                    Image.asset(
-                      AppImages.pinterest,
-                    ),
-                  if (widget.redeSocial.network.toString() == 'Pnera')
-                    Image.asset(
-                      AppImages.snapchat,
-                    ),
-                ],
-              ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Visibility(
+                    visible: true,
+                    child: Text("sadjbkdsbkjbkjsandkjn")),
+              ],
             ),
           ],
         ),
