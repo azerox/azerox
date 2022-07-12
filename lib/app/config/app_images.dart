@@ -38,4 +38,18 @@ class AppImages {
   static const mmn = 'assets/images/mmn.png';
   static const mmn1 = 'assets/images/mmn1.png';
   static const aviso = 'assets/images/aviso.jpg';
+  static const facebook = 'assets/images/Facebook.png';
+  static const flickr = 'assets/images/Flickr.png';
+  static const instagram = 'assets/images/Instagram.png';
+  static const linkedin = 'assets/images/Linkedin.png';
+  static const messenger = 'assets/images/Messenger.png';
+  static const myHeritage = 'assets/images/MyHeritage.png';
+  static const net2 = 'assets/images/Net2.png';
+  static const pinterest = 'assets/images/Pinterest.png';
+  static const snapchat = 'assets/images/Snapchat.png';
+  static const tikTtok = 'assets/images/TikTtok.png';
+  static const twitter = 'assets/images/Twitter.png';
+  static const weChat = 'assets/images/WeChat.png';
+  static const whastapp = 'assets/images/Whastapp.png';
+  static const youtube = 'assets/images/Youtube.png';
 }

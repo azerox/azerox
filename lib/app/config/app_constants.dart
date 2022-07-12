@@ -1,6 +1,8 @@
 class AppConstants {
   static const apiBase = 'https://azerox.com.br/services';
 
+
+  static const apiGetSocialNetworks = '$apiBase/jsonNetworks.asmx/GetNetworksByUSer'; //redes sociais
   static const apiPostOnly = '$apiBase/jsonposts.asmx/GetPostOnly';
   static const apiGetCountries = '$apiBase/jsoncountries.asmx/GetCountries';
   static const apiGetStates = '$apiBase/jsonStates.asmx/GetStates';
