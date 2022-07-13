@@ -141,7 +141,9 @@ class VisitedHouseCardInfoWidget extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     GestureDetector(
-                      child: Image.asset(AppImages.net),
+                      child: Image.asset(
+                          AppImages.net,
+                      ),
                       onTap: () {
                         showModalBottomSheet(
                             isScrollControlled: true,

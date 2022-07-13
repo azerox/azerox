@@ -69,7 +69,8 @@ class _VisitedHouseModalSocialNetworksState
                       replacement: GridView.builder(
                           gridDelegate:
                               const SliverGridDelegateWithFixedCrossAxisCount(
-                                  crossAxisCount: 2, childAspectRatio: 3 / 2),
+                                  crossAxisCount: 2,
+                                  childAspectRatio: 3 / 2),
                           itemCount: redeSociais.length,
                           itemBuilder: (context, index) {
                             return SocialNetworksWidget(
