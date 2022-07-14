@@ -41,9 +41,16 @@ class _CustomDrawerState extends State<CustomDrawer> {
                   setState(() {});
                 },
                 style: const TextStyle(color: Colors.black),
-                decoration: const InputDecoration(
+                decoration: InputDecoration(
                   hintText: 'Procurar Editores',
                   prefixIcon: Icon(Icons.search),
+                  suffixIcon: IconButton(
+                    onPressed: () => controller.searchDrawerEC.clear(),
+                    icon: Icon(
+                        Icons.close,
+                        color: Colors.black,
+                        size: 10),
+                  ),
                   filled: true,
                   fillColor: Colors.white,
                 ),
