@@ -1,3 +1,4 @@
+import 'package:azerox/app/models/user.dart';
 import 'package:azerox/app/modules/home/home_controller.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -57,10 +58,10 @@ class _CustomDrawerState extends State<CustomDrawer> {
             ),
             Visibility(
               visible: controller.searchDrawerEC.text.length >= 3,
-              child: FutureBuilder<List<EditorModel>>(
+              child: FutureBuilder<List<UserModel>>(
                 future: controller.searchByUser(),
                 builder: (context, snapshot) {
-                  final List<EditorModel> editores = snapshot.data ?? [];
+                  final List<UserModel> editores = snapshot.data ?? [];
 
                   if (snapshot.connectionState == ConnectionState.waiting) {
                     return const Center(child: CupertinoActivityIndicator());
@@ -74,7 +75,7 @@ class _CustomDrawerState extends State<CustomDrawer> {
                         showNet: false,
                         showEdit: false,
                         color: const Color(0XFF005E6C),
-                        editor: editores[index].editor,
+                        editor: editores[index],
                         isShearch: true,
                       );
                     },

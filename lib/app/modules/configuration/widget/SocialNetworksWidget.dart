@@ -37,7 +37,6 @@ class _SocialNetworksWidgetState extends State<SocialNetworksWidget> {
                 Row(
                   children: [
                     GestureDetector(
-                      // Esse é o ícone que precisa ser acionado pelo usuário
                       onTap: () =>
                           openURL(widget.redeSocial.userNetWorkUrl.toString()),
                       child: Visibility(

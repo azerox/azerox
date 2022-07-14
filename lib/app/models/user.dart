@@ -80,8 +80,8 @@ class UserModel {
 
   factory UserModel.fromJson(Map<String, dynamic> map) {
     return UserModel(
-      codUser: map['CodUser'],
-      codUserType: map['CodUserType'],
+      codUser: map['CodUser'] ?? 0,
+      codUserType: map['CodUserType'] ?? 0,
       codState: map['CodState'],
       codCity: map['CodCity'],
       codCountry: map['CodCountry'],
@@ -91,12 +91,12 @@ class UserModel {
       birthString: map['BirthString'],
       city: map['City'],
       state: map['State'],
-      country: map['Country'],
+      country: map['Country'] ?? '',
       sessionID: map['SessionID'],
-      password: map['Password'],
+      password: map['Password'] ?? '',
       nick: map['Nick'],
       publicProfile: map['PublicProfile'],
-      credential: map['Credential'],
+      credential: map['Credential'] ?? '',
       urlProfile: map['UrlProfile'],
       birthDate: map['BirthDate'],
       totalFriends: map['TotalFriends'],
