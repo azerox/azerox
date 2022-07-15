@@ -44,7 +44,7 @@ class _CustomDrawerState extends State<CustomDrawer> {
                 },
                 style: const TextStyle(color: Colors.black),
                 decoration: InputDecoration(
-                  hintText: 'Procurar Editores',
+                  hintText: 'Procurar novos editores',
                   prefixIcon: Icon(Icons.search),
                   suffixIcon: IconButton(
                     onPressed: () {
