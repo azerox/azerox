@@ -40,104 +40,111 @@ class CardInfoWidget extends StatelessWidget {
         color: color,
         child: Stack(
           children: [
-            Row(
-              children: [
-                ClipRRect(
-                  borderRadius: BorderRadius.circular(10),
-                  child: CachedNetworkImage(
-                    height: 60,
-                    width: 58,
-                    fit: BoxFit.cover,
-                    imageUrl: editor.filePicture,
-                    placeholder: (context, url) {
-                      return const CupertinoActivityIndicator();
-                    },
-                    errorWidget: (context, url, error) =>
-                    const Icon(Icons.error),
-                  ),
-                ),
-                const SizedBox(width: 10),
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  mainAxisAlignment: MainAxisAlignment.center,
+            Wrap(
+              spacing: 5.0,
+              runSpacing: 5.0,
+              direction: Axis.vertical, // main axis (rows or columns)
+              children: <Widget>[
+                Row(
                   children: [
-                    SizedBox(
-                      width: 130,
-                      child: Text(
-                        editor.name,
-                        style: const TextStyle(color: Colors.white),
-                        maxLines: 2,
-                        overflow: TextOverflow.ellipsis,
-                        softWrap: false,
+                    ClipRRect(
+                      borderRadius: BorderRadius.circular(10),
+                      child: CachedNetworkImage(
+                        height: 60,
+                        width: 58,
+                        fit: BoxFit.cover,
+                        imageUrl: editor.filePicture,
+                        placeholder: (context, url) {
+                          return const CupertinoActivityIndicator();
+                        },
+                        errorWidget: (context, url, error) =>
+                            const Icon(Icons.error),
                       ),
                     ),
-                    Visibility(
-                      visible: editor.nick != null,
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.start,
-                        children: [
-                          Text(
-                            editor.nick ?? '',
-                            style: const TextStyle(
-                                fontWeight: FontWeight.bold,
-                                color: Colors.white),
+                    const SizedBox(width: 10),
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        SizedBox(
+                          width: 95,
+                          child: Text(
+                            editor.name,
+                            style: const TextStyle(color: Colors.white),
+                            maxLines: 2,
                             overflow: TextOverflow.ellipsis,
+                            softWrap: false,
                           ),
-                          const SizedBox(width: 5),
-                        ],
+                        ),
+                        Visibility(
+                          visible: editor.nick != null,
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.start,
+                            children: [
+                              Text(
+                                editor.nick ?? '',
+                                style: const TextStyle(
+                                    fontWeight: FontWeight.bold,
+                                    color: Colors.white),
+                                overflow: TextOverflow.ellipsis,
+                              ),
+                              const SizedBox(width: 5),
+                            ],
+                          ),
+                        ),
+                        Visibility(
+                          visible: editor.city != null,
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.start,
+                            children: [
+                              Text(
+                                '${editor.city} - ${AppConstants.uf[editor.state]}',
+                                style: const TextStyle(color: Colors.white),
+                              ),
+                              const SizedBox(width: 5),
+                            ],
+                          ),
+                        ),
+                        Visibility(
+                          visible: editor.birthString != null,
+                          child: Row(
+                            children: [
+                              Image.asset(AppImages.signo),
+                              const SizedBox(width: 5),
+                              Text(
+                                dateFormated,
+                                style: const TextStyle(color: Colors.white),
+                              ),
+                              const SizedBox(width: 5),
+                              Visibility(
+                                visible: editor.country == 'Brasil' ||
+                                    editor.country != null,
+                                child: Image.asset(AppImages.br),
+                              ),
+                            ],
+                          ),
+                        ),
+                      ],
+                    ),
+                    const SizedBox(width: 5),
+                    Visibility(
+                      visible: isShearch,
+                      child: SizedBox(
+                        height: 25,
+                        child: ElevatedButton(
+                          child: const Text('+ Editor'),
+                          style: ElevatedButton.styleFrom(
+                            primary: Colors.blue,
+                          ),
+                          onPressed: () {},
+                        ),
                       ),
                     ),
                     Visibility(
-                      visible: editor.city != null,
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.start,
-                        children: [
-                          Text(
-                            '${editor.city} - ${AppConstants.uf[editor.state]}',
-                            style: const TextStyle(color: Colors.white),
-                          ),
-                          const SizedBox(width: 5),
-                        ],
-                      ),
-                    ),
-                    Visibility(
-                      visible: editor.birthString != null,
-                      child: Row(
-                        children: [
-                          Image.asset(AppImages.signo),
-                          const SizedBox(width: 5),
-                          Text(
-                            dateFormated,
-                            style: const TextStyle(color: Colors.white),
-                          ),
-                          const SizedBox(width: 5),
-                          Visibility(
-                            visible: editor.country == 'Brasil' ||
-                                editor.country != null,
-                            child: Image.asset(AppImages.br),
-                          ),
-                        ],
-                      ),
+                      visible: showNet,
+                      child: Image.asset(AppImages.net),
                     ),
                   ],
-                ),
-                const SizedBox(width: 5),
-                Visibility(
-                  visible: isShearch,
-                  child: SizedBox(
-                    height: 25,
-                    child: ElevatedButton(
-                      child: const Text('+ Editor'),
-                      style: ElevatedButton.styleFrom(
-                        primary: Colors.blue,
-                      ),
-                      onPressed: () {},
-                    ),
-                  ),
-                ),
-                Visibility(
-                  visible: showNet,
-                  child: Image.asset(AppImages.net),
                 ),
               ],
             ),

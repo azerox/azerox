@@ -14,6 +14,7 @@ import '../../../models/post.dart';
 
 class HomeRepository {
   final Dio dio;
+
   HomeRepository(this.dio);
 
   UserModel get user => Get.find<AppController>().currentUser.value;
@@ -72,22 +73,20 @@ class HomeRepository {
     );
   }
 
-  Future<List<EditorModel>> searchByUser(String userStr) async {
+  Future<List<UserModel>> searchByUser(String userStr) async {
     final response = await dio.get(
-      AppConstants.apiGetPUserBySearch,
+      AppConstants.GetUsersSearch,
       queryParameters: {
         'sessionId': user.sessionID,
         'CodUserProfile': '${user.codUser!}',
-        'CodUserLogged': '${user.codUser!}',
         'Page': '1',
-        'Pagesize': '10',
-        'Personal': true,
+        'Pagesize': '100',
         'WordSearch': userStr,
       },
     );
 
-    return (response.data['ListFriends'] as List)
-        .map((user) => EditorModel.fromJson(user))
+    return (response.data['ListUsers'] as List)
+        .map((user) => UserModel.fromJson(user))
         .toList();
   }
 
