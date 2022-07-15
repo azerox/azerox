@@ -99,16 +99,18 @@ class HomeController extends GetxController {
   @override
   set value(TextEditingValue newValue) {
     assert(
-    !newValue.composing.isValid || newValue.isComposingRangeValid,
-    'New TextEditingValue $newValue has an invalid non-empty composing range '
-        '${newValue.composing}. It is recommended to use a valid composing range, '
-        'even for readonly text fields',
+      !newValue.composing.isValid || newValue.isComposingRangeValid,
+      'New TextEditingValue $newValue has an invalid non-empty composing range '
+      '${newValue.composing}. It is recommended to use a valid composing range, '
+      'even for readonly text fields',
     );
   }
 
   void clear() {
-    value = const TextEditingValue(selection: TextSelection.collapsed(offset: 0));
+    value =
+        const TextEditingValue(selection: TextSelection.collapsed(offset: 0));
   }
+
   @override
   void onClose() {
     items.close();

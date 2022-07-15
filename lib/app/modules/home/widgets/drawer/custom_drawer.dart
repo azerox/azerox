@@ -1,5 +1,6 @@
 import 'package:azerox/app/models/user.dart';
 import 'package:azerox/app/modules/home/home_controller.dart';
+import 'package:azerox/app/modules/home/repositories/home_repository.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -26,6 +27,7 @@ class _CustomDrawerState extends State<CustomDrawer> {
   @override
   Widget build(BuildContext context) {
     final controller = Get.find<HomeController>();
+    final _services = <UserModel>[].obs;
 
     return Drawer(
       backgroundColor: const Color(0XFF007E94),
@@ -45,11 +47,13 @@ class _CustomDrawerState extends State<CustomDrawer> {
                   hintText: 'Procurar Editores',
                   prefixIcon: Icon(Icons.search),
                   suffixIcon: IconButton(
-                    onPressed: () => controller.searchDrawerEC.clear(),
-                    icon: Icon(
-                        Icons.close,
-                        color: Colors.black,
-                        size: 10),
+                    onPressed: () {
+                      controller.searchDrawerEC.clear();
+                      controller.searchDrawerEC.text = "";
+                      setState(() {});
+                    },
+                    icon:
+                        const Icon(Icons.close, color: Colors.black, size: 10),
                   ),
                   filled: true,
                   fillColor: Colors.white,
