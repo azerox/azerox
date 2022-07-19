@@ -57,16 +57,6 @@ class _SocialNetworksWidgetState extends State<SocialNetworksWidget> {
                         ),
                       ),
                     ),
-                    // GestureDetector(
-                    //   onTap: () =>
-                    //       openURL(widget.redeSocial.userNetWorkUrl.toString()),
-                    //   child: Visibility(
-                    //     visible: widget.redeSocial.network.toString() == 'Map',
-                    //     child: Image.asset(
-                    //       AppImages.snapchat,
-                    //     ),
-                    //   ),
-                    // ),
                     GestureDetector(
                       onTap: () =>
                           openURL(widget.redeSocial.userNetWorkUrl.toString()),

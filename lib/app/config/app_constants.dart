@@ -8,6 +8,7 @@ class AppConstants {
   static const apiGetStates = '$apiBase/jsonStates.asmx/GetStates';
   static const apiGetCities = '$apiBase/jsonCities.asmx/GetCities';
   static const apiLogin = '$apiBase/jsonusers.asmx/GetUserLogin';
+  static const apiListApprovedFriends = '$apiBase/jsonfriends.asmx/GetFriendsByUser';
   static const apiAssinante = '$apiBase/jsonusers.asmx/GetUserProfileByCodUser';
   static const apiInsertCommentPost = '$apiBase/jsonposts.asmx/InsertCommentPost';
   static const apiRegister = '$apiBase/jsonusers.asmx/InsertUserFacebook';
@@ -32,6 +33,8 @@ class AppConstants {
 
   static const apiSaveImageProfile =
       'https://azerox.com.br/services/jsonusers.asmx/UpdateFilePicture';
+
+
 
   static const uf = {
     "Acre": "AC",
