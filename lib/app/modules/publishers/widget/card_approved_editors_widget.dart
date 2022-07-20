@@ -15,7 +15,6 @@ import '../../../config/app_images.dart';
 import '../../../config/app_routes.dart';
 import '../../../models/post.dart';
 
-
 typedef AddCommentCallback = void Function(Post comment);
 
 class CardApprovedEditorsWidget extends StatelessWidget {
@@ -40,8 +39,8 @@ class CardApprovedEditorsWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-  //  int? currentIndex;
-   // final homeController = Get.find<EditoresController>();
+    //  int? currentIndex;
+    // final homeController = Get.find<EditoresController>();
     final appController = Get.find<AppController>();
 
     bool isPostOwner =
@@ -60,11 +59,10 @@ class CardApprovedEditorsWidget extends StatelessWidget {
         color: color,
         child: Stack(
           children: [
-            Wrap(
-              spacing: 5.0,
-              runSpacing: 5.0,
-              direction: Axis.vertical, // main axis (rows or columns)
-              children: <Widget>[
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
                 Row(
                   children: [
                     ClipRRect(
@@ -145,27 +143,32 @@ class CardApprovedEditorsWidget extends StatelessWidget {
                           ),
                         ),
                       ],
-                    ),
-                    const SizedBox(width: 5),
-                    Visibility(
-                      visible: isShearch,
-                      child: SizedBox(
-                        height: 25,
-                        child: ElevatedButton(
-                          child: const Text('+ Editor'),
-                          style: ElevatedButton.styleFrom(
-                            primary: Colors.blue,
+                    )
+                  ],
+                ),
+                Row(
+                  children: [
+                    Container(
+                      child: Center(
+                        child: Visibility(
+                          visible: isShearch,
+                          child: SizedBox(
+                            height: 25,
+                            child: ElevatedButton(
+                              onPressed: () {},
+                              child: const Text('+ Editor'),
+                              style: ElevatedButton.styleFrom(
+                                primary: Colors.blue,
+                              ),
+                            ),
                           ),
-                          onPressed: () {},
                         ),
                       ),
                     ),
-
                   ],
-                ),
+                )
               ],
             ),
-
           ],
         ),
       ),
