@@ -6,6 +6,7 @@ import 'package:azerox/app/models/post.dart';
 import 'package:dio/dio.dart';
 import 'package:get/get.dart';
 
+
 import '../../app_controller.dart';
 
 class EditoresRepository {
@@ -30,14 +31,17 @@ class EditoresRepository {
         'GetPeding': 'false',
         'Personal': 'false',
         'AllUserTypes': 'true',
+
       },
     );
 
+
     final body = response.data['ListFriends'] as List;
     return body.map((post) => NewEditor.fromJson(post)).toList();
+
   }
 
-  Future<List<PagedInfoNewEditor>> getListApprovedFriendsNumber() async {
+  Future<PagedInfoNewEditor> getListApprovedFriendsNumber() async {
     dio.options.headers['Cookie'] = 'ASP.NET_SessionId=${user.sessionID}';
 
     final response = await dio.get(
@@ -50,11 +54,13 @@ class EditoresRepository {
         'GetPeding': 'false',
         'Personal': 'false',
         'AllUserTypes': 'true',
+
       },
     );
 
-    final body = response.data;
-    print(body);
-    return body.map((post) => PagedInfoNewEditor.fromMap(post)).toList();
+
+    final body = response.data['PagedInfo'];
+    return PagedInfoNewEditor.fromJson(body);
   }
+
 }

@@ -21,7 +21,7 @@ class EditoresPage extends GetView<EditoresController> {
   @override
   Widget build(BuildContext context) {
     final ChaptersPublisherController chaptersPublisherController =
-        GetInstance().find();
+    GetInstance().find();
 
     String? numberOfEditors;
     return Scaffold(
@@ -52,29 +52,49 @@ class EditoresPage extends GetView<EditoresController> {
                 ],
               ),
             ),
-            Expanded(
-              child: FutureBuilder<List<PagedInfoNewEditor>>(
-                future: controller.findNumberNewEditor(),
-                builder: (context, snapshot) {
-                  final List<PagedInfoNewEditor> newEditors =
-                      snapshot.data ?? [];
+            SizedBox(height: 10),
+            Column(
+              children: [
+                Container(
+                  height: 30,
+                  width: MediaQuery.of(context).size.width,
+                  color: AppColors.primary,
+                  child: Row(
+                    children: [
+                      const SizedBox(width: 10),
+                      Expanded(
+                        child: FutureBuilder<PagedInfoNewEditor>(
+                          future: controller.findNumberNewEditor(),
+                          builder: (context, snapshot) {
+                            // final List<PagedInfoNewEditor> newEditors =
+                            //     snapshot.data ?? [];
 
-                  if (snapshot.connectionState == ConnectionState.waiting) {
-                    return const Center(child: CupertinoActivityIndicator());
-                  }
+                            if (snapshot.connectionState == ConnectionState.waiting) {
+                              return const Center(child: CupertinoActivityIndicator());
+                            }
 
-                  return ListView.builder(
-                    itemCount: newEditors.length,
-                    itemBuilder: (context, index) {
-                      return Row(
-                        children: [
-                          Text(""),
-                        ],
-                      );
-                    },
-                  );
-                },
-              ),
+                            return ListView.builder(
+                              //  itemCount: newEditors.length,
+                              itemCount: 1,
+                              itemBuilder: (context, index) {
+                                return Padding(
+                                  padding: const EdgeInsets.all(6.0),
+                                  child: Text(
+                                    'Editores'+ '('+ snapshot.data!.totalRows.toString()+ ')',
+                                    style: TextStyle(
+                                        color: Colors.white
+                                    ),
+                                  ),
+                                );
+                              },
+                            );
+                          },
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ],
             ),
             Expanded(
               child: PaginationWidget<NewEditor>(
@@ -85,7 +105,7 @@ class EditoresPage extends GetView<EditoresController> {
                   isShearch: true,
                   color: const Color(0XFF005E6C),
                   onAddCommentCallback:
-                      chaptersPublisherController.onAddCommentCallback,
+                  chaptersPublisherController.onAddCommentCallback,
                 ),
               ),
             ),

@@ -7,7 +7,7 @@ class EditoresController extends GetxController {
 
   EditoresController(this.repository);
 
-  Future<List<PagedInfoNewEditor>> findNumberNewEditor() async {
+  Future<PagedInfoNewEditor> findNumberNewEditor() async {
     return await repository.getListApprovedFriendsNumber();
   }
 }
