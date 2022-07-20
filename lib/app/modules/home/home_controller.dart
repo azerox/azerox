@@ -7,7 +7,7 @@ import 'package:azerox/app/models/editor_model.dart';
 import 'package:azerox/app/models/post.dart';
 import 'package:azerox/app/modules/home/repositories/home_repository.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_social_content_share/flutter_social_content_share.dart';
+// import 'package:flutter_social_content_share/flutter_social_content_share.dart';
 import 'package:get/get.dart';
 
 import '../../models/assinante_model.dart';
@@ -116,18 +116,18 @@ class HomeController extends GetxController {
   }
 
   Future<void> sendToInstagram(String imageUrl) async {
-    await FlutterSocialContentShare.share(
-      type: ShareType.instagramWithImageUrl,
-      imageUrl: imageUrl,
-    );
+    // await FlutterSocialContentShare.share(
+    //   type: ShareType.instagramWithImageUrl,
+    //   imageUrl: imageUrl,
+    // );
   }
 
   Future<void> sendToFacebook(String imageUrl) async {
-    await FlutterSocialContentShare.share(
-      type: ShareType.facebookWithoutImage,
-      url: imageUrl,
-      quote: '#Azerox',
-    );
+    // await FlutterSocialContentShare.share(
+    //   type: ShareType.facebookWithoutImage,
+    //   url: imageUrl,
+    //   quote: '#Azerox',
+    // );
   }
 
   Future<List<EditorModel>> searchByUser() async {
@@ -137,8 +137,7 @@ class HomeController extends GetxController {
   Future<void> updateImageProfile(String imagePath) async {
     final userProfile = await repository.uploadProfilePicture(imagePath);
     if (userProfile == null) return;
-    _appController.currentUser.value =
-        _appController.currentUser.value.copyWith(
+    _appController.currentUser.value = _appController.currentUser.value.copyWith(
       filePicture: userProfile.filePicture,
     );
   }

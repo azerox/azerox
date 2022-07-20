@@ -42,18 +42,13 @@
 		<string>UIInterfaceOrientationLandscapeRight</string>
 	</array>
 	<key>UIViewControllerBasedStatusBarAppearance</key>
-	<true/>
+	<false/>
+	<key>NSMicrophoneUsageDescription</key>
+	<string>Para melhor experiencia precisamos de acesso a sua camera</string>
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>Acessar galeria para buscar imagem</string>
+	<key>NSCameraUsageDescription</key>
+	<string>Para melhor experiencia precisamos de acesso a sua camera</string>
+	
 </dict>
-<key>LSApplicationQueriesSchemes</key>
-	<array>
-		<string>instagram-stories</string>
-		<string>facebook-stories</string>
-		<string>facebook</string>
-		<string>instagram</string>
-		<string>twitter</string>
-		<string>whatsapp</string>
-    <string>tg</string>
-	</array>
-	<key>FacebookAppID</key>
-	<string>2714043815566796</string>
 </plist>

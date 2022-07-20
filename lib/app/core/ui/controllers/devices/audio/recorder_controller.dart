@@ -1,7 +1,6 @@
 import 'dart:async';
 import 'dart:io';
 
-import 'package:audio_session/audio_session.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_sound/flutter_sound.dart';
 import 'package:intl/intl.dart';
@@ -24,8 +23,7 @@ class RecorderController extends ChangeNotifier {
   Future<void> init() async {
     await openRecorder();
 
-    await recorderModule
-        .setSubscriptionDuration(const Duration(milliseconds: 10));
+    await recorderModule.setSubscriptionDuration(const Duration(milliseconds: 10));
 
     // final session = await AudioSession.instance;
     // await session.configure(AudioSessionConfiguration(
@@ -52,8 +50,8 @@ class RecorderController extends ChangeNotifier {
     if (status != PermissionStatus.granted) {
       throw RecordingPermissionException('Microphone permission not granted');
     }
-
-    await recorderModule.openRecorder();
+    await recorderModule.startRecorder();
+    // await recorderModule.openRecorder();
   }
 
   void cancelRecorderSubscriptions() {
@@ -65,7 +63,8 @@ class RecorderController extends ChangeNotifier {
 
   Future<void> releaseFlauto() async {
     try {
-      await recorderModule.closeRecorder();
+      await recorderModule.stopRecorder();
+      // await recorderModule.closeRecorder();
     } on Exception {
       recorderModule.logger.e('Released unsuccessful');
     }
@@ -98,9 +97,7 @@ class RecorderController extends ChangeNotifier {
       recorderModule.logger.d('startRecorder');
 
       _recorderSubscription = recorderModule.onProgress!.listen((e) {
-        var date = DateTime.fromMillisecondsSinceEpoch(
-            e.duration.inMilliseconds,
-            isUtc: true);
+        var date = DateTime.fromMillisecondsSinceEpoch(e.duration.inMilliseconds, isUtc: true);
         var txt = DateFormat('mm:ss:SS', 'en_GB').format(date);
 
         recorderTxt = txt.substring(0, 8);
