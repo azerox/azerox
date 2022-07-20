@@ -68,7 +68,7 @@ class EditoresPage extends GetView<EditoresController> {
                     itemBuilder: (context, index) {
                       return Row(
                         children: [
-                          Text("sdcksldkmclkdsmclkmsdlkcmds"),
+                          Text(""),
                         ],
                       );
                     },

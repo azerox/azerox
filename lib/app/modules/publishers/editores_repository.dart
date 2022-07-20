@@ -6,7 +6,6 @@ import 'package:azerox/app/models/post.dart';
 import 'package:dio/dio.dart';
 import 'package:get/get.dart';
 
-
 import '../../app_controller.dart';
 
 class EditoresRepository {
@@ -31,14 +30,11 @@ class EditoresRepository {
         'GetPeding': 'false',
         'Personal': 'false',
         'AllUserTypes': 'true',
-
       },
     );
 
-
     final body = response.data['ListFriends'] as List;
     return body.map((post) => NewEditor.fromJson(post)).toList();
-
   }
 
   Future<List<PagedInfoNewEditor>> getListApprovedFriendsNumber() async {
@@ -54,14 +50,11 @@ class EditoresRepository {
         'GetPeding': 'false',
         'Personal': 'false',
         'AllUserTypes': 'true',
-
       },
     );
 
-
-    final body = response.data['PagedInfo'];
+    final body = response.data;
     print(body);
-    return body.map((post) => PagedInfoNewEditor.fromJson(post)).toList();
+    return body.map((post) => PagedInfoNewEditor.fromMap(post)).toList();
   }
-
 }
