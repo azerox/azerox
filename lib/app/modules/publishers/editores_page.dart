@@ -7,6 +7,7 @@ import 'package:azerox/app/modules/home/widgets/drawer/custom_drawer.dart';
 import 'package:azerox/app/modules/publishers/controllers/chapters_Publisher_controller.dart';
 import 'package:azerox/app/modules/publishers/controllers/editores_controller.dart';
 import 'package:azerox/app/modules/publishers/widget/card_approved_editors_widget.dart';
+import 'package:azerox/app/modules/publishers/widget/card_pending_editors_widget.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -18,7 +19,10 @@ class EditoresPage extends GetView<EditoresController> {
   @override
   Widget build(BuildContext context) {
     final ChaptersPublisherController chaptersPublisherController =
-    GetInstance().find();
+        GetInstance().find();
+    final controller = Get.find<EditoresController>();
+
+    int? numeroPendentes;
 
     String? numberOfEditors;
     return Scaffold(
@@ -32,28 +36,90 @@ class EditoresPage extends GetView<EditoresController> {
         padding: const EdgeInsets.all(10),
         child: Column(
           children: [
-            Container(
-              height: 30,
-              color: AppColors.primary,
-              child: Row(
-                children: [
-                  const SizedBox(width: 10),
-                  Image.asset(
-                    AppImages.editores,
-                  ),
-                  const SizedBox(width: 10),
-                  const Text(
-                    'Novas Solicitações de Editores',
-                    style: TextStyle(color: Colors.white),
-                  ),
-                ],
-              ),
-            ),
             SizedBox(height: 10),
             Column(
               children: [
                 Container(
-                  height: 30,
+                  height: 40,
+                  width: MediaQuery.of(context).size.width,
+                  color: AppColors.primary,
+                  child: Row(
+                    children: [
+                      const SizedBox(width: 10),
+                      Expanded(
+                        child: FutureBuilder<List<NewEditor>>(
+                          future: controller.getlistNewEditor(),
+                          builder: (context, snapshot) {
+                            final List<NewEditor> pendingPublisherRequest =
+                                snapshot.data ?? [];
+
+                            if (snapshot.connectionState ==
+                                ConnectionState.waiting) {
+                              return const Center(
+                                  child: CupertinoActivityIndicator());
+                            }
+
+                            return ListView.builder(
+                              physics: const BouncingScrollPhysics(),
+                              itemCount: 1,
+                              itemBuilder: (context, index) {
+                                return Padding(
+                                  padding: const EdgeInsets.all(10.0),
+                                  child: Text(
+                                    'Novas solicitações de editores ' +
+                                        '(' +
+                                        pendingPublisherRequest.length.toString() +
+                                        ')',
+                                    style: TextStyle(
+                                        color: Colors.white, fontSize: 15),
+                                  ),
+                                );
+                              },
+                            );
+                          },
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ],
+            ),
+            SizedBox(height: 10),
+            Container(
+              child: Expanded(
+                child: FutureBuilder<List<NewEditor>>(
+                  future: controller.getlistNewEditor(),
+                  builder: (context, snapshot) {
+                    final List<NewEditor> pendingPublisherRequest =
+                        snapshot.data ?? [];
+
+                    if (snapshot.connectionState == ConnectionState.waiting) {
+                      return const Center(child: CupertinoActivityIndicator());
+                    }
+
+                    return ListView.builder(
+                      physics: const BouncingScrollPhysics(),
+                      itemCount: pendingPublisherRequest.length,
+                      itemBuilder: (context, index) {
+                        return CardPendingEditorsWidget(
+                          key: ValueKey(
+                              pendingPublisherRequest[index].codUserFriend),
+                          newEditor: pendingPublisherRequest[index],
+                          isShearch: true,
+                          color: const Color(0XFF005E6C),
+                          onAddCommentCallback:
+                              chaptersPublisherController.onAddCommentCallback,
+                        );
+                      },
+                    );
+                  },
+                ),
+              ),
+            ),
+            Column(
+              children: [
+                Container(
+                  height: 40,
                   width: MediaQuery.of(context).size.width,
                   color: AppColors.primary,
                   child: Row(
@@ -66,8 +132,10 @@ class EditoresPage extends GetView<EditoresController> {
                             // final List<PagedInfoNewEditor> newEditors =
                             //     snapshot.data ?? [];
 
-                            if (snapshot.connectionState == ConnectionState.waiting) {
-                              return const Center(child: CupertinoActivityIndicator());
+                            if (snapshot.connectionState ==
+                                ConnectionState.waiting) {
+                              return const Center(
+                                  child: CupertinoActivityIndicator());
                             }
 
                             return ListView.builder(
@@ -75,12 +143,14 @@ class EditoresPage extends GetView<EditoresController> {
                               itemCount: 1,
                               itemBuilder: (context, index) {
                                 return Padding(
-                                  padding: const EdgeInsets.all(6.0),
+                                  padding: const EdgeInsets.all(10.0),
                                   child: Text(
-                                    'Editores'+ '('+ snapshot.data!.totalRows.toString()+ ')',
+                                    'Editores ' +
+                                        '(' +
+                                        snapshot.data!.totalRows.toString() +
+                                        ')',
                                     style: TextStyle(
-                                        color: Colors.white
-                                    ),
+                                        color: Colors.white, fontSize: 15),
                                   ),
                                 );
                               },
@@ -102,7 +172,7 @@ class EditoresPage extends GetView<EditoresController> {
                   isShearch: true,
                   color: const Color(0XFF005E6C),
                   onAddCommentCallback:
-                  chaptersPublisherController.onAddCommentCallback,
+                      chaptersPublisherController.onAddCommentCallback,
                 ),
               ),
             ),

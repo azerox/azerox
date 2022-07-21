@@ -58,9 +58,27 @@ class EditoresRepository {
       },
     );
 
-
     final body = response.data['PagedInfo'];
     return PagedInfoNewEditor.fromJson(body);
+  }
+
+
+  Future<List<NewEditor>> getListNewEditorPeding() async {
+    dio.options.headers['Cookie'] = 'ASP.NET_SessionId=${user.sessionID}';
+
+    final response = await dio.get(
+      AppConstants.apiPendingRequestPublishers,
+      queryParameters: {
+        'sessionId': user.sessionID,
+        'CodUserProfile': '${user.codUser!}',
+        'Personal': 'true',
+      },
+    );
+
+
+    final body = response.data as List;
+    return body.map((post) => NewEditor.fromJson(post)).toList();
+
   }
 
 }

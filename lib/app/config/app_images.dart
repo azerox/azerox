@@ -56,4 +56,6 @@ class AppImages {
   static const login_instagram = 'assets/images/login_instagram.png';
   static const login_facebook = 'assets/images/login_facebook.png';
   static const login_google = 'assets/images/login_google.png';
+  static const confirmar = 'assets/images/confirmar.png';
+  static const excluir = 'assets/images/excluir.png';
 }

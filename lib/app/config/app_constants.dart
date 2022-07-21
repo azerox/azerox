@@ -9,6 +9,7 @@ class AppConstants {
   static const apiGetCities = '$apiBase/jsonCities.asmx/GetCities';
   static const apiLogin = '$apiBase/jsonusers.asmx/GetUserLogin';
   static const apiListApprovedFriends = '$apiBase/jsonfriends.asmx/GetFriendsByUser';
+  static const apiPendingRequestPublishers = '$apiBase/jsonFriends.asmx/GetFriendsByUserOnlyPeding';
   static const apiAssinante = '$apiBase/jsonusers.asmx/GetUserProfileByCodUser';
   static const apiInsertCommentPost = '$apiBase/jsonposts.asmx/InsertCommentPost';
   static const apiRegister = '$apiBase/jsonusers.asmx/InsertUserFacebook';

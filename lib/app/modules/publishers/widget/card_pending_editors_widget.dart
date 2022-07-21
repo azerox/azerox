@@ -17,7 +17,7 @@ import '../../../models/post.dart';
 
 typedef AddCommentCallback = void Function(Post comment);
 
-class CardApprovedEditorsWidget extends StatelessWidget {
+class CardPendingEditorsWidget extends StatelessWidget {
   final NewEditor newEditor;
   final bool showNet;
   final bool showEdit;
@@ -26,7 +26,7 @@ class CardApprovedEditorsWidget extends StatelessWidget {
   final AddCommentCallback? onAddCommentCallback;
   final ChaptersPublisherController? bottomsheetController;
 
-  const CardApprovedEditorsWidget({
+  const CardPendingEditorsWidget({
     Key? key,
     required this.newEditor,
     this.showNet = true,
@@ -147,6 +147,7 @@ class CardApprovedEditorsWidget extends StatelessWidget {
                   ],
                 ),
                 Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
                   children: [
                     Container(
                       child: Center(
@@ -154,13 +155,25 @@ class CardApprovedEditorsWidget extends StatelessWidget {
                           visible: isShearch,
                           child: SizedBox(
                             height: 25,
-                            child: ElevatedButton(
-                              onPressed: () {},
-                              child: const Text('Excluir'),
-                              style: ElevatedButton.styleFrom(
-                                primary: Colors.red,
-                              ),
-                            ),
+                            child: GestureDetector(
+                              child: Image.asset(AppImages.confirmar),
+                              onTap: () {},
+                            )
+                          ),
+                        ),
+                      ),
+                    ),
+                    SizedBox(width: 30,),
+                    Container(
+                      child: Center(
+                        child: Visibility(
+                          visible: isShearch,
+                          child: SizedBox(
+                              height: 25,
+                              child: GestureDetector(
+                                child: Image.asset(AppImages.excluir),
+                                onTap: () {},
+                              )
                           ),
                         ),
                       ),
