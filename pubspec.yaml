@@ -1,9 +1,6 @@
 name: azerox
 description: A new Flutter project.
-
-publish_to: "none"
-
-version: 6.0.0+1
+version: 6.0.2+3
 
 environment:
   sdk: ">=2.16.2 <3.0.0"
@@ -20,17 +17,17 @@ dependencies:
   # flutter_facebook_auth: ^3.5.7 # TODO pacote quebrando no IOS
   cached_network_image: ^3.2.0
   image_picker: ^0.8.4+8
-  permission_handler: ^8.3.0 # OK
-  flutter_sound: ^8.5.0 # TODO pacote quebrando
+  permission_handler: ^8.3.0
+  flutter_sound: ^8.5.0
   # flutter_sound_platform_interface: ^9.1.7
   mask: ^1.0.2
   lazy_load_scrollview: ^1.1.0
-  file_picker: ^4.5.1 # config IOS
+  file_picker: ^4.5.1
   image_compression: ^1.0.3
-  url_launcher: ^6.1.2 # config IOS
+  url_launcher: ^6.1.2
   flutter_widget_from_html_core: ^0.8.5+3
   image_cropper: ^2.0.2
-  just_audio: ^0.9.27 # config ios
+  just_audio: ^0.9.27
   uuid: ^3.0.6
 
 dev_dependencies:
