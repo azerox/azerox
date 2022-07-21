@@ -52,4 +52,8 @@ class AppImages {
   static const weChat = 'assets/images/WeChat.png';
   static const whastapp = 'assets/images/Whastapp.png';
   static const youtube = 'assets/images/Youtube.png';
+  static const login_email = 'assets/images/login_email.png';
+  static const login_instagram = 'assets/images/login_instagram.png';
+  static const login_facebook = 'assets/images/login_facebook.png';
+  static const login_google = 'assets/images/login_google.png';
 }

@@ -1,4 +1,5 @@
 import 'package:azerox/app/modules/initial/initial_controller.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -75,62 +76,26 @@ class _InitialPageState extends State<InitialPage>
               Column(
                 children: [
                   GestureDetector(
-                    child: Image.asset(AppImages.instaBtn),
+                    child: Image.asset(AppImages.login_instagram),
                     onTap: () {},
                   ),
-                  SizedBox(
-                    width: 309,
-                    height: 47,
-                    child: ElevatedButton.icon(
-                      icon: Padding(
-                        padding: const EdgeInsets.only(left: 25),
-                        child: Image.asset(
-                          AppImages.fb,
-                          height: 21,
-                          color: Colors.white,
-                        ),
-                      ),
-                      label: const Center(
-                        child: Text(
-                          'Login com Facebook',
-                          style: TextStyle(
-                            fontSize: 18,
-                            fontWeight: FontWeight.w700,
-                          ),
-                        ),
-                      ),
-                      style: ElevatedButton.styleFrom(
-                        primary: const Color(0XFF435698),
-                      ),
-                      onPressed: () async {
-                        final controller = Get.find<InitialController>();
-                        await controller.loginWithFacebook();
-                      },
-                    ),
+                  const SizedBox(height: 10),
+                  GestureDetector(
+                    child: Image.asset(AppImages.login_google),
+                    onTap: () {},
                   ),
                   const SizedBox(height: 10),
-                  SizedBox(
-                    width: 309,
-                    height: 47,
-                    child: ElevatedButton.icon(
-                      icon: const Padding(
-                        padding: EdgeInsets.only(left: 25),
-                        child: Icon(Icons.email),
-                      ),
-                      label: const Center(
-                        child: Text(
-                          'Login com E-mail',
-                          style: TextStyle(
-                            fontSize: 18,
-                            fontWeight: FontWeight.w700,
-                          ),
-                        ),
-                      ),
-                      style: ElevatedButton.styleFrom(
-                        primary: const Color(0XFF7D7D7D),
-                      ),
-                      onPressed: () => Get.offNamed(Routes.login),
-                    ),
+                  GestureDetector(
+                    child: Image.asset(AppImages.login_facebook),
+                    onTap: () async{
+                      final controller = Get.find<InitialController>();
+                      await controller.loginWithFacebook();
+                    },
+                  ),
+                  const SizedBox(height: 10),
+                  GestureDetector(
+                    child: Image.asset(AppImages.login_email),
+                    onTap: () => Get.offNamed(Routes.login),
                   ),
                 ],
               ),
