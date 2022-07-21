@@ -4,6 +4,7 @@ import 'package:azerox/app/app_controller.dart';
 import 'package:azerox/app/config/app_images.dart';
 import 'package:azerox/app/config/app_routes.dart';
 import 'package:azerox/app/models/editor_model.dart';
+import 'package:azerox/app/models/new_editor.dart';
 import 'package:azerox/app/models/post.dart';
 import 'package:azerox/app/models/user.dart';
 import 'package:azerox/app/modules/home/repositories/home_repository.dart';
@@ -157,5 +158,9 @@ class HomeController extends GetxController {
         _appController.currentUser.value.copyWith(
       filePicture: userProfile.filePicture,
     );
+  }
+
+  Future<List<NewEditor>> getlistNewEditor() async {
+    return await repository.getListNewEditorPeding();
   }
 }

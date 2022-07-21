@@ -30,6 +30,8 @@ class CardInfoWidget extends StatelessWidget {
     final dateFormated = DateFormat('dd/MM/yyyy')
         .format(DateTime.parse(editor.birthString ?? '00000000'));
 
+
+
     return Card(
       color: Colors.grey,
       elevation: 5,

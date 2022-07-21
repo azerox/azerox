@@ -22,8 +22,6 @@ class EditoresPage extends GetView<EditoresController> {
         GetInstance().find();
     final controller = Get.find<EditoresController>();
 
-    int? numeroPendentes;
-
     String? numberOfEditors;
     return Scaffold(
       appBar: AppBar(

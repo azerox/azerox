@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:azerox/app/app_controller.dart';
 import 'package:azerox/app/models/assinante_model.dart';
 import 'package:azerox/app/models/editor_model.dart';
+import 'package:azerox/app/models/new_editor.dart';
 import 'package:azerox/app/models/user.dart';
 import 'package:azerox/app/models/user_profile.dart';
 import 'package:dio/dio.dart';
@@ -148,5 +149,23 @@ class HomeRepository {
     final path =
         uri.pathSegments.sublist(uri.pathSegments.length - 3).join('/');
     return path;
+  }
+
+  Future<List<NewEditor>> getListNewEditorPeding() async {
+    dio.options.headers['Cookie'] = 'ASP.NET_SessionId=${user.sessionID}';
+
+    final response = await dio.get(
+      AppConstants.apiPendingRequestPublishers,
+      queryParameters: {
+        'sessionId': user.sessionID,
+        'CodUserProfile': '${user.codUser!}',
+        'Personal': 'true',
+      },
+    );
+
+
+    final body = response.data as List;
+    return body.map((post) => NewEditor.fromJson(post)).toList();
+
   }
 }

@@ -1,5 +1,6 @@
 import 'package:azerox/app/app_controller.dart';
 import 'package:azerox/app/config/app_colors.dart';
+import 'package:azerox/app/models/new_editor.dart';
 import 'package:azerox/app/modules/home/home_controller.dart';
 import 'package:azerox/app/modules/home/widgets/quit_dialog.dart';
 import 'package:flutter/cupertino.dart';
@@ -19,6 +20,7 @@ class DrawerContentWidget extends GetView<HomeController> {
 
   @override
   Widget build(BuildContext context) {
+    final controller = Get.find<HomeController>();
     return Column(
       children: [
         Obx(() {
@@ -166,14 +168,39 @@ class DrawerContentWidget extends GetView<HomeController> {
                                               ),
                                               width: 40,
                                               height: 30,
-                                              child: const Center(
-                                                child: Text(
-                                                  '1',
-                                                  style: TextStyle(
-                                                      fontSize: 17,
-                                                      fontWeight:
-                                                          FontWeight.w700,
-                                                      color: Colors.white),
+                                              child: Center(
+                                                child: Expanded(
+                                                  child: FutureBuilder<List<NewEditor>>(
+                                                    future: controller.getlistNewEditor(),
+                                                    builder: (context, snapshot) {
+                                                      final List<NewEditor> pendingPublisherRequest =
+                                                          snapshot.data ?? [];
+
+                                                      if (snapshot.connectionState ==
+                                                          ConnectionState.waiting) {
+                                                        return const Center(
+                                                            child: CupertinoActivityIndicator());
+                                                      }
+
+                                                      return ListView.builder(
+                                                        physics: const BouncingScrollPhysics(),
+                                                        itemCount: 1,
+                                                        itemBuilder: (context, index) {
+                                                          return Padding(
+                                                            padding: const EdgeInsets.all(7.0),
+                                                            child: Text(
+                                                              pendingPublisherRequest.length.toString(),
+                                                            style: TextStyle(
+                                                            fontSize: 17,
+                                                            fontWeight:
+                                                            FontWeight.w700,
+                                                            color: Colors.white),
+                                                            ),
+                                                          );
+                                                        },
+                                                      );
+                                                    },
+                                                  ),
                                                 ),
                                               ),
                                             ),
