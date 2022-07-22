@@ -2,5 +2,6 @@
     "dart.lineLength": 140,
     "editor.rulers": [
         140
-    ]
+    ],
+    "dart.flutterSdkPath": "/Users/mac/fvm/versions/2.10.4"
 }

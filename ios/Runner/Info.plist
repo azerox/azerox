@@ -8,6 +8,10 @@
 	<string>Azerox</string>
 	<key>CFBundleExecutable</key>
 	<string>$(EXECUTABLE_NAME)</string>
+	<key>CFBundleIcons</key>
+	<dict/>
+	<key>CFBundleIcons~ipad</key>
+	<dict/>
 	<key>CFBundleIdentifier</key>
 	<string>$(PRODUCT_BUNDLE_IDENTIFIER)</string>
 	<key>CFBundleInfoDictionaryVersion</key>
@@ -17,13 +21,26 @@
 	<key>CFBundlePackageType</key>
 	<string>APPL</string>
 	<key>CFBundleShortVersionString</key>
-	<string>$(FLUTTER_BUILD_NAME)</string>
+	<string>$(MARKETING_VERSION)</string>
 	<key>CFBundleSignature</key>
 	<string>????</string>
 	<key>CFBundleVersion</key>
-	<string>$(FLUTTER_BUILD_NUMBER)</string>
+	<string>$(CURRENT_PROJECT_VERSION)</string>
+	<key>LSApplicationQueriesSchemes</key>
+	<array>
+		<string>sms</string>
+		<string>tel</string>
+	</array>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
+	<key>NSAppleMusicUsageDescription</key>
+	<string>Explain why your app uses music</string>
+	<key>NSCameraUsageDescription</key>
+	<string>Para melhor experiencia precisamos de acesso a sua camera</string>
+	<key>NSMicrophoneUsageDescription</key>
+	<string>Para melhor experiencia precisamos de acesso a sua camera</string>
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>Acessar galeria para buscar imagem</string>
 	<key>UILaunchStoryboardName</key>
 	<string>LaunchScreen</string>
 	<key>UIMainStoryboardFile</key>
@@ -42,18 +59,6 @@
 		<string>UIInterfaceOrientationLandscapeRight</string>
 	</array>
 	<key>UIViewControllerBasedStatusBarAppearance</key>
-	<true/>
+	<false/>
 </dict>
-<key>LSApplicationQueriesSchemes</key>
-	<array>
-		<string>instagram-stories</string>
-		<string>facebook-stories</string>
-		<string>facebook</string>
-		<string>instagram</string>
-		<string>twitter</string>
-		<string>whatsapp</string>
-    <string>tg</string>
-	</array>
-	<key>FacebookAppID</key>
-	<string>2714043815566796</string>
 </plist>
