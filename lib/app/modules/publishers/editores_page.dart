@@ -61,16 +61,42 @@ class EditoresPage extends GetView<EditoresController> {
                               physics: const BouncingScrollPhysics(),
                               itemCount: 1,
                               itemBuilder: (context, index) {
-                                return Padding(
-                                  padding: const EdgeInsets.all(10.0),
-                                  child: Text(
-                                    'Novas solicitações de editores ' +
-                                        '(' +
-                                        pendingPublisherRequest.length.toString() +
-                                        ')',
-                                    style: TextStyle(
-                                        color: Colors.white, fontSize: 15),
-                                  ),
+                                return Row(
+                                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                                  children: [
+                                    Padding(
+                                      padding: const EdgeInsets.all(10.0),
+                                      child: Text(
+                                        'Novas solicitações de editores ' +
+                                            '(' +
+                                            pendingPublisherRequest.length.toString() +
+                                            ')',
+                                        style: TextStyle(
+                                            color: Colors.white, fontSize: 15),
+                                      ),
+                                    ),
+
+                                    Text( 'Stop',
+                                      style: TextStyle(
+                                          fontSize: 17,
+                                          fontWeight:
+                                          FontWeight
+                                              .w700,
+                                          color: Colors
+                                              .red[300]),
+                                    ),
+                                    SizedBox(width: 10),
+                                    Text( 'Start',
+                                      style: TextStyle(
+                                          fontSize: 17,
+                                          fontWeight:
+                                          FontWeight
+                                              .w700,
+                                          color: Colors
+                                              .greenAccent[400]),
+                                    )
+
+                                  ],
                                 );
                               },
                             );
@@ -84,34 +110,33 @@ class EditoresPage extends GetView<EditoresController> {
             ),
             SizedBox(height: 10),
             Container(
-              child: Expanded(
-                child: FutureBuilder<List<NewEditor>>(
-                  future: controller.getlistNewEditor(),
-                  builder: (context, snapshot) {
-                    final List<NewEditor> pendingPublisherRequest =
-                        snapshot.data ?? [];
+            height: 112,
+              child: FutureBuilder<List<NewEditor>>(
+                future: controller.getlistNewEditor(),
+                builder: (context, snapshot) {
+                  final List<NewEditor> pendingPublisherRequest =
+                      snapshot.data ?? [];
 
-                    if (snapshot.connectionState == ConnectionState.waiting) {
-                      return const Center(child: CupertinoActivityIndicator());
-                    }
+                  if (snapshot.connectionState == ConnectionState.waiting) {
+                    return const Center(child: CupertinoActivityIndicator());
+                  }
 
-                    return ListView.builder(
-                      physics: const BouncingScrollPhysics(),
-                      itemCount: pendingPublisherRequest.length,
-                      itemBuilder: (context, index) {
-                        return CardPendingEditorsWidget(
-                          key: ValueKey(
-                              pendingPublisherRequest[index].codUserFriend),
-                          newEditor: pendingPublisherRequest[index],
-                          isShearch: true,
-                          color: const Color(0XFF005E6C),
-                          onAddCommentCallback:
-                              chaptersPublisherController.onAddCommentCallback,
-                        );
-                      },
-                    );
-                  },
-                ),
+                  return ListView.builder(
+                    physics: const BouncingScrollPhysics(),
+                    itemCount: pendingPublisherRequest.length,
+                    itemBuilder: (context, index) {
+                      return CardPendingEditorsWidget(
+                        key: ValueKey(
+                            pendingPublisherRequest[index].codUserFriend),
+                        newEditor: pendingPublisherRequest[index],
+                        isShearch: true,
+                        color: const Color(0XFF005E6C),
+                        onAddCommentCallback:
+                            chaptersPublisherController.onAddCommentCallback,
+                      );
+                    },
+                  );
+                },
               ),
             ),
             Column(

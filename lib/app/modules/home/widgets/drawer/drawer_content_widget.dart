@@ -74,7 +74,12 @@ class DrawerContentWidget extends GetView<HomeController> {
                                                         : Colors.white,
                                                 fontSize: 19),
                                           ),
-                                          leading: Image.asset(_item['icone'] , color: (controller.selectedIndex == index ) ? AppColors.green:  Colors.white),
+                                          leading: Image.asset(_item['icone'],
+                                              color:
+                                                  (controller.selectedIndex ==
+                                                          index)
+                                                      ? AppColors.green
+                                                      : Colors.white),
                                           onTap: () {
                                             controller.selectedIndex = index;
                                             Get.offNamed(_item['rota']);
@@ -116,7 +121,12 @@ class DrawerContentWidget extends GetView<HomeController> {
                                                         : Colors.white,
                                                 fontSize: 19),
                                           ),
-                                          leading: Image.asset(_item['icone'] , color: (controller.selectedIndex == index ) ? AppColors.green :  Colors.white),
+                                          leading: Image.asset(_item['icone'],
+                                              color:
+                                                  (controller.selectedIndex ==
+                                                          index)
+                                                      ? AppColors.green
+                                                      : Colors.white),
                                           onTap: () {
                                             controller.selectedIndex = index;
                                             Get.offNamed(_item['rota']);
@@ -169,43 +179,61 @@ class DrawerContentWidget extends GetView<HomeController> {
                                               width: 40,
                                               height: 30,
                                               child: Center(
-                                                child: Expanded(
-                                                  child: FutureBuilder<List<NewEditor>>(
-                                                    future: controller.getlistNewEditor(),
-                                                    builder: (context, snapshot) {
-                                                      final List<NewEditor> pendingPublisherRequest =
-                                                          snapshot.data ?? [];
+                                                child: FutureBuilder<
+                                                    List<NewEditor>>(
+                                                  future: controller
+                                                      .getlistNewEditor(),
+                                                  builder:
+                                                      (context, snapshot) {
+                                                    final List<NewEditor>
+                                                        pendingPublisherRequest =
+                                                        snapshot.data ?? [];
 
-                                                      if (snapshot.connectionState ==
-                                                          ConnectionState.waiting) {
-                                                        return const Center(
-                                                            child: CupertinoActivityIndicator());
-                                                      }
+                                                    if (snapshot
+                                                            .connectionState ==
+                                                        ConnectionState
+                                                            .waiting) {
+                                                      return const Center(
+                                                          child:
+                                                              CupertinoActivityIndicator());
+                                                    }
 
-                                                      return ListView.builder(
-                                                        physics: const BouncingScrollPhysics(),
-                                                        itemCount: 1,
-                                                        itemBuilder: (context, index) {
-                                                          return Padding(
-                                                            padding: const EdgeInsets.all(7.0),
-                                                            child: Text(
-                                                              pendingPublisherRequest.length.toString(),
+                                                    return ListView.builder(
+                                                      physics:
+                                                          const BouncingScrollPhysics(),
+                                                      itemCount: 1,
+                                                      itemBuilder:
+                                                          (context, index) {
+                                                        return Padding(
+                                                          padding:
+                                                              const EdgeInsets
+                                                                  .all(7.0),
+                                                          child: Text(
+                                                            pendingPublisherRequest
+                                                                .length
+                                                                .toString(),
                                                             style: TextStyle(
-                                                            fontSize: 17,
-                                                            fontWeight:
-                                                            FontWeight.w700,
-                                                            color: Colors.white),
-                                                            ),
-                                                          );
-                                                        },
-                                                      );
-                                                    },
-                                                  ),
+                                                                fontSize: 17,
+                                                                fontWeight:
+                                                                    FontWeight
+                                                                        .w700,
+                                                                color: Colors
+                                                                    .white),
+                                                          ),
+                                                        );
+                                                      },
+                                                    );
+                                                  },
                                                 ),
                                               ),
                                             ),
                                           ),
-                                          leading: Image.asset(_item['icone'] , color: (controller.selectedIndex == index ) ? AppColors.green :  Colors.white),
+                                          leading: Image.asset(_item['icone'],
+                                              color:
+                                                  (controller.selectedIndex ==
+                                                          index)
+                                                      ? AppColors.green
+                                                      : Colors.white),
                                           onTap: () {
                                             controller.selectedIndex = index;
                                             Get.offNamed(_item['rota']);
@@ -247,7 +275,12 @@ class DrawerContentWidget extends GetView<HomeController> {
                                                         : Colors.white,
                                                 fontSize: 19),
                                           ),
-                                          leading: Image.asset(_item['icone'] , color: (controller.selectedIndex == index ) ? AppColors.green :  Colors.white),
+                                          leading: Image.asset(_item['icone'],
+                                              color:
+                                                  (controller.selectedIndex ==
+                                                          index)
+                                                      ? AppColors.green
+                                                      : Colors.white),
                                           onTap: () {
                                             controller.selectedIndex = index;
                                             Get.offNamed(_item['rota']);
@@ -289,7 +322,12 @@ class DrawerContentWidget extends GetView<HomeController> {
                                                         : Colors.white,
                                                 fontSize: 19),
                                           ),
-                                          leading: Image.asset(_item['icone'] , color: (controller.selectedIndex == index ) ? AppColors.green :  Colors.white),
+                                          leading: Image.asset(_item['icone'],
+                                              color:
+                                                  (controller.selectedIndex ==
+                                                          index)
+                                                      ? AppColors.green
+                                                      : Colors.white),
                                           onTap: () {
                                             controller.selectedIndex = index;
                                             Get.offNamed(_item['rota']);
@@ -331,7 +369,12 @@ class DrawerContentWidget extends GetView<HomeController> {
                                                         : Colors.white,
                                                 fontSize: 19),
                                           ),
-                                          leading: Image.asset(_item['icone'] , color: (controller.selectedIndex == index ) ? AppColors.green :  Colors.white),
+                                          leading: Image.asset(_item['icone'],
+                                              color:
+                                                  (controller.selectedIndex ==
+                                                          index)
+                                                      ? AppColors.green
+                                                      : Colors.white),
                                           onTap: () {
                                             controller.selectedIndex = index;
                                             Get.offNamed(_item['rota']);
@@ -373,7 +416,12 @@ class DrawerContentWidget extends GetView<HomeController> {
                                                         : Colors.white,
                                                 fontSize: 19),
                                           ),
-                                          leading: Image.asset(_item['icone'] , color: (controller.selectedIndex == index ) ? AppColors.green :  Colors.white),
+                                          leading: Image.asset(_item['icone'],
+                                              color:
+                                                  (controller.selectedIndex ==
+                                                          index)
+                                                      ? AppColors.green
+                                                      : Colors.white),
                                           onTap: () {
                                             controller.selectedIndex = index;
                                             Get.offNamed(_item['rota']);
@@ -415,7 +463,11 @@ class DrawerContentWidget extends GetView<HomeController> {
                                                       : Colors.white,
                                               fontSize: 19),
                                         ),
-                                        leading: Image.asset(_item['icone'] , color: (controller.selectedIndex == index ) ? AppColors.green :  Colors.white),
+                                        leading: Image.asset(_item['icone'],
+                                            color: (controller.selectedIndex ==
+                                                    index)
+                                                ? AppColors.green
+                                                : Colors.white),
                                         onTap: () {
                                           controller.selectedIndex = index;
                                           showCupertinoDialog(
