@@ -207,7 +207,7 @@ class DrawerContentWidget extends GetView<HomeController> {
                                                         return Padding(
                                                           padding:
                                                               const EdgeInsets
-                                                                  .all(7.0),
+                                                                  .fromLTRB(15, 6, 6, 6),
                                                           child: Text(
                                                             pendingPublisherRequest
                                                                 .length
