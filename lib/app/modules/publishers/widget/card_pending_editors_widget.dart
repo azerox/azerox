@@ -154,7 +154,7 @@ class CardPendingEditorsWidget extends StatelessWidget {
                         child: Visibility(
                           visible: isShearch,
                           child: SizedBox(
-                            height: 25,
+                            height: 40,
                             child: GestureDetector(
                               child: Image.asset(AppImages.confirmar),
                               onTap: () {},
@@ -163,17 +163,20 @@ class CardPendingEditorsWidget extends StatelessWidget {
                         ),
                       ),
                     ),
-                    SizedBox(width: 30,),
-                    Container(
-                      child: Center(
-                        child: Visibility(
-                          visible: isShearch,
-                          child: SizedBox(
-                              height: 25,
-                              child: GestureDetector(
-                                child: Image.asset(AppImages.excluir),
-                                onTap: () {},
-                              )
+                    SizedBox(width: 10,),
+                    Padding(
+                      padding: const EdgeInsets.fromLTRB(1, 15, 0, 10),
+                      child: Container(
+                        child: Center(
+                          child: Visibility(
+                            visible: isShearch,
+                            child: SizedBox(
+                                height: 44,
+                                child: GestureDetector(
+                                  child: Image.asset(AppImages.excluir),
+                                  onTap: () {},
+                                )
+                            ),
                           ),
                         ),
                       ),

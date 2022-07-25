@@ -86,15 +86,16 @@ class EditoresPage extends GetView<EditoresController> {
                                               .red[300]),
                                     ),
                                     SizedBox(width: 10),
-                                    Text( 'Start',
-                                      style: TextStyle(
-                                          fontSize: 17,
-                                          fontWeight:
-                                          FontWeight
-                                              .w700,
-                                          color: Colors
-                                              .greenAccent[400]),
-                                    )
+                                    // Text( 'Start',
+                                    //   style: TextStyle(
+                                    //       fontSize: 17,
+                                    //       fontWeight:
+                                    //       FontWeight
+                                    //           .w700,
+                                    //       color: Colors
+                                    //           .greenAccent[400]),
+                                    // ),
+                                    SizedBox(width: 20,)
 
                                   ],
                                 );

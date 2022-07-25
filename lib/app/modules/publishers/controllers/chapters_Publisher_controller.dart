@@ -1,7 +1,8 @@
+import 'package:azerox/app/config/app_constants.dart';
 import 'package:azerox/app/core/core.dart';
 import 'package:azerox/app/models/new_editor.dart';
 import 'package:azerox/app/models/post.dart';
-import 'package:azerox/app/modules/publishers/editores_repository.dart';
+import 'package:azerox/app/modules/publishers/repository/editores_repository.dart';
 import 'package:flutter/foundation.dart';
 
 class ChaptersPublisherController extends PaginationController<NewEditor> {

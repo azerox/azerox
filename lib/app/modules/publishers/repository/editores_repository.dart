@@ -7,7 +7,7 @@ import 'package:dio/dio.dart';
 import 'package:get/get.dart';
 
 
-import '../../app_controller.dart';
+import '../../../app_controller.dart';
 
 class EditoresRepository {
   final Dio dio;

@@ -1,9 +1,8 @@
 import 'package:azerox/app/app_controller.dart';
 import 'package:azerox/app/config/app_constants.dart';
 import 'package:azerox/app/models/new_editor.dart';
-import 'package:azerox/app/modules/home/widgets/image_profile_widget.dart';
-import 'package:azerox/app/modules/publishers/controllers/chapters_Publisher_controller.dart';
-import 'package:azerox/app/modules/publishers/controllers/editores_controller.dart';
+import 'package:azerox/app/modules/publishers/controllers/chapter_bottomsheet_editor_controller.dart';
+import 'package:azerox/app/modules/publishers/widget/modal_editor_exclusion.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -24,7 +23,7 @@ class CardApprovedEditorsWidget extends StatelessWidget {
   final Color color;
   final bool isShearch;
   final AddCommentCallback? onAddCommentCallback;
-  final ChaptersPublisherController? bottomsheetController;
+  final ChapterBottomsheetEditorController? bottomsheetController;
 
   const CardApprovedEditorsWidget({
     Key? key,
@@ -155,7 +154,24 @@ class CardApprovedEditorsWidget extends StatelessWidget {
                           child: SizedBox(
                             height: 25,
                             child: ElevatedButton(
-                              onPressed: () {},
+                              onPressed: () {
+                                showModalBottomSheet(
+                                    isScrollControlled: true,
+                                    shape: const RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.only(
+                                        topLeft: Radius.circular(32),
+                                        topRight: Radius.circular(32),
+                                      ),
+                                    ),
+                                    context: context,
+                                    builder: (context) {
+                                      return ModalEditorExclusion(
+                                       bottomsheetController: bottomsheetController,
+                                        editor: newEditor,
+                                      );
+                                    },
+                                );
+                              },
                               child: const Text('Excluir'),
                               style: ElevatedButton.styleFrom(
                                 primary: Colors.red,
