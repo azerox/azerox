@@ -14,7 +14,7 @@ import '../../../config/app_images.dart';
 import '../../../config/app_routes.dart';
 import '../../../models/post.dart';
 
-typedef AddCommentCallback = void Function(Post comment);
+typedef AddCommentCallback = void Function(NewEditor comment);
 
 class CardApprovedEditorsWidget extends StatelessWidget {
   final NewEditor newEditor;
