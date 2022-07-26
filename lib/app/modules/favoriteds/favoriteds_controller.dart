@@ -4,7 +4,7 @@ import 'package:flutter/foundation.dart';
 
 import 'favoriteds_repository.dart';
 
-class FavoritedsController extends PaginationController<Post> {
+class FavoritedsController extends PostPaginationController<Post> {
   final FavoritedsRepository repository;
   FavoritedsController(this.repository);
 

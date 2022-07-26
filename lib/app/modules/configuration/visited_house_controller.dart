@@ -7,7 +7,7 @@ import 'package:flutter/foundation.dart';
 
 import 'visited_house_repository.dart';
 
-class VisitedHouseController extends PaginationController<Post> {
+class VisitedHouseController extends PostPaginationController<Post> {
   final VisitedHouseRepository repository;
 
   VisitedHouseController(this.repository);

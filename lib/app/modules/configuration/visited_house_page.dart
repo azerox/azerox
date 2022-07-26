@@ -61,7 +61,7 @@ class VisitedHousePage extends StatelessWidget {
               ),
             ),
             Expanded(
-              child: PaginationWidget<Post>(
+              child: PostPaginationWidget<Post>(
                 controller: visitedHouseChapterController,
                 builder: (context, post) => PostWidget(
                   key: ValueKey(post.codPost),

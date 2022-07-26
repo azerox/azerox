@@ -4,7 +4,7 @@ import 'package:flutter/foundation.dart';
 
 import 'new_editions_repository.dart';
 
-class NewEditionsController extends PaginationController<Post> {
+class NewEditionsController extends PostPaginationController<Post> {
   final NewEditionsRepository repository;
   NewEditionsController(this.repository);
 

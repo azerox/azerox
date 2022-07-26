@@ -42,7 +42,7 @@ class NewEditionsPage extends StatelessWidget {
               ),
             ),
             Expanded(
-              child: PaginationWidget<Post>(
+              child: PostPaginationWidget<Post>(
                 controller: controller,
                 builder: (context, post) => PostWidgetGeneric(
                   key: ValueKey(post.codPost),

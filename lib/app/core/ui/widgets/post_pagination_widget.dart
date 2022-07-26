@@ -2,15 +2,15 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:lazy_load_scrollview/lazy_load_scrollview.dart';
 
-import '../controllers/pagination_controller.dart';
+import '../controllers/post_pagination_controller.dart';
 
-class PaginationWidget<T> extends StatefulWidget {
-  final PaginationController<T> controller;
+class PostPaginationWidget<T> extends StatefulWidget {
+  final PostPaginationController<T> controller;
   final Widget Function(BuildContext context, T item) builder;
   final Widget? header;
   final bool autoRefresh;
 
-  const PaginationWidget({
+  const PostPaginationWidget({
     Key? key,
     required this.controller,
     required this.builder,
@@ -19,10 +19,10 @@ class PaginationWidget<T> extends StatefulWidget {
   }) : super(key: key);
 
   @override
-  State<PaginationWidget<T>> createState() => _PaginationWidgetState<T>();
+  State<PostPaginationWidget<T>> createState() => _PostPaginationWidgetState<T>();
 }
 
-class _PaginationWidgetState<T> extends State<PaginationWidget<T>> {
+class _PostPaginationWidgetState<T> extends State<PostPaginationWidget<T>> {
   @override
   void initState() {
     super.initState();

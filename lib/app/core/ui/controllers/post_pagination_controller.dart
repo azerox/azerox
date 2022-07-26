@@ -1,7 +1,7 @@
 import 'package:flutter/foundation.dart';
 
-abstract class PaginationController<T> extends ValueNotifier<PaginationState<T>> {
-  PaginationController() : super(PaginationState.empty<T>());
+abstract class PostPaginationController<T> extends ValueNotifier<PaginationState<T>> {
+  PostPaginationController() : super(PaginationState.empty<T>());
 
   @protected
   Future<List<T>> getCurrentPageItems(int page);

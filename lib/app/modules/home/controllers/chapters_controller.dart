@@ -4,7 +4,7 @@ import 'package:flutter/foundation.dart';
 
 import '../repositories/home_repository.dart';
 
-class ChaptersController extends PaginationController<Post> {
+class ChaptersController extends PostPaginationController<Post> {
   final HomeRepository repository;
   ChaptersController(this.repository);
 
