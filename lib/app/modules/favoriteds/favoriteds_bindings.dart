@@ -1,6 +1,6 @@
 import 'package:azerox/app/app_controller.dart';
 import 'package:azerox/app/modules/home/controllers/chapter_bottomsheet_controller.dart';
-import 'package:azerox/app/modules/home/controllers/chapters_controller.dart';
+import 'package:azerox/app/modules/home/controllers/post_chapters_controller.dart';
 import 'package:azerox/app/modules/home/home_controller.dart';
 import 'package:azerox/app/modules/home/repositories/chapter_bottomsheet_repository.dart';
 import 'package:azerox/app/modules/home/repositories/home_repository.dart';
@@ -29,9 +29,9 @@ class FavoritedsBindings implements Bindings {
     Get.lazyPut(() => HomeRepository(Get.find<Dio>()));
     Get.lazyPut(() => ChapterBottomsheetRepository(Get.find<Dio>()));
 
-    Get.lazyPut(() => ChaptersController(Get.find<HomeRepository>()));
+    Get.lazyPut(() => PostChaptersController(Get.find<HomeRepository>()));
     Get.lazyPut(() => ChapterBottomsheetController.chapter(
-          Get.find<ChaptersController>().removeItemById,
+          Get.find<PostChaptersController>().removeItemById,
           Get.find<ChapterBottomsheetRepository>(),
         ));
 

@@ -147,10 +147,7 @@ class HomeController extends GetxController {
     );
   }
 
-  Future<List<UserModel>> searchByUser() async {
-    return await repository.searchByUser(searchDrawerEC.text);
-  }
-
+  
   Future<void> updateImageProfile(String imagePath) async {
     final userProfile = await repository.uploadProfilePicture(imagePath);
     if (userProfile == null) return;

@@ -7,7 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import '../../config/app_images.dart';
-import 'controllers/chapters_controller.dart';
+import 'controllers/post_chapters_controller.dart';
 import 'widgets/drawer/custom_drawer.dart';
 
 class HomePage extends StatefulWidget {
@@ -18,7 +18,7 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  final ChaptersController controller = GetInstance().find();
+  final PostChaptersController controller = GetInstance().find();
   var showShearch = false;
 
   @override

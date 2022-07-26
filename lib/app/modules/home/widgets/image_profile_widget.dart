@@ -4,7 +4,7 @@ import 'package:azerox/app/core/core.dart';
 import 'package:azerox/app/core/ui/controllers/devices/image/capture_image_controller.dart';
 import 'package:azerox/app/core/ui/controllers/devices/image/compress_image_controller.dart';
 import 'package:azerox/app/core/ui/controllers/devices/image/select_image_file_controller.dart';
-import 'package:azerox/app/modules/home/controllers/chapters_controller.dart';
+import 'package:azerox/app/modules/home/controllers/post_chapters_controller.dart';
 import 'package:azerox/app/modules/home/home_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -19,7 +19,7 @@ class ImageProfileWidget extends StatefulWidget {
 
 class _ImageProfileWidgetState extends State<ImageProfileWidget> {
   final controller = Get.find<HomeController>();
-  final chaptersController = Get.find<ChaptersController>();
+  final chaptersController = Get.find<PostChaptersController>();
   final galeryController = SelectImageFileController();
   final cameraController = CaptureCameraImageController();
   final compressionController = CompressImageController();

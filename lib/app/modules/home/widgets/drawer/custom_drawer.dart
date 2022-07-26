@@ -1,12 +1,12 @@
 import 'package:azerox/app/models/user.dart';
+import 'package:azerox/app/modules/home/controllers/user_chapters_controller.dart';
 import 'package:azerox/app/modules/home/home_controller.dart';
-import 'package:azerox/app/modules/home/repositories/home_repository.dart';
+import 'package:azerox/app/modules/home/widgets/card_editors_widget.dart';
+import 'package:azerox/app/modules/home/widgets/user_pagination_widget.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-import '../../../../models/editor_model.dart';
-import '../card_info_widget.dart';
 import 'drawer_content_widget.dart';
 
 class CustomDrawer extends StatefulWidget {
@@ -27,6 +27,7 @@ class _CustomDrawerState extends State<CustomDrawer> {
   @override
   Widget build(BuildContext context) {
     final controller = Get.find<HomeController>();
+    final UserChaptersController userChaptersController = GetInstance().find();
     return Container(
       width: 315,
       child: Drawer(
@@ -52,8 +53,8 @@ class _CustomDrawerState extends State<CustomDrawer> {
                         controller.searchDrawerEC.text = "";
                         setState(() {});
                       },
-                      icon:
-                          const Icon(Icons.close, color: Colors.black, size: 10),
+                      icon: const Icon(Icons.close,
+                          color: Colors.black, size: 10),
                     ),
                     filled: true,
                     fillColor: Colors.white,
@@ -69,29 +70,19 @@ class _CustomDrawerState extends State<CustomDrawer> {
               ),
               Visibility(
                 visible: controller.searchDrawerEC.text.length >= 3,
-                child: FutureBuilder<List<UserModel>>(
-                  future: controller.searchByUser(),
-                  builder: (context, snapshot) {
-                    final List<UserModel> editores = snapshot.data ?? [];
-
-                    if (snapshot.connectionState == ConnectionState.waiting) {
-                      return const Center(child: CupertinoActivityIndicator());
-                    }
-
-                    return ListView.builder(
-                      shrinkWrap: true,
-                      itemCount: editores.length,
-                      itemBuilder: (context, index) {
-                        return CardInfoWidget(
-                          showNet: false,
-                          showEdit: false,
-                          color: const Color(0XFF005E6C),
-                          editor: editores[index],
-                          isShearch: true,
-                        );
-                      },
-                    );
-                  },
+                child: Container(
+                  height: MediaQuery.of(context).size.height,
+                  child: UserPaginationWidget<UserModel>(
+                    controller: userChaptersController,
+                    builder: (context, userModel) => CardEditorsWidget(
+                      key: ValueKey(userModel.codUser),
+                      userModel: userModel,
+                      isShearch: true,
+                      color: const Color(0XFF005E6C),
+                      onAddCommentCallback:
+                          userChaptersController.onAddCommentCallback,
+                    ),
+                  ),
                 ),
               ),
             ],

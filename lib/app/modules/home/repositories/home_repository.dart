@@ -41,6 +41,37 @@ class HomeRepository {
     );
   }
 
+  Future<void> favoritePost(Post post, [bool isLike = true]) async {
+    await dio.get(
+      isLike ? AppConstants.apiFavoritePost : AppConstants.apiDislikePost,
+      queryParameters: {
+        'sessionId': user.sessionID,
+        'CodUser': '${user.codUser}',
+        'CodPost': '${post.codPost}',
+      },
+    );
+  }
+
+  Future<List<UserModel>> searchByUserPage({
+    required int page,
+  }) async {
+    final response = await dio.get(
+      AppConstants.GetUsersSearch,
+      queryParameters: {
+        'sessionId': user.sessionID,
+        'CodUserProfile': '${user.codUser!}',
+        'Page': page,
+        'Pagesize': '100',
+        'WordSearch': '',
+      },
+    );
+
+    return (response.data['ListUsers'] as List)
+        .map((user) => UserModel.fromJson(user))
+        .toList();
+  }
+
+
   Future<List<Post>> getAlbum({
     bool isNewEdition = false,
     required int page,
@@ -64,33 +95,7 @@ class HomeRepository {
     return body.map((post) => Post.fromJson(post)).toList();
   }
 
-  Future<void> favoritePost(Post post, [bool isLike = true]) async {
-    await dio.get(
-      isLike ? AppConstants.apiFavoritePost : AppConstants.apiDislikePost,
-      queryParameters: {
-        'sessionId': user.sessionID,
-        'CodUser': '${user.codUser}',
-        'CodPost': '${post.codPost}',
-      },
-    );
-  }
 
-  Future<List<UserModel>> searchByUser(String userStr) async {
-    final response = await dio.get(
-      AppConstants.GetUsersSearch,
-      queryParameters: {
-        'sessionId': user.sessionID,
-        'CodUserProfile': '${user.codUser!}',
-        'Page': '1',
-        'Pagesize': '100',
-        'WordSearch': userStr,
-      },
-    );
-
-    return (response.data['ListUsers'] as List)
-        .map((user) => UserModel.fromJson(user))
-        .toList();
-  }
 
   Future<String> downloadAudioFile(String audioUrl) async {
     final uri = Uri.parse(audioUrl);
